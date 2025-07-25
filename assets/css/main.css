@@ -62,6 +62,98 @@
 /*--------------------------------------------------------------
 # General Styling & Shared Classes
 --------------------------------------------------------------*/
+/* Header initial transparent */
+/* Header transparent au début */
+
+/* Header transparent sur image */
+header.header {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+
+.transparent-header {
+  background-color: transparent !important; /* pas de fond */
+  box-shadow: none !important; /* supprime ombre */
+   transition: background-color 0.3s ease, padding 0.3s ease;
+}
+
+/* Texte/logo en blanc pour contraste sur l’image */
+header.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+}
+
+
+.transparent-header .logo img {
+  filter: brightness(0) invert(1); /* inverse couleurs logo si besoin */
+}
+
+.transparent-header a,
+.transparent-header nav ul li a,
+.transparent-header .btn-getstarted {
+  color: white !important;
+  transition: color 0.3s ease;
+}
+
+/* Option : changement de fond au scroll */
+.scrolled {
+  background-color: white !important;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.scrolled a,
+.scrolled nav ul li a,
+.scrolled .btn-getstarted {
+  color: #5b2e91 !important; /* violet ou ta couleur */
+}
+
+/* Exemple styles pour btn-getstarted */
+.btn-getstarted {
+  background-color: #5b2e91;
+  color: white;
+  padding: 0.5rem 1.25rem;
+  border-radius: 50px;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+.btn-getstarted:hover {
+  background-color:#5b2e91;
+}
+
+.hero {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.hero .container {
+  position: relative;
+  z-index: 2;
+  color: white;
+}
+
+.header .logo img {
+  max-height: 40px;
+}
+
+
 body {
   color: var(--default-color);
   background-color: var(--background-color);
@@ -88,6 +180,8 @@ h6 {
   color: var(--heading-color);
   font-family: var(--heading-font);
 }
+
+
 
 /* Pulsating Play Button */
 .pulsating-play-btn {
@@ -480,6 +574,11 @@ h6 {
     transition: color 0.3s;
   }
 
+  .navmenu a:not(.active) {
+  color: var(--secondary-color) !important;
+}
+
+
   .navmenu {
     padding: 0;
     z-index: 9997;
@@ -494,7 +593,7 @@ h6 {
     margin: 0;
     border-radius: 6px;
     background-color: var(--nav-mobile-background-color);
-    border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+    border: 1px solid color-mix(in srgb, var(--secondary-color), transparent 90%);
     box-shadow: none;
     overflow-y: auto;
     transition: 0.3s;
@@ -503,16 +602,22 @@ h6 {
 
   .navmenu a,
   .navmenu a:focus {
-    color: var(--nav-dropdown-color);
+    color: var(--secondary-color) !important;
     padding: 10px 20px;
     font-family: var(--nav-font);
     font-size: 17px;
-    font-weight: 500;
+    font-weight: 500 !important;
     display: flex;
     align-items: center;
     justify-content: space-between;
     white-space: nowrap;
     transition: 0.3s;
+  }
+
+  .navmenu a:hover,
+  .navmenu .active,
+  .navmenu .active:focus {
+    color: var(--primary-color) !important;
   }
 
   .navmenu a i,
@@ -536,12 +641,6 @@ h6 {
     color: var(--contrast-color);
   }
 
-  .navmenu a:hover,
-  .navmenu .active,
-  .navmenu .active:focus {
-    color: var(--nav-dropdown-hover-color);
-  }
-
   .navmenu .active i,
   .navmenu .active:focus i {
     background-color: var(--accent-color);
@@ -563,7 +662,7 @@ h6 {
     background-color: rgba(33, 37, 41, 0.1);
   }
 
-  .navmenu .dropdown>.dropdown-active {
+  .navmenu .dropdown > .dropdown-active {
     display: block;
     background-color: rgba(33, 37, 41, 0.03);
   }
@@ -590,7 +689,7 @@ h6 {
     transition: 0.3s;
   }
 
-  .mobile-nav-active .navmenu>ul {
+  .mobile-nav-active .navmenu > ul {
     display: block;
   }
 }
@@ -725,6 +824,47 @@ h6 {
   text-decoration: none;
 }
 
+/* FOOTER TEXT STYLES — isolés du header */
+.footer,
+.footer a,
+.footer .footer-links ul a,
+.footer .footer-contact li,
+.footer .footer-about p,
+.footer h4,
+.footer .credits,
+.footer .copyright p {
+  color: #ffffff !important;
+}
+
+.footer a:hover,
+.footer .footer-links ul a:hover {
+  color: var(--accent-color) !important; /* violet à hover */
+}
+.footer-logo {
+  max-width: 150px; /* ajuste selon tes besoins */
+  height: auto;
+  object-fit: auto; /* garde l’aspect sans étirement */
+}
+.footer-top {
+  padding-top: 200px; /* réduis cette valeur si besoin */
+}
+.footer-about-wrapper {
+  display: flex;
+  align-items: flex-start;
+}
+
+.footer-logo {
+  max-width: 80px; /* Ajustez selon votre design */
+  height: auto;
+  margin-right: 15px;
+}
+
+.footer-about img.footer-logo {
+  margin-top: -60px; /* remonte le logo légèrement */
+}
+
+
+
 /*--------------------------------------------------------------
 # Preloader
 --------------------------------------------------------------*/
@@ -802,6 +942,16 @@ h6 {
   visibility: visible;
   opacity: 1;
 }
+
+.scrolled .btn-getstarted {
+  color: white !important;
+  background-color: #5b2e91 !important;
+}
+.scrolled a,
+.scrolled nav ul li a {
+  color: inherit !important;
+}
+
 
 /*--------------------------------------------------------------
 # Disable aos animation delay on mobile devices
@@ -901,11 +1051,42 @@ section,
   background-size: cover;
 }
 
+/* Solution 1: Réinitialiser les marges du titre */
 .welcome-title {
-  font-size: 2.5rem;
-  font-weight: 400;
-  color: #333;
-  text-align: center;
+  margin: 0;
+  padding: 0;
+  text-align: left; /* ou inherit selon votre layout */
+  /* Ajustez selon vos besoins */
+}
+
+/* Solution 2: Si vous utilisez un container, assurez-vous que l'alignement est cohérent */
+.hero-section, .main-content {
+  padding-left: 0; /* ou la même valeur pour tous les éléments */
+  margin-left: 0;
+}
+
+/* Solution 3: Utiliser la même classe container pour tous les éléments */
+.welcome-title {
+  margin: 0;
+  padding: 0;
+  /* Utilisez la même classe container que vos autres éléments */
+}
+
+/* Solution 4: Si vous avez un système de grille */
+.welcome-title {
+  grid-column-start: 1; /* Même colonne que les autres éléments */
+  margin: 0;
+  padding: 0;
+}
+
+/* Solution 5: Reset complet pour un alignement parfait */
+.welcome-title {
+  margin: 0 !important;
+  padding: 0 !important;
+  text-indent: 0;
+  text-align: inherit;
+  position: relative;
+  left: 0;
 }
 
 .brand-name {
@@ -3067,3 +3248,4 @@ section,
   color: color-mix(in srgb, var(--default-color), transparent 60%);
   font-size: 14px;
 }
+
