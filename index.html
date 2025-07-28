@@ -12,6 +12,8 @@
   <!-- Favicons -->
   <link href="assets/img/fav2.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.7.0/css/flag-icons.min.css">
+
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -52,17 +54,25 @@
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="#hero" class="active">Home</a></li>
-          <li><a href="#about">About</a></li>
+          <li><a href="#hero" class="active">Accueil</a></li>
+          <li><a href="#about">À propos</a></li>
           <li><a href="#services">Services</a></li>
           <!-- <li><a href="#team">Team</a></li> -->
           <li><a href="blog.html">Blog</a></li>
           <li><a href="#contact">Contact</a></li>
+          <li class="nav-lang dropdown">
+  <a href="#" class="lang-toggle">🌐 FR <i class="bi bi-chevron-down"></i></a>
+  <ul class="dropdown-menu">
+    <li><a href="?lang=fr">🇫🇷 Français</a></li>
+    <li><a href="?lang=en">🇬🇧 English</a></li>
+  </ul>
+</li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
-      <a class="btn-getstarted" href="index.html#about">Get Started</a>
+      <a class="btn-getstarted" href="index.html#about"><strong>Commencer</strong></a>
+
 
     </div>
   </header>
@@ -75,15 +85,23 @@
     <!-- Image de fond -->
     <div class="hero-background position-absolute top-0 start-0 w-100 h-100">
       <img src="assets/photos/photo6.png" class="img-fluid w-100 h-100 object-fit-cover" alt="">
+      <!-- Overlay sombre -->
+    <div class="hero-overlay position-absolute top-0 start-0 w-100 h-100"></div>
     </div>
+    
 
     <!-- Contenu texte -->
     <div class="container h-100 d-flex align-items-center position-relative" style="z-index: 2;" data-aos="zoom-out">
       <div class="text-white text-start">
         <h1 class="welcome-title">
-          Welcome to <span class="brand-name">AYAH COMMUNICATION</span>
-        </h1>
-        <p>Donnez vie à vos idées, captez l’attention, et transformez votre communication en succès durable.</p>
+  Bienvenue Chez <span class="brand-name animation-fall">AYAH COMMUNICATION</span>
+</h1>
+
+<p style="color: white;">
+  Donnez vie à vos idées, captez l’attention, et transformez votre communication en succès durable.
+</p>
+
+
         <div class="d-flex mt-3">
           <a href="#about" class="btn-get-started scrollto me-3">Get Started</a>
           <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox btn-watch-video d-flex align-items-center text-white">
@@ -151,7 +169,7 @@
       <div class="container section-title" data-aos="fade-up">
   <div class="section-header">
     <div class="decorated-title">
-      <span>ABOUT US</span>
+      <span>À PROPOS</span>
     </div>
   </div>
 
@@ -170,7 +188,7 @@
 
           <div class="col-lg-5">
             <div class="about-img">
-              <img src="assets/img/about-portrait.jpg" class="img-fluid" alt="">
+              <img src="assets/img/about/about-portrait2.jpg" class="img-fluid" alt="">
             </div>
           </div>
 
@@ -336,7 +354,7 @@
 
           <div class="col-lg-4 col-md-6 order-first order-md-last d-flex align-items-center">
             <div class="img">
-              <img src="assets/photos/photo2.png" alt="" class="img-fluid">
+              <img src="assets/img/services/services8.jpg" alt="" class="img-fluid">
             </div>
           </div>
 
@@ -366,7 +384,7 @@
                 <li><i class="bi bi-check-circle"></i> Proposer un accompagnement personnalisé et des solutions innovantes.</li>
                 <li><i class="bi bi-check-circle"></i> Assurer une cohérence parfaite sur tous vos supports de communication.</li>
               </ul>
-              <a href="#" class="read-more align-self-start"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+              <a href="#" class="read-more align-self-start"><span>En savoir plus</span><i class="bi bi-arrow-right"></i></a>
             </div>
           </div>
         </div>
@@ -590,7 +608,7 @@
           <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="200">
             <div class="service-item">
               <div class="img">
-                <img src="assets/img/services-1.jpg" class="img-fluid" alt="">
+                <img src="assets/img/services/services1.jpg" class="img-fluid" alt="">
               </div>
               <div class="details position-relative">
                 <div class="icon">
@@ -607,7 +625,7 @@
           <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="300">
             <div class="service-item">
               <div class="img">
-                <img src="assets/img/services-2.jpg" class="img-fluid" alt="">
+                <img src="assets/img/services/services16.jpg" class="img-fluid" alt="">
               </div>
               <div class="details position-relative">
                 <div class="icon">
@@ -624,7 +642,7 @@
           <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="400">
             <div class="service-item">
               <div class="img">
-                <img src="assets/img/services-3.jpg" class="img-fluid" alt="">
+                <img src="assets/img/services/services14.jpg" class="img-fluid" alt="">
               </div>
               <div class="details position-relative">
                 <div class="icon">
@@ -659,7 +677,7 @@
           <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="600">
             <div class="service-item">
               <div class="img">
-                <img src="assets/img/services-5.jpg" class="img-fluid" alt="">
+                <img src="assets/img/services/services8.jpg" class="img-fluid" alt="">
               </div>
               <div class="details position-relative">
                 <div class="icon">
@@ -677,7 +695,7 @@
           <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="700">
             <div class="service-item">
               <div class="img">
-                <img src="assets/img/services-6.jpg" class="img-fluid" alt="">
+                <img src="assets/img/services/services11.jpg" class="img-fluid" alt="">
               </div>
               <div class="details position-relative">
                 <div class="icon">
@@ -703,7 +721,7 @@
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <h2>Testimonials</h2>
+        <h2>Témoignages</h2>
         <p>Les retours de nos clients sont la meilleure preuve de notre engagement et de la qualité de nos services.
           Nous valorisons chaque témoignage, car ils reflètent la confiance et la satisfaction qui nous motivent à toujours exceller.
         </p>
@@ -1243,7 +1261,7 @@
             <article>
 
               <div class="post-img">
-                <img src="assets/img/blog/blog-1.jpg" alt="" class="img-fluid">
+                <img src="assets/img/Blog New/blog2.jpg" alt="" class="img-fluid">
               </div>
 
               <p class="post-category">Politics</p>
@@ -1269,7 +1287,7 @@
             <article>
 
               <div class="post-img">
-                <img src="assets/img/blog/blog-2.jpg" alt="" class="img-fluid">
+                <img src="assets/img/Blog New/blog12.jpg" alt="" class="img-fluid">
               </div>
 
               <p class="post-category">Sports</p>
@@ -1295,7 +1313,7 @@
             <article>
 
               <div class="post-img">
-                <img src="assets/img/blog/blog-3.jpg" alt="" class="img-fluid">
+                <img src="assets/img/Blog New/blog13.jpg" alt="" class="img-fluid">
               </div>
 
               <p class="post-category">Entertainment</p>
@@ -1353,7 +1371,7 @@
               <div class="info-item d-flex">
                 <i class="bi bi-geo-alt flex-shrink-0"></i>
                 <div>
-                  <h4>Location:</h4>
+                  <h4>Localisation:</h4>
                   <p>A108 Adam Street, New York, NY 535022</p>
                 </div>
               </div><!-- End Info Item -->
@@ -1369,7 +1387,7 @@
               <div class="info-item d-flex">
                 <i class="bi bi-phone flex-shrink-0"></i>
                 <div>
-                  <h4>Call:</h4>
+                  <h4>Téléphone:</h4>
                   <p>+1 5589 55488 55</p>
                 </div>
               </div><!-- End Info Item -->
@@ -1382,24 +1400,24 @@
             <form action="forms/contact.php" method="post" role="form" class="php-email-form">
               <div class="row">
                 <div class="col-md-6 form-group">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required="">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Votre nom" required="">
                 </div>
                 <div class="col-md-6 form-group mt-3 mt-md-0">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required="">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Votre Email" required="">
                 </div>
               </div>
               <div class="form-group mt-3">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required="">
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Sujet" required="">
               </div>
               <div class="form-group mt-3">
                 <textarea class="form-control" name="message" placeholder="Message" required=""></textarea>
               </div>
               <div class="my-3">
-                <div class="loading">Loading</div>
+                <div class="loading">En cours...</div>
                 <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
+                <div class="sent-message">Votre message a été envoyé. Merci !</div>
               </div>
-              <div class="text-center"><button type="submit">Send Message</button></div>
+              <div class="text-center"><button type="submit">Envoyer le message</button></div>
             </form>
           </div><!-- End Contact Form -->
 
@@ -1412,99 +1430,65 @@
   </main>
 
   <footer id="footer" class="footer dark-background">
+  <div class="footer-top">
+    <div class="container">
+      <div class="row gy-4 justify-content-between">
 
-    <div class="footer-top">
-      <div class="container">
-        <div class="row gy-4">
-            <div class="col-lg-4 col-md-6 footer-links footer-about">
-               <img src="assets/img/logo2.png" class="img-fluid footer-logo" alt="Logo">
-              <h4>Contact Info</h4>
-              <ul class="footer-contact list-unstyled">
-                <li>A108 Adam Street</li>
-                <li>New York, NY 535022</li>
-                <li><strong>Phone:</strong> +1 5589 55488 55</li>
-                <li><strong>Email:</strong> info@example.com</li>
-      </ul>
-    </div>
-
-
-          <div class="col-lg-2 col-md-3 footer-links">
-            <h4>Useful Links</h4>
-            <ul>
-              <li><a href="#">Home</a></li>
-              <li><a href="#">About us</a></li>
-              <li><a href="#">Services</a></li>
-              <li><a href="#">Terms of service</a></li>
-              <li><a href="#">Privacy policy</a></li>
+        <!-- Bloc Logo + Réseaux + Contact Info -->
+        <div class="col-lg-4 col-md-6 footer-about">
+          <div class="footer-about-wrapper d-flex flex-column">
+            <img src="assets/img/logo2.png" class="img-fluid footer-logo mb-3" alt="Logo">
+            
+            <ul class="footer-contact list-unstyled">
+              <li><i class="bi bi-geo-alt"></i> A108 Adam Street</li>
+              <li>New York, NY 535022</li>
+              <li><i class="bi bi-telephone"></i> <strong>Téléhone:</strong> +1 5589 55488 55</li>
+              <li><i class="bi bi-envelope"></i> <strong>Email:</strong> info@example.com</li>
             </ul>
+            <div class="social-links mt-3">
+              <a href="#"><i class="bi bi-twitter-x"></i></a>
+              <a href="#"><i class="bi bi-facebook"></i></a>
+              <a href="#"><i class="bi bi-instagram"></i></a>
+              <a href="#"><i class="bi bi-linkedin"></i></a>
+            </div>
           </div>
-
-          <div class="col-lg-2 col-md-3 footer-links">
-            <h4>Our Services</h4>
-            <ul>
-              <li><a href="#">Web Design</a></li>
-              <li><a href="#">Web Development</a></li>
-              <li><a href="#">Product Management</a></li>
-              <li><a href="#">Marketing</a></li>
-              <li><a href="#">Graphic Design</a></li>
-            </ul>
-          </div>
-
-          <!-- <div class="col-lg-2 col-md-3 footer-links">
-            <h4>Hic solutasetp</h4>
-            <ul>
-              <li><a href="#">Molestiae accusamus iure</a></li>
-              <li><a href="#">Excepturi dignissimos</a></li>
-              <li><a href="#">Suscipit distinctio</a></li>
-              <li><a href="#">Dilecta</a></li>
-              <li><a href="#">Sit quas consectetur</a></li>
-            </ul>
-          </div> -->
-
-          <!-- <div class="col-lg-2 col-md-3 footer-links">
-            <h4>Nobis illum</h4>
-            <ul>
-              <li><a href="#">Ipsam</a></li>
-              <li><a href="#">Laudantium dolorum</a></li>
-              <li><a href="#">Dinera</a></li>
-              <li><a href="#">Trodelas</a></li>
-              <li><a href="#">Flexo</a></li>
-            </ul>
-          </div> -->
-
-        </div>
-      </div>
-    </div>
-
-    <div class="copyright text-center">
-      <div class="container d-flex flex-column flex-lg-row justify-content-center justify-content-lg-between align-items-center">
-
-        <div class="d-flex flex-column align-items-center align-items-lg-start">
-          <div>
-  © <span id="year"></span> <strong><span>AYAH COMMUNICATION</span></strong>
-   All Rights Reserved
-</div>
-          <!-- <div class="credits">
-             All the links in the footer should remain intact. -->
-            <!-- You can delete the links only if you purchased the pro version. -->
-            <!-- Licensing information: https://bootstrapmade.com/license/ -->
-            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/herobiz-bootstrap-business-template/ -->
-            <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-          </div>  -->
         </div>
 
-        <div class="social-links order-first order-lg-last mb-3 mb-lg-0">
-  <a href="" style="color: white !important;"><i class="bi bi-twitter-x" style="color: white !important;"></i></a>
-  <a href="" style="color: white !important;"><i class="bi bi-facebook" style="color: white !important;"></i></a>
-  <a href="" style="color: white !important;"><i class="bi bi-instagram" style="color: white !important;"></i></a>
-  <a href="" style="color: white !important;"><i class="bi bi-linkedin" style="color: white !important;"></i></a>
-</div>
+        <!-- Bloc Explore -->
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Liens Utiles</h4>
+          <ul>
+            <li><a href="#hero">Acceuil</a></li>
+            <li><a href="#about">À propos</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#">Conditions d'utilisation</a></li>
+            <li><a href="#">Politique de confidentialité</a></li>
+          </ul>
+        </div>
 
+        <!-- Bloc Services -->
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Nos Services</h4>
+          <ul>
+            <li><a href="#services">AYAH Conseil</a></li>
+            <li><a href="#services">AYAH Créa</a></li>
+            <li><a href="#services">AYAH Marketing</a></li>
+            <li><a href="#services">AYAH Web</a></li>
+            <li><a href="#services">AYAH Media</a></li>
+          </ul>
+        </div>
 
       </div>
     </div>
+  </div>
 
-  </footer>
+  <div class="copyright text-center mt-4">
+    <div class="container">
+      © <span id="year"></span> <strong><span>AYAH COMMUNICATION</span></strong>. All Rights Reserved
+    </div>
+  </div>
+</footer>
+
 
   <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
@@ -1555,6 +1539,20 @@
   <script>
   document.getElementById("year").textContent = new Date().getFullYear();
 </script>
+
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const lang = urlParams.get('lang');
+  const langToggle = document.querySelector('.lang-toggle');
+
+  if (lang === 'en') {
+    langToggle.innerHTML = '🌐 EN <i class="bi bi-chevron-down"></i>';
+  } else {
+    langToggle.innerHTML = '🌐 FR <i class="bi bi-chevron-down"></i>';
+  }
+</script>
+
+
   
 
   <!-- <script>
