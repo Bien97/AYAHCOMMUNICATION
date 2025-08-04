@@ -18,9 +18,13 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+<<<<<<< HEAD
         'firstname',
         'lastname',
         'pseudo',
+=======
+        'name',
+>>>>>>> 757e0377e7441c5f48492a3f6de9194ff7ea16ee
         'email',
         'password',
     ];
@@ -43,7 +47,15 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
+<<<<<<< HEAD
             'password' => 'hashed',
         ];
     }
 }
+=======
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
+}
+>>>>>>> 757e0377e7441c5f48492a3f6de9194ff7ea16ee
