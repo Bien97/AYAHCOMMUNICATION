@@ -280,39 +280,39 @@
                 <div class="col-xl-2 col-md-3 col-6 client-logo">
                     {{-- <a href="https://exemple1.com"  --}}
                     {{-- target="_blank"> --}}
-                        <img src="{{ asset('assets/images/clients/client-1.png') }}" class="img-fluid" alt="">
+                        <img src="{{ asset('assets/images/clients/LOGO_KORITEK-04.png') }}" class="img-fluid" alt="">
                     {{-- </a> --}}
                 </div><!-- End Client Item -->
 
                 <div class="col-xl-2 col-md-3 col-6 client-logo">
                     {{-- <a href="https://exemple2.com"  --}}
                     {{-- target="_blank"> --}}
-                        <img src="{{ asset('assets/images/clients/client-2.png') }}" class="img-fluid" alt="">
+                        <img src="{{ asset('assets/images/clients/EnnaTecOf1.png') }}" class="img-fluid" alt="">
                     {{-- </a> --}}
                 </div><!-- End Client Item -->
 
                 <div class="col-xl-2 col-md-3 col-6 client-logo">
                     {{-- <a href="https://exemple3.com"  --}}
                     {{-- target="_blank"> --}}
-                        <img src="{{ asset('assets/images/clients/client-3.png') }}" class="img-fluid" alt="">
+                        <img src="{{ asset('assets/images/clients/EnnaMarOf2.png') }}" class="img-fluid" alt="">
                     {{-- </a> --}}
                 </div><!-- End Client Item -->
 
                 <div class="col-xl-2 col-md-3 col-6 client-logo">
                     {{-- <a href="https://exemple4.com" target="_blank"> --}}
-                        <img src="{{ asset('assets/images/clients/client-4.png') }}" class="img-fluid" alt="">
+                        <img src="{{ asset('assets/images/clients/EnnaImoOf2.png') }}" class="img-fluid" alt="">
                     {{-- </a> --}}
                 </div><!-- End Client Item -->
 
                 <div class="col-xl-2 col-md-3 col-6 client-logo">
                     {{-- <a href="https://exemple5.com" target="_blank"> --}}
-                        <img src="{{ asset('assets/images/clients/client-5.png') }}" class="img-fluid" alt="">
+                        <img src="{{ asset('assets/images/clients/eledji_whitetrp_circle.png') }}" class="img-fluid" alt="">
                     {{-- </a> --}}
                 </div><!-- End Client Item -->
 
                 <div class="col-xl-2 col-md-3 col-6 client-logo">
                     {{-- <a href="https://exemple6.com" target="_blank"> --}}
-                        <img src="{{ asset('assets/images/LOGO_KORITEK-black.png') }}" class="img-fluid" alt="">
+                        <img src="{{ asset('assets/images/clients/octave1.png') }}" class="img-fluid" alt="">
                     {{-- </a> --}}
                 </div><!-- End Client Item -->
                 <!-- End Client Item -->
