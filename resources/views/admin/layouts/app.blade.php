@@ -28,7 +28,7 @@
         .sidebar {
             height: 100vh;
             position: fixed;
-            top: 50px; /* hauteur de la navbar */
+            top: 50px;
             left: 0;
             width: 250px;
             background-color: #343a40;
@@ -46,7 +46,8 @@
             transition: background-color 0.2s ease;
         }
 
-        .sidebar a:hover {
+        .sidebar a:hover,
+        .sidebar a.active-link {
             background-color: #495057;
             color: #fff;
         }
@@ -127,14 +128,30 @@
 
 <!-- Sidebar -->
 <div class="sidebar" id="sidebar">
-    <a href="{{ url('/admin/dashboard') }}"><i class="fas fa-chart-line me-2"></i> Dashboard</a>
-    <a href="{{ url('/admin/blog') }}"><i class="fas fa-blog me-2"></i> Blog</a>
-    <a href="{{ url('/admin/testimonials') }}"><i class="fas fa-comment-dots me-2"></i> Testimonials</a>
-    <a href="{{ url('/admin/services') }}"><i class="fas fa-concierge-bell me-2"></i> Services</a>
-    <a href="{{ url('/admin/team') }}"><i class="fas fa-users me-2"></i> Team</a>
-    <a href="{{ url('/admin/portfolio') }}"><i class="fas fa-briefcase me-2"></i> Portfolio</a>
-    <a href="{{ url('/admin/contact') }}"><i class="fas fa-envelope me-2"></i> Contact</a>
-    <a href="{{ url('/admin/settings') }}"><i class="fas fa-cog me-2"></i> Paramètres</a>
+    <a href="{{ url('/admin/dashboard') }}" class="{{ request()->is('admin/dashboard') ? 'active-link' : '' }}">
+        <i class="fas fa-chart-line me-2"></i> Dashboard
+    </a>
+    <a href="{{ url('/admin/blog') }}" class="{{ request()->is('admin/blog') ? 'active-link' : '' }}">
+        <i class="fas fa-blog me-2"></i> Blog
+    </a>
+    <a href="{{ url('/admin/testimonials') }}" class="{{ request()->is('admin/testimonials') ? 'active-link' : '' }}">
+        <i class="fas fa-comment-dots me-2"></i> Testimonials
+    </a>
+    <a href="{{ url('/admin/services') }}" class="{{ request()->is('admin/services') ? 'active-link' : '' }}">
+        <i class="fas fa-concierge-bell me-2"></i> Services
+    </a>
+    <a href="{{ url('/admin/team') }}" class="{{ request()->is('admin/team') ? 'active-link' : '' }}">
+        <i class="fas fa-users me-2"></i> Team
+    </a>
+    <a href="{{ url('/admin/portfolio') }}" class="{{ request()->is('admin/portfolio') ? 'active-link' : '' }}">
+        <i class="fas fa-briefcase me-2"></i> Portfolio
+    </a>
+    <a href="{{ url('/admin/contact') }}" class="{{ request()->is('admin/contact') ? 'active-link' : '' }}">
+        <i class="fas fa-envelope me-2"></i> Contact
+    </a>
+    <a href="{{ url('/admin/settings') }}" class="{{ request()->is('admin/settings') ? 'active-link' : '' }}">
+        <i class="fas fa-cog me-2"></i> Paramètres
+    </a>
 </div>
 
 <!-- Overlay for small screens -->
@@ -170,7 +187,6 @@
         overlay.classList.remove('active');
     });
 
-    // Optional: close sidebar on resize
     window.addEventListener('resize', function () {
         if (window.innerWidth > 768) {
             sidebar.classList.remove('show');
