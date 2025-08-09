@@ -131,8 +131,8 @@
     <a href="{{ url('/admin/dashboard') }}" class="{{ request()->is('admin/dashboard') ? 'active-link' : '' }}">
         <i class="fas fa-chart-line me-2"></i> Dashboard
     </a>
-    <a href="{{ url('/admin/blog') }}" class="{{ request()->is('admin/blog') ? 'active-link' : '' }}">
-        <i class="fas fa-blog me-2"></i> Blog
+    <a href="{{ url('/admin/about') }}" class="{{ request()->is('admin/about') ? 'active-link' : '' }}">
+        <i class="fas fa-blog me-2"></i> A Propos
     </a>
     <a href="{{ url('/admin/testimonials') }}" class="{{ request()->is('admin/testimonials') ? 'active-link' : '' }}">
         <i class="fas fa-comment-dots me-2"></i> Testimonials
@@ -140,8 +140,8 @@
     <a href="{{ url('/admin/services') }}" class="{{ request()->is('admin/services') ? 'active-link' : '' }}">
         <i class="fas fa-concierge-bell me-2"></i> Services
     </a>
-    <a href="{{ url('/admin/team') }}" class="{{ request()->is('admin/team') ? 'active-link' : '' }}">
-        <i class="fas fa-users me-2"></i> Team
+    <a href="{{ url('/admin/partners') }}" class="{{ request()->is('admin/partners') ? 'active-link' : '' }}">
+        <i class="fas fa-users me-2"></i> Partners
     </a>
     <a href="{{ url('/admin/portfolio') }}" class="{{ request()->is('admin/portfolio') ? 'active-link' : '' }}">
         <i class="fas fa-briefcase me-2"></i> Portfolio

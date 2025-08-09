@@ -9,5 +9,7 @@ class Partner extends Model
 {
     //
     use HasFactory;
-    protected $fillable = ['logo', 'link'];
+
+    protected $table = 'partenaires'; // lien avec la table partenaires
+    protected $fillable = ['image', 'name', 'link'];
 }

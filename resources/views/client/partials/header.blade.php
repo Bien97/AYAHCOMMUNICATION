@@ -2,7 +2,11 @@
     <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
 
         <a href="{{ route('home.index') }}" class="logo d-flex align-items-center me-auto me-xl-0">
-            <img src="{{ asset('assets/images/logo.png') }}" alt="Logo HeroBiz" class="logo" />
+            @if($settings && $settings->logo_header)
+                <img src="{{ asset('storage/' . $settings->logo_header) }}" alt="Logo HeroBiz" class="logo" />
+            @else
+                <img src="{{ asset('assets/images/logo.png') }}" alt="Logo par défaut" class="logo" />
+            @endif
         </a>
 
         <nav id="navmenu" class="navmenu">
@@ -10,8 +14,6 @@
                 <li><a href="{{ route('home.index') }}#hero" class="active">Accueil</a></li>
                 <li><a href="{{ route('home.index') }}#about">À propos</a></li>
                 <li><a href="{{ route('home.index') }}#services">Services</a></li>
-                <!-- <li><a href="#team">Team</a></li> -->
-                {{-- <li><a href="{{ route('blog.index') }}">Blog</a></li> --}}
                 <li><a href="{{ route('home.index') }}#contact">Contact</a></li>
                 <li class="nav-lang dropdown">
                     <a href="#" class="lang-toggle">🌐 FR <i class="bi bi-chevron-down"></i></a>

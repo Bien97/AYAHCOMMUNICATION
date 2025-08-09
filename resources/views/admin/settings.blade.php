@@ -44,7 +44,7 @@
                     <div class="border rounded p-3 bg-light h-100">
                         <h5 class="fw-bold">Logo Header</h5>
                         @if ($settings->logo_header)
-                            <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#logoHeaderModal">Voir l'image</button>
+                            <button class="btn btn-custom-purple-outline btn-sm" data-bs-toggle="modal" data-bs-target="#logoHeaderModal">Voir l'image</button>
                         @else
                             <p class="text-muted">Non défini</p>
                         @endif
@@ -54,7 +54,7 @@
                     <div class="border rounded p-3 bg-light h-100">
                         <h5 class="fw-bold">Logo Footer</h5>
                         @if ($settings->logo_footer)
-                            <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#logoFooterModal">Voir l'image</button>
+                            <button class="btn btn-custom-purple-outline btn-sm" data-bs-toggle="modal" data-bs-target="#logoFooterModal">Voir l'image</button>
                         @else
                             <p class="text-muted">Non défini</p>
                         @endif
@@ -63,7 +63,7 @@
                 <div class="col-md-6">
                     <div class="border rounded p-3 bg-light h-100">
                         <h5 class="fw-bold">Carte Google Maps</h5>
-                        <button class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#mapModal">Voir la carte</button>
+                        <button class="btn btn-custom-purple-outline btn-sm" data-bs-toggle="modal" data-bs-target="#mapModal">Voir la carte</button>
                     </div>
                 </div>
             </div>
@@ -110,7 +110,7 @@
     </div>
 </div>
 
-{{-- ✅ MODAL MODIFICATION --}}
+{{-- MODAL MODIFICATION --}}
 <div class="modal fade" id="editSettingsModal" tabindex="-1">
     <div class="modal-dialog">
         <form method="POST" action="{{ route('update.settings', $settings->id) }}" class="modal-content" enctype="multipart/form-data" id="settingsForm">
@@ -151,7 +151,7 @@
 
             <div class="modal-footer">
                 <!-- Bouton déclenche le modal de confirmation -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmEditModal">
+                <button type="button" class="btn btn-custom-purple" data-bs-toggle="modal" data-bs-target="#confirmEditModal">
                     Enregistrer
                 </button>
             </div>
@@ -159,7 +159,7 @@
     </div>
 </div>
 
-{{-- ✅ MODAL CONFIRMATION DE MODIFICATION --}}
+{{-- MODAL CONFIRMATION DE MODIFICATION --}}
 <div class="modal fade" id="confirmEditModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -181,7 +181,7 @@
     </div>
 </div>
 
-{{-- ✅ MODAL SUPPRESSION --}}
+{{-- MODAL SUPPRESSION --}}
 <div class="modal fade" id="confirmDeleteModal" tabindex="-1">
     <div class="modal-dialog">
         <form method="POST" action="{{ route('delete.settings', $settings->id) }}" class="modal-content">
@@ -203,16 +203,51 @@
 </div>
 @endsection
 
+@push('styles')
+<style>
+.btn-custom-purple-outline {
+    background-color: transparent;
+    border: 2px solid #6A4A8F;
+    color: #6A4A8F;
+    font-weight: 600;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-custom-purple-outline:hover,
+.btn-custom-purple-outline:focus {
+    background-color: #6A4A8F;
+    color: white;
+    box-shadow: 0 6px 12px rgba(106, 74, 143, 0.6);
+}
+
+.btn-custom-purple {
+    background-color: #6A4A8F;
+    border: 2px solid #6A4A8F;
+    color: white;
+    font-weight: 600;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-custom-purple:hover,
+.btn-custom-purple:focus {
+    background-color: #563d7c;
+    border-color: #563d7c;
+    box-shadow: 0 6px 12px rgba(86, 61, 124, 0.6);
+    color: white;
+}
+</style>
+@endpush
+
 @push('scripts')
 <script>
-    // ✅ Toast auto disparition
+    // Toast auto disparition
     const successToastEl = document.getElementById('successToast');
     if (successToastEl) {
         const toast = new bootstrap.Toast(successToastEl);
         toast.show();
     }
 
-    // ✅ Confirmation avant envoi
+    // Confirmation avant envoi
     const confirmEditBtn = document.getElementById('confirmEditBtn');
     const spinnerEdit = document.getElementById('spinnerEdit');
     const settingsForm = document.getElementById('settingsForm');

@@ -277,47 +277,14 @@
 
             <div class="row gy-4">
 
-                <div class="col-xl-2 col-md-3 col-6 client-logo">
-                    {{-- <a href="https://exemple1.com"  --}}
-                    {{-- target="_blank"> --}}
-                        <img src="{{ asset('assets/images/clients/LOGO_KORITEK-04.png') }}" class="img-fluid" alt="">
-                    {{-- </a> --}}
-                </div><!-- End Client Item -->
+    @foreach($partners as $partner)
+        <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="{{ asset('storage/' . $partner->image) }}" class="img-fluid" alt="{{ $partner->name }}">
+        </div><!-- End Client Item -->
+    @endforeach
 
-                <div class="col-xl-2 col-md-3 col-6 client-logo">
-                    {{-- <a href="https://exemple2.com"  --}}
-                    {{-- target="_blank"> --}}
-                        <img src="{{ asset('assets/images/clients/EnnaTecOf1.png') }}" class="img-fluid" alt="">
-                    {{-- </a> --}}
-                </div><!-- End Client Item -->
+</div>
 
-                <div class="col-xl-2 col-md-3 col-6 client-logo">
-                    {{-- <a href="https://exemple3.com"  --}}
-                    {{-- target="_blank"> --}}
-                        <img src="{{ asset('assets/images/clients/EnnaMarOf2.png') }}" class="img-fluid" alt="">
-                    {{-- </a> --}}
-                </div><!-- End Client Item -->
-
-                <div class="col-xl-2 col-md-3 col-6 client-logo">
-                    {{-- <a href="https://exemple4.com" target="_blank"> --}}
-                        <img src="{{ asset('assets/images/clients/EnnaImoOf2.png') }}" class="img-fluid" alt="">
-                    {{-- </a> --}}
-                </div><!-- End Client Item -->
-
-                <div class="col-xl-2 col-md-3 col-6 client-logo">
-                    {{-- <a href="https://exemple5.com" target="_blank"> --}}
-                        <img src="{{ asset('assets/images/clients/eledji_whitetrp_circle.png') }}" class="img-fluid" alt="">
-                    {{-- </a> --}}
-                </div><!-- End Client Item -->
-
-                <div class="col-xl-2 col-md-3 col-6 client-logo">
-                    {{-- <a href="https://exemple6.com" target="_blank"> --}}
-                        <img src="{{ asset('assets/images/clients/octave1.png') }}" class="img-fluid" alt="">
-                    {{-- </a> --}}
-                </div><!-- End Client Item -->
-                <!-- End Client Item -->
-
-            </div>
 
         </div>
 
@@ -667,260 +634,94 @@
         <div class="container" data-aos="fade-up" data-aos-delay="100">
 
             <div class="row gy-5">
-
-                <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="service-item">
-                        <div class="img">
-                            <img src="{{ asset('assets/images/services-1.jpg') }}" class="img-fluid" alt="">
-                        </div>
-                        <div class="details position-relative">
-                            <div class="icon">
-                                <i class="bi bi-activity"></i>
-                            </div>
-                            <!-- <a href="service-details.blade.php" class="stretched-link"> -->
-                            <h3>AYAH Conseil</h3>
-                            <!-- </a> -->
-                            <p> Nous élaborons avec vous une stratégie de communication adaptée à votre organisation, à
-                                votre identité et à vos moyens.</p>
-                        </div>
+    @foreach ($services as $service)
+        <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="{{ 200 + $loop->index * 100 }}">
+            <div class="service-item">
+                <div class="img">
+                    <img src="{{ asset($service->image) }}" class="img-fluid" alt="{{ $service->title }}">
+                </div>
+                <div class="details position-relative">
+                    <div class="icon">
+                        <i class="bi {{ $service->icon }}"></i>
                     </div>
-                </div><!-- End Service Item -->
-
-                <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="service-item">
-                        <div class="img">
-                            <img src="{{ asset('assets/images/services/services16.jpg') }}" class="img-fluid" alt="">
-                        </div>
-                        <div class="details position-relative">
-                            <div class="icon">
-                                <i class="bi bi-broadcast"></i>
-                            </div>
-                            <!-- <a href="service-details.blade.php" class="stretched-link"> -->
-                            <h3>AYAH Créa</h3>
-                            <!-- </a> -->
-                            <p>On dit que la première impression est la bonne. En vérité, c’est plus une question de
-                                présentation que d’essence. Confiez-nous votre identité visuelle!</p>
-                        </div>
-                    </div>
-                </div><!-- End Service Item -->
-
-                <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="400">
-                    <div class="service-item">
-                        <div class="img">
-                            <img src="{{ asset('assets/images/services/services14.jpg') }}" class="img-fluid" alt="">
-                        </div>
-                        <div class="details position-relative">
-                            <div class="icon">
-                                <i class="bi bi-easel"></i>
-                            </div>
-                            <!-- <a href="service-details.blade.php" class="stretched-link"> -->
-                            <h3>AYAH Marketing</h3>
-                            <!-- </a> -->
-                            <p>L’équipe créative d’AYAH prend en compte pour vous délivrer des outils de communication
-                                originaux et adaptés.</p>
-                        </div>
-                    </div>
-                </div><!-- End Service Item -->
-
-                <!-- <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="500">
-                  <div class="service-item">
-                    <div class="images">
-                      <images src="assets/images/services-4.jpg" class="images-fluid" alt="">
-                    </div>
-                    <div class="details position-relative">
-                      <div class="icon">
-                        <i class="bi bi-bounding-box-circles"></i>
-                      </div>
-                      <a href="service-details.blade.php" class="stretched-link">
-                        <h3>Asperiores Commodit</h3>
-                      </a>
-                      <p>Non et temporibus minus omnis sed dolor esse consequatur. Cupiditate sed error ea fuga sit provident adipisci neque.</p>
-                      <a href="service-details.blade.php" class="stretched-link"></a>
-                    </div>
-                  </div>
-                </div>End Service Item -->
-
-                <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="600">
-                    <div class="service-item">
-                        <div class="img">
-                            <img src="{{ asset('assets/images/services/services8.jpg') }}" class="img-fluid" alt="">
-                        </div>
-                        <div class="details position-relative">
-                            <div class="icon">
-                                <i class="bi bi-calendar4-week"></i>
-                            </div>
-                            <!-- <a href="service-details.blade.php" class="stretched-link"> -->
-                            <h3>AYAH Web</h3>
-                            <!-- </a> -->
-                            <p> Nous créons des contenu ciblés afin de répondre aux attentes de votre communauté et
-                                accroître l’influence de votre marque.</p>
-                            <!-- <a href="service-details.blade.php" class="stretched-link"></a> -->
-                        </div>
-                    </div>
-                </div><!-- End Service Item -->
-
-                <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="700">
-                    <div class="service-item">
-                        <div class="img">
-                            <img src="{{ asset('assets/images/services/services11.jpg') }}" class="img-fluid" alt="">
-                        </div>
-                        <div class="details position-relative">
-                            <div class="icon">
-                                <i class="bi bi-chat-square-text"></i>
-                            </div>
-                            <!-- <a href="service-details.blade.php" class="stretched-link"> -->
-                            <h3>AYAH Media</h3>
-                            <!-- </a> -->
-                            <p> Avec AYAH Media , on vous accompagne dans la réalisation d’un projet vidéo pro’,
-                                pleinement exploitable, original et qualitatif, les voix off pour les publicités
-                                audio-visuels.</p>
-                            <!-- <a href="service-details.blade.php" class="stretched-link"></a> -->
-                        </div>
-                    </div>
-                </div><!-- End Service Item -->
-
+                    <h3>{{ $service->title }}</h3>
+                    <p>{{ $service->description }}</p>
+                </div>
             </div>
+        </div>
+    @endforeach
+</div>
+
 
         </div>
 
     </section><!-- /Services Section -->
 
     <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials section dark-background">
+<section id="testimonials" class="testimonials section dark-background">
 
-        <!-- Section Title -->
-        <div class="container section-title" data-aos="fade-up">
-            <h2>Témoignages</h2>
-            <p>Les retours de nos clients sont la meilleure preuve de notre engagement et de la qualité de nos services.
-                Nous valorisons chaque témoignage, car ils reflètent la confiance et la satisfaction qui nous motivent à
-                toujours exceller.
-            </p>
-        </div><!-- End Section Title -->
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+        <h2>Témoignages</h2>
+        <p>Les retours de nos clients sont la meilleure preuve de notre engagement et de la qualité de nos services.
+            Nous valorisons chaque témoignage, car ils reflètent la confiance et la satisfaction qui nous motivent à
+            toujours exceller.
+        </p>
+    </div><!-- End Section Title -->
 
-        <img src="{{ asset('assets/images/testimonials-bg.jpg') }}" class="testimonials-bg" alt="">
+    <img src="{{ asset('assets/images/testimonials-bg.jpg') }}" class="testimonials-bg" alt="">
 
-        <div class="container" data-aos="fade-up" data-aos-delay="100">
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-            <div class="swiper init-swiper">
-                <script type="application/json" class="swiper-config">
-                    {
-                      "loop": true,
-                      "speed": 600,
-                      "autoplay": {
-                        "delay": 5000
-                      },
-                      "slidesPerView": "auto",
-                      "pagination": {
-                        "el": ".swiper-pagination",
-                        "type": "bullets",
-                        "clickable": true
-                      }
-                    }
-                </script>
-                <div class="swiper-wrapper">
+        <div class="swiper init-swiper">
+            <script type="application/json" class="swiper-config">
+                {
+                  "loop": true,
+                  "speed": 600,
+                  "autoplay": {
+                    "delay": 5000
+                  },
+                  "slidesPerView": "auto",
+                  "pagination": {
+                    "el": ".swiper-pagination",
+                    "type": "bullets",
+                    "clickable": true
+                  }
+                }
+            </script>
+            <div class="swiper-wrapper">
 
-                    <div class="swiper-slide">
-                        <div class="testimonial-item">
-                            <img src="{{ asset('assets/images/testimonials/testimonials-1.jpg') }}" class="testimonial-img" alt="">
-                            <h3>Yao M. </h3>
-                            <h4>Entrepreneur dans le e-commerce</h4>
-                            <div class="stars">
-                                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                    class="bi bi-star-fill"></i>
-                            </div>
-                            <p>
-                                <i class="bi bi-quote quote-icon-left"></i>
-                                <span>La refonte de mon site a été une vraie réussite. Non seulement il est plus moderne et fluide, mais le référencement naturel mis en place par AYAH 
-COMMUNICATION a boosté mes ventes. Un travail propre et stratégique.</span>
-                                <i class="bi bi-quote quote-icon-right"></i>
-                            </p>
+                @foreach($testimonials as $testimonial)
+                <div class="swiper-slide">
+                    <div class="testimonial-item">
+                        <img src="{{ $testimonial->image ? asset('storage/' . $testimonial->image) : asset('assets/images/testimonials/default.jpg') }}" class="testimonial-img" alt="{{ $testimonial->name }}">
+                        <h3>{{ $testimonial->name }}</h3>
+                        <h4>{{ $testimonial->position ?? '' }}</h4>
+                        <div class="stars">
+                            @for($i = 0; $i < $testimonial->stars; $i++)
+                                <i class="bi bi-star-fill"></i>
+                            @endfor
+                            @for($i = $testimonial->stars; $i < 5; $i++)
+                                <i class="bi bi-star"></i>
+                            @endfor
                         </div>
-                    </div><!-- End testimonial item -->
+                        <p>
+                            <i class="bi bi-quote quote-icon-left"></i>
+                            <span>{{ $testimonial->text }}</span>
+                            <i class="bi bi-quote quote-icon-right"></i>
+                        </p>
+                    </div>
+                </div><!-- End testimonial item -->
+                @endforeach
 
-                    <div class="swiper-slide">
-                        <div class="testimonial-item">
-                            <img src="{{ asset('assets/images/testimonials/testimonials-2.jpg') }}" class="testimonial-img" alt="">
-                            <h3>Aïssatou D.</h3>
-                            <h4>Gérante de boutique en ligne</h4>
-                            <div class="stars">
-                                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                    class="bi bi-star-fill"></i>
-                            </div>
-                            <p>
-                                <i class="bi bi-quote quote-icon-left"></i>
-                                <span>Je suis bluffée par la qualité de l’identité visuelle que AYAH COMMUNICATION a créée pour ma marque. Le logo, les couleurs, les supports… tout est cohérent et 
-professionnel. Grâce à leur équipe, j’ai enfin une image qui reflète mes valeurs.</span>
-                                <i class="bi bi-quote quote-icon-right"></i>
-                            </p>
-                        </div>
-                    </div><!-- End testimonial item -->
-
-                    <div class="swiper-slide">
-                        <div class="testimonial-item">
-                            <img src="{{ asset('assets/images/testimonials/testimonials-3.jpg') }}" class="testimonial-img" alt="">
-                            <h3>Mireille K.</h3>
-                            <h4>Restauratrice</h4>
-                            <div class="stars">
-                                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                    class="bi bi-star-fill"></i>
-                            </div>
-                            <p>
-                                <i class="bi bi-quote quote-icon-left"></i>
-                                <span>Ils ont transformé la page Facebook de mon restaurant en un vrai canal de vente. Les visuels sont beaux, les publications engageantes, et mes réservations 
-ont augmenté. Merci à toute l’équipe pour leur professionnalisme.</span>
-                                <i class="bi bi-quote quote-icon-right"></i>
-                            </p>
-                        </div>
-                    </div><!-- End testimonial item -->
-
-                    <div class="swiper-slide">
-                        <div class="testimonial-item">
-                            <img src="{{ asset('assets/images/testimonials/testimonials-4.jpg') }}" class="testimonial-img" alt="">
-                            <h3>Rodrigue T.</h3>
-                            <h4>Promoteur d'événements</h4>
-                            <div class="stars">
-                                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                    class="bi bi-star-fill"></i>
-                            </div>
-                            <p>
-                                <i class="bi bi-quote quote-icon-left"></i>
-                                <span>J’ai confié à AYAH COMMUNICATION la création de mon site web et la stratégie marketing de mon festival. Résultat : un site rapide, design, et une campagne 
-de communication qui a doublé la visibilité de l’événement. Je recommande à 100 %.</span>
-                                <i class="bi bi-quote quote-icon-right"></i>
-                            </p>
-                        </div>
-                    </div><!-- End testimonial item -->
-
-                    <div class="swiper-slide">
-                        <div class="testimonial-item">
-                            <img src="{{ asset('assets/images/testimonials/testimonials-5.jpg') }}" class="testimonial-img" alt="">
-                            <h3>Josiane A.</h3>
-                            <h4>Coach en développement personnel</h4>
-                            <div class="stars">
-                                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                    class="bi bi-star-fill"></i>
-                            </div>
-                            <p>
-                                <i class="bi bi-quote quote-icon-left"></i>
-                                <span>J’avais besoin d’un accompagnement pour positionner ma marque en ligne. L’équipe de AYAH COMMUNICATION a été à l’écoute, créative et super réactive. 
-Grâce à eux, j’ai aujourd’hui une identité forte et une belle présence digitale.</span>
-                                <i class="bi bi-quote quote-icon-right"></i>
-                            </p>
-                        </div>
-                    </div><!-- End testimonial item -->
-
-                </div>
-                <div class="swiper-pagination"></div>
             </div>
-
+            <div class="swiper-pagination"></div>
         </div>
 
-    </section><!-- /Testimonials Section -->
+    </div>
+
+</section>
+<!-- /Testimonials Section -->
 
     <!-- Pricing Section -->
     <!-- <section id="pricing" class="pricing section"> -->
@@ -1454,8 +1255,7 @@ Grâce à eux, j’ai aujourd’hui une identité forte et une belle présence d
         <div class="mb-5">
     <iframe
         style="width: 100%; height: 400px; border:0;"
-        src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3966.486115795513!2d1.2488055999999998!3d6.1994167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNsKwMTEnNTcuOSJOIDHCsDE0JzU1LjciRQ!5e0!3m2!1sfr!2snl!4v1754085141381!5m2!1sfr!2snl"
-        allowfullscreen=""
+        src="{{ $settings->map_location }}"        allowfullscreen=""
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade">
     </iframe>
@@ -1470,34 +1270,34 @@ Grâce à eux, j’ai aujourd’hui une identité forte et une belle présence d
                 <div class="col-lg-4">
 
                     <div class="info">
-                        <h3>Contactez-nous</h3>
-                        <p>Notre équipe est prête à vous accompagner et à répondre à toutes vos questions.</p>
+    <h3>Contactez-nous</h3>
+    <p>Notre équipe est prête à vous accompagner et à répondre à toutes vos questions.</p>
 
-                        <div class="info-item d-flex">
-                            <i class="bi bi-geo-alt flex-shrink-0"></i>
-                            <div>
-                                <h4>Localisation:</h4>
-                                <p>Boulevard du HAHO, Hedzranawoe, Sagboville</p>
-                            </div>
-                        </div><!-- End Info Item -->
+    <div class="info-item d-flex">
+        <i class="bi bi-geo-alt flex-shrink-0"></i>
+        <div>
+            <h4>Localisation:</h4>
+            <p>Boulevard du HAHO, Hedzranawoe, Sagboville</p> {{-- Fixe comme demandé --}}
+        </div>
+    </div><!-- End Info Item -->
 
-                        <div class="info-item d-flex">
-                            <i class="bi bi-envelope flex-shrink-0"></i>
-                            <div>
-                                <h4>Email:</h4>
-                                <p>parlons@a-yah.com</p>
-                            </div>
-                        </div><!-- End Info Item -->
+    <div class="info-item d-flex">
+        <i class="bi bi-envelope flex-shrink-0"></i>
+        <div>
+            <h4>Email:</h4>
+            <p>{{ $settings->email }}</p>
+        </div>
+    </div><!-- End Info Item -->
 
-                        <div class="info-item d-flex">
-                            <i class="bi bi-phone flex-shrink-0"></i>
-                            <div>
-                                <h4>Téléphone:</h4>
-                                <p> +228 91081717</p>
-                            </div>
-                        </div><!-- End Info Item -->
+    <div class="info-item d-flex">
+        <i class="bi bi-phone flex-shrink-0"></i>
+        <div>
+            <h4>Téléphone:</h4>
+            <p>{{ $settings->phone }}</p>
+        </div>
+    </div><!-- End Info Item -->
+</div>
 
-                    </div>
 
                 </div>
 
