@@ -33,8 +33,8 @@
                 <h5 class="fw-bold">{{ $service->title }}</h5>
 
                 {{-- Prévisualisation de l’icône --}}
-                <div class="mb-2 mx-auto" style="width:40px; height:40px;">
-                    <img src="{{ asset('icons/icons/' . $service->icon) }}" alt="{{ $service->title }}" style="width:100%; height:100%; object-fit:contain;">
+                <div class="mb-2 mx-auto" style="font-size: 40px; color: #6A4A8F;">
+                    <i class="{{ $service->icon }}"></i>
                 </div>
 
                 <p>{{ $service->description }}</p>
@@ -71,14 +71,14 @@
 
                         <div class="mb-3">
                             <label for="icon_{{ $service->id }}" class="form-label">Icône</label>
-                            <select class="form-select icon-selector" id="icon_{{ $service->id }}" name="icon" required>
+                            <select class="form-select icon-selector" id="icon_{{ $service->id }}" name="icon" required placeholder="-- Tape pour chercher une icône --">
                                 <option value="">-- Choisis une icône --</option>
                                 @foreach($icons as $icon)
-                                    <option value="{{ $icon }}" @selected(old('icon', $service->icon) === $icon)>{{ pathinfo($icon, PATHINFO_FILENAME) }}</option>
+                                    <option value="bi bi-{{ $icon }}" @selected(old('icon', $service->icon) === "bi bi-{$icon}")>{{ $icon }}</option>
                                 @endforeach
                             </select>
-                            <div class="icon-preview mt-2" style="width: 40px; height: 40px;">
-                                <img src="{{ asset('icons/icons/' . $service->icon) }}" alt="Preview" style="width: 100%; height: 100%; object-fit: contain;">
+                            <div class="icon-preview mt-2" style="font-size: 40px; color: #6A4A8F;">
+                                <i class="{{ $service->icon }}"></i>
                             </div>
                         </div>
 
@@ -173,14 +173,14 @@
 
                 <div class="mb-3">
                     <label for="icon_add" class="form-label">Icône</label>
-                    <select class="form-select icon-selector" id="icon_add" name="icon" required>
+                    <select class="form-select icon-selector" id="icon_add" name="icon" required placeholder="-- Tape pour chercher une icône --">
                         <option value="">-- Choisis une icône --</option>
                         @foreach($icons as $icon)
-                            <option value="{{ $icon }}" @selected(old('icon') === $icon)>{{ pathinfo($icon, PATHINFO_FILENAME) }}</option>
+                            <option value="bi bi-{{ $icon }}" @selected(old('icon') === "bi bi-{$icon}")>{{ $icon }}</option>
                         @endforeach
                     </select>
-                    <div class="icon-preview mt-2" style="width: 40px; height: 40px;">
-                        <img src="{{ asset('icons/icons/' . ($icons[0] ?? '') ) }}" alt="Preview" style="width: 100%; height: 100%; object-fit: contain;">
+                    <div class="icon-preview mt-2" style="font-size: 40px; color: #6A4A8F;">
+                        <i class="bi bi-{{ $icons[0] ?? '' }}"></i>
                     </div>
                 </div>
 
@@ -219,14 +219,14 @@
     box-shadow: 0 6px 12px rgba(85, 58, 114, 0.6);
     color: white;
 }
-.icon-preview img {
+.icon-preview i {
     display: block;
 }
 </style>
 @endpush
 
 @push('scripts')
-<!-- Inclure Tom Select via CDN (ajoute dans ton layout <head> ou ici) -->
+<!-- Inclure Tom Select via CDN (place dans le layout ou ici) -->
 <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.bootstrap5.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
 
@@ -254,18 +254,17 @@
     });
     @endforeach
 
-    // Initialiser Tom Select avec recherche, clear button, et preview icône
+    // Initialiser Tom Select avec recherche, placeholder, clear button, et preview icône
     document.querySelectorAll('.icon-selector').forEach(select => {
         const ts = new TomSelect(select, {
             allowEmptyOption: true,
             plugins: ['clear_button'],
             searchField: 'text',
+            placeholder: select.getAttribute('placeholder') || '',
             onChange(value) {
-                const preview = select.parentNode.querySelector('.icon-preview img');
-                if(value) {
-                    preview.src = `/icons/icons/${value}`;
-                } else {
-                    preview.src = ''; // ou une icône par défaut
+                const preview = select.parentNode.querySelector('.icon-preview i');
+                if(preview) {
+                    preview.className = value || '';
                 }
             }
         });

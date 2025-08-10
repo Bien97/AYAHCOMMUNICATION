@@ -15,6 +15,7 @@ class SiteContact extends Model
         'phone',
         'map_location',
         'logo_header',
-        'logo_footer'
+        'logo_footer',
+        'image_background'
     ];
 }

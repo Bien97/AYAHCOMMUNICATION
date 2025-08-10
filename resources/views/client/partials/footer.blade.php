@@ -47,15 +47,14 @@
 
                 <!-- Bloc Services -->
                 <div class="col-lg-2 col-md-3 footer-links">
-                    <h4>Nos Services</h4>
-                    <ul>
-                        <li><a href="#services">AYAH Conseil</a></li>
-                        <li><a href="#services">AYAH Créa</a></li>
-                        <li><a href="#services">AYAH Marketing</a></li>
-                        <li><a href="#services">AYAH Web</a></li>
-                        <li><a href="#services">AYAH Media</a></li>
-                    </ul>
-                </div>
+    <h4>Nos Services</h4>
+    <ul>
+        @foreach ($services as $service)
+            <li><a href="#services">{{ $service->title }}</a></li>
+        @endforeach
+    </ul>
+</div>
+
 
             </div>
         </div>

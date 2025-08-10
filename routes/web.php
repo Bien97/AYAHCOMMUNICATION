@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminController\AboutController;
 use App\Http\Controllers\AdminController\PartnerController;
 use App\Http\Controllers\AdminController\ServiceController;
 use App\Http\Controllers\AdminController\TestimonialController;
+use App\Http\Controllers\AdminController\ContactController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -81,6 +82,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::put('testimonials/{id}', [TestimonialController::class, 'update'])->name('testimonials.update');
     Route::delete('testimonials/{id}', [TestimonialController::class, 'destroy'])->name('testimonials.destroy');
 });
+
+// Admin Contact Routes
+Route::post('/contact/send', [ContactController::class, 'send'])->name('contact.send');
+
 
 
 

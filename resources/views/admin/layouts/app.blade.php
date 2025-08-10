@@ -143,12 +143,12 @@
     <a href="{{ url('/admin/partners') }}" class="{{ request()->is('admin/partners') ? 'active-link' : '' }}">
         <i class="fas fa-users me-2"></i> Partners
     </a>
-    <a href="{{ url('/admin/portfolio') }}" class="{{ request()->is('admin/portfolio') ? 'active-link' : '' }}">
+    {{-- <a href="{{ url('/admin/portfolio') }}" class="{{ request()->is('admin/portfolio') ? 'active-link' : '' }}">
         <i class="fas fa-briefcase me-2"></i> Portfolio
     </a>
     <a href="{{ url('/admin/contact') }}" class="{{ request()->is('admin/contact') ? 'active-link' : '' }}">
         <i class="fas fa-envelope me-2"></i> Contact
-    </a>
+    </a> --}}
     <a href="{{ url('/admin/settings') }}" class="{{ request()->is('admin/settings') ? 'active-link' : '' }}">
         <i class="fas fa-cog me-2"></i> Paramètres
     </a>

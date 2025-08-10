@@ -7,8 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class AboutSection extends Model
 {
-    //
     use HasFactory;
 
-    protected $fillable = ['title', 'paragraph'];
+    protected $fillable = [
+        'title', 
+        'paragraph',
+        'image_about'
+    ];
 }

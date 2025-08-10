@@ -6,10 +6,12 @@
         <section id="hero" class="hero section position-relative">
             <!-- Image de fond -->
             <div class="hero-background position-absolute top-0 start-0 w-100 h-100">
-                <img src="{{ asset('assets/photos/photo6.png') }}" class="img-fluid w-100 h-100 object-fit-cover" alt="">
-                <!-- Overlay sombre -->
-                <div class="hero-overlay position-absolute top-0 start-0 w-100 h-100"></div>
-            </div>
+    <img src="{{ asset('storage/' . $settings->image_background) }}" 
+         class="img-fluid w-100 h-100 object-fit-cover" alt="Image de fond">
+    <!-- Overlay sombre -->
+    <div class="hero-overlay position-absolute top-0 start-0 w-100 h-100"></div>
+</div>
+
 
             <!-- Contenu texte -->
             <div class="container h-100 d-flex align-items-center position-relative" style="z-index: 2;"
@@ -634,11 +636,12 @@
         <div class="container" data-aos="fade-up" data-aos-delay="100">
 
             <div class="row gy-5">
-    @foreach ($services as $service)
+       @foreach ($services as $service)
         <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="{{ 200 + $loop->index * 100 }}">
             <div class="service-item">
                 <div class="img">
-                    <img src="{{ asset($service->image) }}" class="img-fluid" alt="{{ $service->title }}">
+                    <img src="{{ asset('storage/' . $service->image) }}" class="img-fluid" alt="{{ $service->title }}">
+
                 </div>
                 <div class="details position-relative">
                     <div class="icon">
@@ -649,13 +652,14 @@
                 </div>
             </div>
         </div>
-    @endforeach
-</div>
+       @endforeach
+      </div>
 
 
         </div>
 
-    </section><!-- /Services Section -->
+    </section>
+    <!-- /Services Section -->
 
     <!-- Testimonials Section -->
 <section id="testimonials" class="testimonials section dark-background">
@@ -1329,7 +1333,8 @@
                             <button type="submit">Envoyer le message</button>
                         </div>
                     </form>
-                </div><!-- End Contact Form -->
+                </div>
+                <!-- End Contact Form -->
             </div>
         </div>
     </section><!-- /Contact Section -->

@@ -6,7 +6,7 @@
     {{-- ✅ Toast de succès --}}
     @if(session('success'))
     <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 9999">
-        <div class="toast align-items-center text-bg-success" role="alert" id="successToast" data-bs-delay="3000">
+        <div class="toast align-items-center text-bg-success" role="alert" id="successToast" data-bs-delay="4000">
             <div class="d-flex">
                 <div class="toast-body">
                     {{ session('success') }}
@@ -14,6 +14,36 @@
                 <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
             </div>
         </div>
+    </div>
+    @endif
+
+    {{-- ❌ Toast d'erreur --}}
+    @if(session('error'))
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 9999">
+        <div class="toast align-items-center text-bg-danger" role="alert" id="errorToast" data-bs-delay="5000">
+            <div class="d-flex">
+                <div class="toast-body">
+                    {{ session('error') }}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </div>
+    @endif
+
+    {{-- ⚠️ Affichage des erreurs de validation --}}
+    @if($errors->any())
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <h6 class="alert-heading mb-2">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            Erreurs de validation détectées :
+        </h6>
+        <ul class="mb-0 ps-3">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
     @endif
 
@@ -62,13 +92,23 @@
                 </div>
                 <div class="col-md-6">
                     <div class="border rounded p-3 bg-light h-100">
+                        <h5 class="fw-bold">Image Background</h5>
+                        @if ($settings->image_background)
+                            <button class="btn btn-custom-purple-outline btn-sm" data-bs-toggle="modal" data-bs-target="#imageBackgroundModal">Voir l'image</button>
+                        @else
+                            <p class="text-muted">Non défini</p>
+                        @endif
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="border rounded p-3 bg-light h-100">
                         <h5 class="fw-bold">Carte Google Maps</h5>
                         <button class="btn btn-custom-purple-outline btn-sm" data-bs-toggle="modal" data-bs-target="#mapModal">Voir la carte</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Boutons d’action -->
+            <!-- Boutons d'action -->
             <div class="d-flex gap-2 mt-4">
                 <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editSettingsModal">Modifier</button>
                 <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">Supprimer</button>
@@ -93,6 +133,20 @@
         <div class="modal-content">
             <div class="modal-body text-center">
                 <img src="{{ asset('storage/' . $settings->logo_footer) }}" class="img-fluid" alt="Logo Footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="imageBackgroundModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Image Background</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img src="{{ asset('storage/' . $settings->image_background) }}" class="img-fluid" alt="Image Background">
             </div>
         </div>
     </div>
@@ -124,28 +178,87 @@
 
             <div class="modal-body">
                 <div class="mb-3">
-                    <label>Nom du site</label>
-                    <input type="text" name="site_name" class="form-control" value="{{ $settings->site_name }}">
+                    <label class="form-label">Nom du site <span class="text-danger">*</span></label>
+                    <input type="text" name="site_name" class="form-control @error('site_name') is-invalid @enderror" 
+                           value="{{ old('site_name', $settings->site_name) }}" required>
+                    @error('site_name')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
+                
                 <div class="mb-3">
-                    <label>Email</label>
-                    <input type="email" name="email" class="form-control" value="{{ $settings->email }}">
+                    <label class="form-label">Email <span class="text-danger">*</span></label>
+                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" 
+                           value="{{ old('email', $settings->email) }}" required>
+                    @error('email')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
+                
                 <div class="mb-3">
-                    <label>Téléphone</label>
-                    <input type="text" name="phone" class="form-control" value="{{ $settings->phone }}">
+                    <label class="form-label">Téléphone <span class="text-danger">*</span></label>
+                    <input type="text" name="phone" class="form-control @error('phone') is-invalid @enderror" 
+                           value="{{ old('phone', $settings->phone) }}" required maxlength="20">
+                    @error('phone')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                    <small class="form-text text-muted">Maximum 20 caractères</small>
                 </div>
+                
                 <div class="mb-3">
-                    <label>Lien Google Maps</label>
-                    <input type="text" name="map_location" class="form-control" value="{{ $settings->map_location }}">
+                    <label class="form-label">Lien Google Maps</label>
+                    <input type="url" name="map_location" class="form-control @error('map_location') is-invalid @enderror" 
+                           value="{{ old('map_location', $settings->map_location) }}" 
+                           placeholder="https://maps.google.com/...">
+                    @error('map_location')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                    <small class="form-text text-muted">URL complète vers Google Maps</small>
                 </div>
+                
                 <div class="mb-3">
-                    <label>Nouveau Logo Header</label>
-                    <input type="file" name="logo_header" class="form-control">
+                    <label class="form-label">Nouveau Logo Header</label>
+                    <input type="file" name="logo_header" class="form-control @error('logo_header') is-invalid @enderror" accept="image/*">
+                    @error('logo_header')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                    @if ($settings->logo_header)
+                        <small class="text-muted d-block mt-1">
+                            <i class="fas fa-file-image me-1"></i>
+                            Actuel: {{ basename($settings->logo_header) }}
+                        </small>
+                    @endif
+                    <small class="form-text text-muted">Formats acceptés: JPG, JPEG, PNG, SVG - Max: 5MB</small>
                 </div>
+                
                 <div class="mb-3">
-                    <label>Nouveau Logo Footer</label>
-                    <input type="file" name="logo_footer" class="form-control">
+                    <label class="form-label">Nouveau Logo Footer</label>
+                    <input type="file" name="logo_footer" class="form-control @error('logo_footer') is-invalid @enderror" accept="image/*">
+                    @error('logo_footer')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                    @if ($settings->logo_footer)
+                        <small class="text-muted d-block mt-1">
+                            <i class="fas fa-file-image me-1"></i>
+                            Actuel: {{ basename($settings->logo_footer) }}
+                        </small>
+                    @endif
+                    <small class="form-text text-muted">Formats acceptés: JPG, JPEG, PNG, SVG - Max: 5MB</small>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Nouvelle Image Background</label>
+                    <input type="file" name="image_background" class="form-control @error('image_background') is-invalid @enderror" accept="image/*">
+                    @error('image_background')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                    @if ($settings->image_background)
+                        <small class="text-muted d-block mt-1">
+                            <i class="fas fa-file-image me-1"></i>
+                            Actuel: {{ basename($settings->image_background) }}
+                        </small>
+                    @endif
+                    <small class="form-text text-muted">Formats acceptés: JPG, JPEG, PNG, SVG - Max: 5MB</small>
                 </div>
             </div>
 
@@ -240,24 +353,165 @@
 
 @push('scripts')
 <script>
-    // Toast auto disparition
+    // Toast auto disparition pour succès et erreurs
     const successToastEl = document.getElementById('successToast');
     if (successToastEl) {
         const toast = new bootstrap.Toast(successToastEl);
         toast.show();
     }
+    
+    const errorToastEl = document.getElementById('errorToast');
+    if (errorToastEl) {
+        const toast = new bootstrap.Toast(errorToastEl);
+        toast.show();
+    }
 
-    // Confirmation avant envoi
+    // Validation côté client pour améliorer l'expérience utilisateur
+    const settingsForm = document.getElementById('settingsForm');
     const confirmEditBtn = document.getElementById('confirmEditBtn');
     const spinnerEdit = document.getElementById('spinnerEdit');
-    const settingsForm = document.getElementById('settingsForm');
 
+    if (settingsForm) {
+        // Validation en temps réel des champs
+        const siteNameInput = settingsForm.querySelector('input[name="site_name"]');
+        const emailInput = settingsForm.querySelector('input[name="email"]');
+        const phoneInput = settingsForm.querySelector('input[name="phone"]');
+        const mapLocationInput = settingsForm.querySelector('input[name="map_location"]');
+
+        // Validation du nom du site
+        siteNameInput?.addEventListener('input', function() {
+            if (this.value.length > 255) {
+                this.classList.add('is-invalid');
+                showFieldError(this, 'Le nom ne peut pas dépasser 255 caractères');
+            } else if (this.value.trim() === '') {
+                this.classList.add('is-invalid');
+                showFieldError(this, 'Le nom du site est obligatoire');
+            } else {
+                this.classList.remove('is-invalid');
+                hideFieldError(this);
+            }
+        });
+
+        // Validation de l'email
+        emailInput?.addEventListener('input', function() {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(this.value)) {
+                this.classList.add('is-invalid');
+                showFieldError(this, 'Veuillez saisir une adresse email valide');
+            } else {
+                this.classList.remove('is-invalid');
+                hideFieldError(this);
+            }
+        });
+
+        // Validation du téléphone
+        phoneInput?.addEventListener('input', function() {
+            if (this.value.length > 20) {
+                this.classList.add('is-invalid');
+                showFieldError(this, 'Le numéro ne peut pas dépasser 20 caractères');
+            } else if (this.value.trim() === '') {
+                this.classList.add('is-invalid');
+                showFieldError(this, 'Le numéro de téléphone est obligatoire');
+            } else {
+                this.classList.remove('is-invalid');
+                hideFieldError(this);
+            }
+        });
+
+        // Validation de l'URL Google Maps
+        mapLocationInput?.addEventListener('input', function() {
+            if (this.value.trim() !== '') {
+                try {
+                    new URL(this.value);
+                    this.classList.remove('is-invalid');
+                    hideFieldError(this);
+                } catch {
+                    this.classList.add('is-invalid');
+                    showFieldError(this, 'Veuillez saisir une URL valide');
+                }
+            } else {
+                this.classList.remove('is-invalid');
+                hideFieldError(this);
+            }
+        });
+
+        // Validation des fichiers images
+        const imageInputs = settingsForm.querySelectorAll('input[type="file"]');
+        imageInputs.forEach(input => {
+            input.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/svg+xml'];
+                    const maxSize = 5120 * 1024; // 5MB en bytes pour tous les fichiers
+                    
+                    if (!allowedTypes.includes(file.type)) {
+                        this.classList.add('is-invalid');
+                        showFieldError(this, 'Format non accepté. Utilisez JPG, JPEG, PNG ou SVG');
+                        this.value = '';
+                    } else if (file.size > maxSize) {
+                        this.classList.add('is-invalid');
+                        showFieldError(this, 'Le fichier dépasse la taille maximale de 5MB');
+                        this.value = '';
+                    } else {
+                        this.classList.remove('is-invalid');
+                        hideFieldError(this);
+                    }
+                }
+            });
+        });
+    }
+
+    // Confirmation avant envoi avec validation finale
     if (confirmEditBtn && settingsForm) {
         confirmEditBtn.addEventListener('click', () => {
+            // Vérification finale avant soumission
+            const invalidFields = settingsForm.querySelectorAll('.is-invalid');
+            const requiredFields = settingsForm.querySelectorAll('input[required]');
+            
+            let hasErrors = false;
+            
+            // Vérifier les champs requis
+            requiredFields.forEach(field => {
+                if (field.value.trim() === '') {
+                    field.classList.add('is-invalid');
+                    showFieldError(field, 'Ce champ est obligatoire');
+                    hasErrors = true;
+                }
+            });
+
+            if (invalidFields.length > 0 || hasErrors) {
+                alert('Veuillez corriger les erreurs avant de continuer.');
+                return;
+            }
+
             spinnerEdit.classList.remove('d-none');
             confirmEditBtn.disabled = true;
             settingsForm.submit();
         });
     }
+
+    // Fonctions utilitaires pour affichage des erreurs
+    function showFieldError(field, message) {
+        let errorDiv = field.parentNode.querySelector('.invalid-feedback');
+        if (!errorDiv) {
+            errorDiv = document.createElement('div');
+            errorDiv.className = 'invalid-feedback';
+            field.parentNode.appendChild(errorDiv);
+        }
+        errorDiv.textContent = message;
+    }
+
+    function hideFieldError(field) {
+        const errorDiv = field.parentNode.querySelector('.invalid-feedback');
+        if (errorDiv) {
+            errorDiv.remove();
+        }
+    }
+
+    // Si des erreurs sont présentes au chargement, ouvrir automatiquement le modal de modification
+    @if($errors->any())
+        const editModal = new bootstrap.Modal(document.getElementById('editSettingsModal'));
+        editModal.show();
+    @endif
 </script>
 @endpush
