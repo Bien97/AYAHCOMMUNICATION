@@ -24,6 +24,7 @@ class SettingsController extends Controller
                 'site_name' => 'required|string|max:255',
                 'email' => 'required|email|max:255',
                 'phone' => 'required|string|max:20',
+                'localisation' => 'required|string|max:500',
                 'map_location' => 'nullable|string|url',
                 'logo_header' => 'nullable|image|mimes:jpg,jpeg,png,svg|max:5120',
                 'logo_footer' => 'nullable|image|mimes:jpg,jpeg,png,svg|max:5120',
@@ -41,6 +42,10 @@ class SettingsController extends Controller
                 'phone.required' => 'Le numéro de téléphone est obligatoire.',
                 'phone.string' => 'Le numéro de téléphone doit être une chaîne de caractères.',
                 'phone.max' => 'Le numéro de téléphone ne peut pas dépasser 20 caractères.',
+                
+                'localisation.required' => 'La localisation est obligatoire.',
+                'localisation.string' => 'La localisation doit être une chaîne de caractères.',
+                'localisation.max' => 'La localisation ne peut pas dépasser 500 caractères.',
                 
                 'map_location.url' => 'Le lien Google Maps doit être une URL valide.',
                 

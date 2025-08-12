@@ -15,8 +15,7 @@
                         </a>
 
                         <ul class="footer-contact list-unstyled">
-                            <li><i class="bi bi-geo-alt"></i> Boulevard du HAHO</li>
-                            <li>Hedzranawoe, Sagboville</li>
+                            <li><i class="bi bi-geo-alt"></i> {{ $settings->localisation }}</li>
                             <li><i class="bi bi-telephone"></i> 
                                 <strong>Téléphone:</strong> {{ $settings->phone ?? '+228 00000000' }}
                             </li>

@@ -3,6 +3,17 @@
 @section('content')
 <div class="container mt-4 px-2 px-md-4">
 
+    {{-- Affichage des erreurs de validation --}}
+    @if($errors->any())
+    <div class="alert alert-danger">
+        <ul class="mb-0">
+            @foreach($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
     {{-- Toast succès --}}
     @if(session('success'))
     <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 9999">
@@ -87,7 +98,7 @@
                         @method('PUT')
 
                         <div class="modal-header">
-                            <h5 class="modal-title">Modifier le témoignage #{{ $testimonial->id }}</h5>
+                            <h5 class="modal-title">Modifier le témoignage </h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
 
@@ -118,7 +129,7 @@
 
                             <div class="mb-3">
                                 <label for="image_{{ $testimonial->id }}" class="form-label">Image (optionnelle)</label>
-                                <input type="file" name="image" id="image_{{ $testimonial->id }}" class="form-control" accept="image/*">
+                                <input type="file" name="image" id="image_{{ $testimonial->id }}" class="form-control file-size-check" accept="image/*" data-max-size="5120">
                                 @if($testimonial->image)
                                     <img src="{{ asset('storage/' . $testimonial->image) }}" alt="Preview" class="mt-2" style="width: 80px; height: 80px; object-fit: cover; border-radius: 50%;">
                                 @endif
@@ -224,7 +235,7 @@
 
                 <div class="mb-3">
                     <label for="image_add" class="form-label">Image (optionnelle)</label>
-                    <input type="file" name="image" id="image_add" class="form-control" accept="image/*">
+                    <input type="file" name="image" id="image_add" class="form-control file-size-check" accept="image/*" data-max-size="5120">
                 </div>
             </div>
 
@@ -297,5 +308,19 @@
         form.submit();
     });
     @endforeach
+
+    // Validation taille fichier max 5 Mo (5120 Ko)
+    document.querySelectorAll('.file-size-check').forEach(input => {
+        input.addEventListener('change', function () {
+            const maxSizeKb = parseInt(this.getAttribute('data-max-size'), 10);
+            if (this.files.length > 0) {
+                const fileSizeKb = this.files[0].size / 1024;
+                if (fileSizeKb > maxSizeKb) {
+                    alert(`Le fichier sélectionné dépasse la taille maximale autorisée de ${maxSizeKb} Ko (${(maxSizeKb/1024).toFixed(2)} Mo).`);
+                    this.value = ''; // Reset input
+                }
+            }
+        });
+    });
 </script>
 @endpush

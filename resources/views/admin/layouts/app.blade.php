@@ -14,10 +14,18 @@
     <!-- Custom CSS -->
     <style>
         body {
-            background-color: #f8f9fa;
+            background-color: #FFFFFF;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            color: #5B5B5B;
+            margin: 0;
+            padding: 0;
         }
 
+        /* Navbar */
         .navbar {
+            background-color: #6A4A8F;
+            box-shadow: 0 2px 10px rgba(106, 74, 143, 0.3);
+            height: 56px;
             position: fixed;
             top: 0;
             left: 0;
@@ -25,56 +33,144 @@
             z-index: 1030;
         }
 
+        .navbar-brand {
+            color: #FFFFFF;
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: #FFFFFF;
+            font-size: 1.25rem;
+            transition: transform 0.3s ease;
+        }
+        .toggle-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Sidebar */
         .sidebar {
             height: 100vh;
             position: fixed;
-            top: 50px;
+            top: 56px; /* Collé juste sous la navbar fixe */
             left: 0;
             width: 250px;
-            background-color: #343a40;
-            color: #fff;
-            padding-top: 20px;
-            transition: all 0.3s ease;
+            background-color: #FFFFFF;
+            color: #5B5B5B;
+            margin-top: 0;
+            transition: all 0.3s ease-in-out;
             z-index: 1020;
-        }
-
-        .sidebar a {
-            color: #adb5bd;
-            text-decoration: none;
-            display: block;
-            padding: 10px 20px;
-            transition: background-color 0.2s ease;
-        }
-
-        .sidebar a:hover,
-        .sidebar a.active-link {
-            background-color: #495057;
-            color: #fff;
+            overflow: auto;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.1);
         }
 
         .sidebar.collapsed {
             margin-left: -250px;
         }
 
+        /* Liens */
+        .sidebar a {
+            color: #5B5B5B;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            font-size: 1.05rem;
+            font-weight: 500;
+            border-left: 3px solid transparent;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+            gap: 0.8rem;
+        }
+
+        .sidebar a span {
+            display: inline-block;
+            position: relative;
+            top: -2px;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background-color: #FFFFFF;
+            color: #6A4A8F;
+            border-left: 3px solid #6A4A8F;
+            text-decoration: none;
+        }
+
+        .sidebar a:hover i,
+        .sidebar a:hover span {
+            transform: translateX(5px);
+            color: #6A4A8F;
+        }
+
+        .sidebar a.active-link {
+            background-color: #6A4A8F;
+            color: #FFFFFF;
+            border-left: 3px solid #6A4A8F;
+        }
+
+        /* Logo */
+        .sidebar img {
+            max-width: 150px;
+            height: auto;
+            margin-top: -15px; /* image remontée */
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+            transition: transform 0.3s ease;
+        }
+        .sidebar img:hover {
+            transform: scale(1.05);
+        }
+
+        .sidebar .text-center {
+            margin-top: 0; /* réduit espace au-dessus du logo */
+            margin-bottom: 1rem;
+        }
+
+        /* Content */
         .content {
             margin-left: 250px;
             margin-top: 56px;
             padding: 30px;
+            background-color: #FFFFFF;
+            border-radius: 10px;
             transition: margin-left 0.3s ease;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.05);
+            color: #5B5B5B;
         }
 
         .content.expanded {
-            margin-left: 0;
+            margin-left: 0 !important;
         }
 
-        .toggle-btn {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.25rem;
+        /* Overlay mobile */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 56px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(91, 91, 91, 0.5);
+            z-index: 1040;
         }
 
-        /* Responsive behavior */
+        .overlay.active {
+            display: block;
+        }
+
+        /* Scrollbar */
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background-color: rgba(91, 91, 91, 0.2);
+            border-radius: 10px;
+        }
+        .sidebar::-webkit-scrollbar-thumb:hover {
+            background-color: rgba(91, 91, 91, 0.4);
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
             .sidebar {
                 margin-left: -250px;
@@ -84,33 +180,17 @@
                 height: calc(100% - 56px);
                 z-index: 1050;
             }
-
             .sidebar.show {
                 margin-left: 0;
             }
-
             .content {
                 margin-left: 0 !important;
             }
+        }
 
-            .content.expanded {
-                margin-left: 0;
-            }
-
-            .overlay {
-                display: none;
-                position: fixed;
-                top: 56px;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background-color: rgba(0, 0, 0, 0.5);
-                z-index: 1040;
-            }
-
-            .overlay.active {
-                display: block;
-            }
+        .sidebar a i {
+            transition: transform 0.3s ease, color 0.3s ease;
+            color: inherit;
         }
     </style>
 
@@ -119,42 +199,53 @@
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-dark bg-dark">
+<!-- Navbar -->
+<nav class="navbar navbar-dark fixed-top">
     <div class="container-fluid">
-        <button class="toggle-btn me-3" id="sidebarToggle"><i class="fas fa-bars"></i></button>
-        <span class="navbar-brand mb-0 h1">Admin Panel</span>
+        <button class="toggle-btn me-3" id="sidebarToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <a
+            href="{{ url('/') }}"
+            class="btn btn-outline-light btn-sm ms-auto d-flex align-items-center"
+            style="white-space: nowrap;"
+        >
+            <i class="fas fa-exchange-alt me-2"></i> Interface Client
+        </a>
     </div>
 </nav>
 
 <!-- Sidebar -->
 <div class="sidebar" id="sidebar">
+    <div class="text-center mb-4">
+        <a href="{{ url('/admin/dashboard') }}">
+        @if($settings && $settings->logo_header)
+            <img src="{{ asset('storage/' . $settings->logo_header) }}" alt="Logo" />
+        @endif
+        </a>
+    </div>
+
     <a href="{{ url('/admin/dashboard') }}" class="{{ request()->is('admin/dashboard') ? 'active-link' : '' }}">
-        <i class="fas fa-chart-line me-2"></i> Dashboard
+        <i class="fas fa-chart-line me-2"></i><span>Dashboard</span>
     </a>
     <a href="{{ url('/admin/about') }}" class="{{ request()->is('admin/about') ? 'active-link' : '' }}">
-        <i class="fas fa-blog me-2"></i> A Propos
+        <i class="fas fa-blog me-2"></i><span>A Propos</span>
     </a>
     <a href="{{ url('/admin/testimonials') }}" class="{{ request()->is('admin/testimonials') ? 'active-link' : '' }}">
-        <i class="fas fa-comment-dots me-2"></i> Testimonials
+        <i class="fas fa-comment-dots me-2"></i><span>Testimonials</span>
     </a>
     <a href="{{ url('/admin/services') }}" class="{{ request()->is('admin/services') ? 'active-link' : '' }}">
-        <i class="fas fa-concierge-bell me-2"></i> Services
+        <i class="fas fa-concierge-bell me-2"></i><span>Services</span>
     </a>
     <a href="{{ url('/admin/partners') }}" class="{{ request()->is('admin/partners') ? 'active-link' : '' }}">
-        <i class="fas fa-users me-2"></i> Partners
+        <i class="fas fa-users me-2"></i><span>Partners</span>
     </a>
-    {{-- <a href="{{ url('/admin/portfolio') }}" class="{{ request()->is('admin/portfolio') ? 'active-link' : '' }}">
-        <i class="fas fa-briefcase me-2"></i> Portfolio
-    </a>
-    <a href="{{ url('/admin/contact') }}" class="{{ request()->is('admin/contact') ? 'active-link' : '' }}">
-        <i class="fas fa-envelope me-2"></i> Contact
-    </a> --}}
     <a href="{{ url('/admin/settings') }}" class="{{ request()->is('admin/settings') ? 'active-link' : '' }}">
-        <i class="fas fa-cog me-2"></i> Paramètres
+        <i class="fas fa-cog me-2"></i><span>Paramètres</span>
     </a>
 </div>
 
-<!-- Overlay for small screens -->
+<!-- Overlay -->
 <div class="overlay" id="overlay"></div>
 
 <!-- Main Content -->

@@ -1,21 +1,20 @@
 @extends('client.layouts.app');
 
 @section('content')
-<!-- HERO SECTION -->
+    <!-- HERO SECTION -->
     <main class="main">
         <section id="hero" class="hero section position-relative">
             <!-- Image de fond -->
             <div class="hero-background position-absolute top-0 start-0 w-100 h-100">
-    <img src="{{ asset('storage/' . $settings->image_background) }}" 
-         class="img-fluid w-100 h-100 object-fit-cover" alt="Image de fond">
-    <!-- Overlay sombre -->
-    <div class="hero-overlay position-absolute top-0 start-0 w-100 h-100"></div>
-</div>
+                <img src="{{ asset('storage/' . $settings->image_background) }}"
+                    class="img-fluid w-100 h-100 object-fit-cover" alt="Image de fond">
+                <!-- Overlay sombre -->
+                <div class="hero-overlay position-absolute top-0 start-0 w-100 h-100"></div>
+            </div>
 
 
             <!-- Contenu texte -->
-            <div class="container h-100 d-flex align-items-center position-relative" style="z-index: 2;"
-                 data-aos="zoom-out">
+            <div class="container h-100 d-flex align-items-center position-relative" style="z-index: 2;" data-aos="zoom-out">
                 <div class="text-white text-start">
                     <h1 class="welcome-title">
                         Bienvenue Chez <span class="brand-name animation-fall">AYAH COMMUNICATION</span>
@@ -111,13 +110,13 @@
                 </div>
             </div>
             <p>
-    AYAH Communication est née de la synergie d’un réseau international de designers passionnés, unis par
-    leur amour du métier et de la créativité. Forts de plus de 3 ans d’expérience, nous vous invitons à
-    plonger dans un univers où la communication s’exprime sous toutes ses formes, avec 
-    <strong style="font-size: 1.2rem; font-weight: 900; color: #000000;">innovation</strong>, 
-    <strong style="font-size: 1.2rem; font-weight: 900; color: #000000;">inspiration</strong> et 
-    <strong style="font-size: 1.2rem; font-weight: 900; color: #000000;">efficacité</strong>.
-</p>
+                AYAH Communication est née de la synergie d’un réseau international de designers passionnés, unis par
+                leur amour du métier et de la créativité. Forts de plus de 3 ans d’expérience, nous vous invitons à
+                plonger dans un univers où la communication s’exprime sous toutes ses formes, avec
+                <strong style="font-size: 1.2rem; font-weight: 900; color: #000000;">innovation</strong>,
+                <strong style="font-size: 1.2rem; font-weight: 900; color: #000000;">inspiration</strong> et
+                <strong style="font-size: 1.2rem; font-weight: 900; color: #000000;">efficacité</strong>.
+            </p>
 
 
 
@@ -132,7 +131,7 @@
 
                 <div class="col-lg-5">
                     <div class="about-img">
-                        <img src="{{ asset('assets/images/about/about-portrait2.jpg') }}" class="img-fluid" alt="">
+                        <img src="{{ asset('storage/' . $aboutSection->image_about) }}" class="img-fluid" alt="">
                     </div>
                 </div>
 
@@ -143,10 +142,10 @@
 
                     <!-- Tabs -->
                     <ul class="nav nav-pills mb-3">
-                        <li><a class="nav-link active" data-bs-toggle="pill" href="#about-tab1">Stratégie marketing</a>
+                        <li><a class="nav-link active" data-bs-toggle="pill" href="#about-tab1">{{ $aboutSection->title }}</a>
                         </li>
-                        <li><a class="nav-link" data-bs-toggle="pill" href="#about-tab2">Innovation digitale </a></li>
-                        <li><a class="nav-link" data-bs-toggle="pill" href="#about-tab3">Branding impactant</a></li>
+                        <li><a class="nav-link" data-bs-toggle="pill" href="#about-tab2">{{ $aboutSection->title }} </a></li>
+                        <li><a class="nav-link" data-bs-toggle="pill" href="#about-tab3">{{ $aboutSection->title }}</a></li>
                     </ul><!-- End Tabs -->
 
                     <!-- Tab Content -->
@@ -163,29 +162,13 @@
                                 <i class="bi bi-check2"></i>
                                 <h4>Simplicité et Fiabilité pour un Service Accessible</h4>
                             </div>
-                            {{-- <p>Nous croyons que la communication doit être simple et accessible à tous. C’est pourquoi
-                                nous veillons à proposer des offres claires et faciles à comprendre, tout en
-                                garantissant une qualité irréprochable. Nos prestations sont pensées pour éliminer toute
-                                complexité inutile, facilitant ainsi la collaboration et assurant la satisfaction de nos
-                                clients. Chez AYAH COMMUNICATION, la transparence et la confiance sont au cœur de nos
-                                engagements.</p> --}}
+                            
 
                             <div class="d-flex align-items-center mt-4">
                                 <i class="bi bi-check2"></i>
                                 <h4>Engagement et Professionnalisme dans Chaque Détail</h4>
                             </div>
-                            {{-- <p>Notre équipe est animée par un fort sens de l’engagement et une volonté constante
-                                d’excellence. Nous traitons chaque mission avec sérieux et attention, en respectant les
-                                délais et en nous adaptant aux exigences spécifiques de chaque client. Grâce à une
-                                méthodologie rigoureuse, nous assurons la qualité de nos livrables et la pertinence de
-                                nos solutions, vous permettant ainsi de vous démarquer efficacement dans un
-                                environnement concurrentiel.</p> --}}
-
-                            <!-- <div class="d-flex align-items-center mt-4">
-                              <i class="bi bi-check2"></i>
-                              <h4>Une Relation de Confiance et d’Éthique Durable</h4>
-                            </div>
-                            <p>AYAH COMMUNICATION place la confiance et l’éthique au centre de ses relations professionnelles. Nous privilégions un dialogue ouvert et sincère, dans le respect des valeurs humaines et de la déontologie. Notre objectif est d’établir des partenariats durables, fondés sur la loyauté et la qualité, afin d’accompagner nos clients dans la réussite de leurs projets à long terme.</p> -->
+                            
 
                         </div><!-- End Tab 1 Content -->
 
@@ -202,26 +185,13 @@
                                 <i class="bi bi-check2"></i>
                                 <h4>Conseil et Accompagnement Personnalisé</h4>
                             </div>
-                            {{-- <p>Chez AYAH COMMUNICATION, nous croyons qu’un accompagnement sur-mesure est la clé d’une
-                                stratégie réussie. Nous analysons en profondeur les besoins uniques de chaque client
-                                pour élaborer des solutions adaptées, alliant expertise marketing et conseils
-                                stratégiques avisés. Notre approche humaine garantit une relation durable, basée sur la
-                                confiance et la collaboration.</p> --}}
-
-                            <!-- <div class="d-flex align-items-center mt-4">
-                              <i class="bi bi-check2"></i>
-                              <h4>Création de Contenus Impactants</h4>
-                            </div>
-                            <p>Nous concevons des contenus créatifs et engageants qui captivent votre audience et renforcent votre image de marque. Qu’il s’agisse de visuels, de vidéos ou de campagnes rédactionnelles, notre équipe crée des messages cohérents et percutants, pensés pour générer un véritable engagement et accroître votre visibilité sur tous les supports.</p> -->
+                            
 
                             <div class="d-flex align-items-center mt-4">
                                 <i class="bi bi-check2"></i>
                                 <h4>Innovation et Technologies Digitales</h4>
                             </div>
-                            {{-- <p>À la pointe des nouvelles technologies, AYAH COMMUNICATION intègre les outils digitaux
-                                les plus avancés pour maximiser l’efficacité de vos campagnes. De l’analyse de données à
-                                l’automatisation marketing, nous exploitons les innovations numériques pour optimiser
-                                vos résultats et vous offrir un avantage compétitif durable.</p> --}}
+                            
 
                         </div><!-- End Tab 2 Content -->
 
@@ -238,27 +208,13 @@
                                 <i class="bi bi-check2"></i>
                                 <h4>Création de logos impactants</h4>
                             </div>
-                            {{-- <p>Un logo est bien plus qu’un simple symbole : c’est la signature visuelle de votre
-                                entreprise. Notre équipe de designers crée des logos uniques qui incarnent parfaitement
-                                vos valeurs et votre positionnement. Chaque création est pensée pour être
-                                reconnaissable, moderne et adaptable à tous les supports, renforçant ainsi votre
-                                présence à chaque point de contact avec vos clients.</p> --}}
+                            
 
                             <div class="d-flex align-items-center mt-4">
                                 <i class="bi bi-check2"></i>
                                 <h4>Élaboration de chartes graphiques cohérentes</h4>
                             </div>
-                            {{-- <p>Pour assurer une communication harmonieuse, nous définissons des chartes graphiques
-                                complètes qui guident l’utilisation des couleurs, typographies, et éléments visuels.
-                                Cette cohérence visuelle garantit que votre marque reste identifiable et
-                                professionnelle, que ce soit sur le web, les réseaux sociaux, ou les supports
-                                imprimés.</p> --}}
-
-                            <!-- <div class="d-flex align-items-center mt-4">
-                              <i class="bi bi-check2"></i>
-                              <h4>Supports de communication personnalisés</h4>
-                            </div>
-                            <p>Au-delà du digital, AYAH COMMUNICATION conçoit aussi tous vos supports de communication imprimés ou digitaux : cartes de visite, brochures, flyers, bannières, et plus encore. Chaque support est personnalisé pour transmettre efficacement votre message tout en respectant l’identité visuelle établie, contribuant à un impact durable auprès de votre audience.</p> -->
+                            
 
                         </div><!-- End Tab 3 Content -->
 
@@ -270,7 +226,8 @@
 
         </div>
 
-    </section><!-- /About Section -->
+    </section>
+    <!-- /About Section -->
 
     <!-- Clients Section -->
     <section id="clients" class="clients section">
@@ -279,13 +236,14 @@
 
             <div class="row gy-4">
 
-    @foreach($partners as $partner)
-        <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="{{ asset('storage/' . $partner->image) }}" class="img-fluid" alt="{{ $partner->name }}">
-        </div><!-- End Client Item -->
-    @endforeach
+                @foreach ($partners as $partner)
+                    <div class="col-xl-2 col-md-3 col-6 client-logo">
+                        <img src="{{ asset('storage/' . $partner->image) }}" class="img-fluid"
+                            alt="{{ $partner->name }}">
+                    </div><!-- End Client Item -->
+                @endforeach
 
-</div>
+            </div>
 
 
         </div>
@@ -299,14 +257,13 @@
 
             <div class="row g-5">
 
-                <div
-                    class="col-lg-8 col-md-6 content d-flex flex-column justify-content-center order-last order-md-first">
+                <div class="col-lg-8 col-md-6 content d-flex flex-column justify-content-center order-last order-md-first">
                     <h3>Donnez vie à une <em>Identité</em> visuelle mémorable</h3>
                     <p>Votre image de marque mérite plus qu’un simple logo. Nous concevons une identité visuelle
                         complète et cohérente, pensée pour refléter vos valeurs, captiver votre public et renforcer
                         votre présence sur tous les supports.</p>
                     <a class="cta-btn align-self-start" href="#"
-                       style="color: white !important; font-weight: bold !important; text-transform: uppercase !important;">Osez
+                        style="color: white !important; font-weight: bold !important; text-transform: uppercase !important;">Osez
                         la différence</a>
 
                 </div>
@@ -330,8 +287,8 @@
 
             <div class="row g-0">
                 <div class="col-lg-6 video-play position-relative">
-    <span class="glightbox pulsating-play-btn" style="pointer-events: none;"></span>
-</div>
+                    <span class="glightbox pulsating-play-btn" style="pointer-events: none;"></span>
+                </div>
 
                 <div class="col-lg-6">
                     <div class="content d-flex flex-column justify-content-center h-100">
@@ -353,9 +310,9 @@
                             </li>
                         </ul>
                         <span class="read-more align-self-start" style="cursor: default;">
-    <span>En savoir plus</span>
-    <i class="bi bi-arrow-right"></i>
-</span>
+                            <span>En savoir plus</span>
+                            <i class="bi bi-arrow-right"></i>
+                        </span>
 
                     </div>
                 </div>
@@ -636,24 +593,25 @@
         <div class="container" data-aos="fade-up" data-aos-delay="100">
 
             <div class="row gy-5">
-       @foreach ($services as $service)
-        <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="{{ 200 + $loop->index * 100 }}">
-            <div class="service-item">
-                <div class="img">
-                    <img src="{{ asset('storage/' . $service->image) }}" class="img-fluid" alt="{{ $service->title }}">
+                @foreach ($services as $service)
+                    <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="{{ 200 + $loop->index * 100 }}">
+                        <div class="service-item">
+                            <div class="img">
+                                <img src="{{ asset('storage/' . $service->image) }}" class="img-fluid"
+                                    alt="{{ $service->title }}">
 
-                </div>
-                <div class="details position-relative">
-                    <div class="icon">
-                        <i class="bi {{ $service->icon }}"></i>
+                            </div>
+                            <div class="details position-relative">
+                                <div class="icon">
+                                    <i class="bi {{ $service->icon }}"></i>
+                                </div>
+                                <h3>{{ $service->title }}</h3>
+                                <p>{{ $service->description }}</p>
+                            </div>
+                        </div>
                     </div>
-                    <h3>{{ $service->title }}</h3>
-                    <p>{{ $service->description }}</p>
-                </div>
+                @endforeach
             </div>
-        </div>
-       @endforeach
-      </div>
 
 
         </div>
@@ -662,23 +620,23 @@
     <!-- /Services Section -->
 
     <!-- Testimonials Section -->
-<section id="testimonials" class="testimonials section dark-background">
+    <section id="testimonials" class="testimonials section dark-background">
 
-    <!-- Section Title -->
-    <div class="container section-title" data-aos="fade-up">
-        <h2>Témoignages</h2>
-        <p>Les retours de nos clients sont la meilleure preuve de notre engagement et de la qualité de nos services.
-            Nous valorisons chaque témoignage, car ils reflètent la confiance et la satisfaction qui nous motivent à
-            toujours exceller.
-        </p>
-    </div><!-- End Section Title -->
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+            <h2>Témoignages</h2>
+            <p>Les retours de nos clients sont la meilleure preuve de notre engagement et de la qualité de nos services.
+                Nous valorisons chaque témoignage, car ils reflètent la confiance et la satisfaction qui nous motivent à
+                toujours exceller.
+            </p>
+        </div><!-- End Section Title -->
 
-    <img src="{{ asset('assets/images/testimonials-bg.jpg') }}" class="testimonials-bg" alt="">
+        <img src="{{ asset('assets/images/testimonials-bg.jpg') }}" class="testimonials-bg" alt="">
 
-    <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-        <div class="swiper init-swiper">
-            <script type="application/json" class="swiper-config">
+            <div class="swiper init-swiper">
+                <script type="application/json" class="swiper-config">
                 {
                   "loop": true,
                   "speed": 600,
@@ -693,69 +651,116 @@
                   }
                 }
             </script>
-            <div class="swiper-wrapper">
+                <div class="swiper-wrapper">
 
-                @foreach($testimonials as $testimonial)
-                <div class="swiper-slide">
-                    <div class="testimonial-item">
-                        <img src="{{ $testimonial->image ? asset('storage/' . $testimonial->image) : asset('assets/images/testimonials/default.jpg') }}" class="testimonial-img" alt="{{ $testimonial->name }}">
-                        <h3>{{ $testimonial->name }}</h3>
-                        <h4>{{ $testimonial->position ?? '' }}</h4>
-                        <div class="stars">
-                            @for($i = 0; $i < $testimonial->stars; $i++)
-                                <i class="bi bi-star-fill"></i>
-                            @endfor
-                            @for($i = $testimonial->stars; $i < 5; $i++)
-                                <i class="bi bi-star"></i>
-                            @endfor
-                        </div>
-                        <p>
-                            <i class="bi bi-quote quote-icon-left"></i>
-                            <span>{{ $testimonial->text }}</span>
-                            <i class="bi bi-quote quote-icon-right"></i>
-                        </p>
-                    </div>
-                </div><!-- End testimonial item -->
-                @endforeach
+                    @foreach ($testimonials as $testimonial)
+                        <div class="swiper-slide">
+                            <div class="testimonial-item">
+                                <img src="{{ $testimonial->image ? asset('storage/' . $testimonial->image) : asset('assets/images/testimonials/default.jpg') }}"
+                                    class="testimonial-img" alt="{{ $testimonial->name }}">
+                                <h3>{{ $testimonial->name }}</h3>
+                                <h4>{{ $testimonial->position ?? '' }}</h4>
+                                <div class="stars">
+                                    @for ($i = 0; $i < $testimonial->stars; $i++)
+                                        <i class="bi bi-star-fill"></i>
+                                    @endfor
+                                    @for ($i = $testimonial->stars; $i < 5; $i++)
+                                        <i class="bi bi-star"></i>
+                                    @endfor
+                                </div>
+                                <p>
+                                    <i class="bi bi-quote quote-icon-left"></i>
+                                    <span>{{ $testimonial->text }}</span>
+                                    <i class="bi bi-quote quote-icon-right"></i>
+                                </p>
+                            </div>
+                        </div><!-- End testimonial item -->
+                    @endforeach
 
+                </div>
+                <div class="swiper-pagination"></div>
             </div>
-            <div class="swiper-pagination"></div>
+
         </div>
 
-    </div>
-
-</section>
-<!-- /Testimonials Section -->
+    </section>
+    <!-- /Testimonials Section -->
 
     <!-- Pricing Section -->
     <!-- <section id="pricing" class="pricing section"> -->
 
     <!-- Section Title -->
     <!-- <div class="container section-title" data-aos="fade-up">
-      <h2>Our Pricing</h2>
-      <p>Des offres claires et flexibles conçues pour s’adapter à vos besoins et à votre budget.
-        Chaque formule est pensée pour maximiser votre retour sur investissement tout en vous offrant un accompagnement personnalisé.
-      </p>
-    </div>End Section Title -->
+          <h2>Our Pricing</h2>
+          <p>Des offres claires et flexibles conçues pour s’adapter à vos besoins et à votre budget.
+            Chaque formule est pensée pour maximiser votre retour sur investissement tout en vous offrant un accompagnement personnalisé.
+          </p>
+        </div>End Section Title -->
 
     <!-- <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-      <div class="row gy-4">
+          <div class="row gy-4">
 
-        <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="200">
-          <div class="pricing-item">
+            <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="200">
+              <div class="pricing-item">
+
+                <div class="pricing-header">
+                  <h3>Free Plan</h3>
+                  <h4><sup>$</sup>0<span> / month</span></h4>
+                </div>
+
+                <ul>
+                  <li><i class="bi bi-dot"></i> <span>Quam adipiscing vitae proin</span></li>
+                  <li><i class="bi bi-dot"></i> <span>Nec feugiat nisl pretium</span></li>
+                  <li><i class="bi bi-dot"></i> <span>Nulla at volutpat diam uteera</span></li>
+                  <li class="na"><i class="bi bi-x"></i> <span>Pharetra massa massa ultricies</span></li>
+                  <li class="na"><i class="bi bi-x"></i> <span>Massa ultricies mi quis hendrerit</span></li>
+                </ul>
+
+                <div class="text-center mt-auto">
+                  <a href="#" class="buy-btn">Buy Now</a>
+                </div>
+
+              </div>
+            </div>< End Pricing Item -->
+
+    <!-- <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="400">
+          <div class="pricing-item featured">
 
             <div class="pricing-header">
-              <h3>Free Plan</h3>
-              <h4><sup>$</sup>0<span> / month</span></h4>
+              <h3>Business Plan</h3>
+              <h4><sup>$</sup>29<span> / month</span></h4>
             </div>
 
             <ul>
               <li><i class="bi bi-dot"></i> <span>Quam adipiscing vitae proin</span></li>
               <li><i class="bi bi-dot"></i> <span>Nec feugiat nisl pretium</span></li>
               <li><i class="bi bi-dot"></i> <span>Nulla at volutpat diam uteera</span></li>
-              <li class="na"><i class="bi bi-x"></i> <span>Pharetra massa massa ultricies</span></li>
-              <li class="na"><i class="bi bi-x"></i> <span>Massa ultricies mi quis hendrerit</span></li>
+              <li><i class="bi bi-dot"></i> <span>Pharetra massa massa ultricies</span></li>
+              <li><i class="bi bi-dot"></i> <span>Massa ultricies mi quis hendrerit</span></li>
+            </ul>
+
+            <div class="text-center mt-auto">
+              <a href="#" class="buy-btn">Buy Now</a>
+            </div>
+
+          </div>
+        </div><End Pricing Item -->
+
+    <!-- <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="600">
+          <div class="pricing-item">
+
+            <div class="pricing-header">
+              <h3>Developer Plan</h3>
+              <h4><sup>$</sup>49<span> / month</span></h4>
+            </div>
+
+            <ul>
+              <li><i class="bi bi-dot"></i> <span>Quam adipiscing vitae proin</span></li>
+              <li><i class="bi bi-dot"></i> <span>Nec feugiat nisl pretium</span></li>
+              <li><i class="bi bi-dot"></i> <span>Nulla at volutpat diam uteera</span></li>
+              <li><i class="bi bi-dot"></i> <span>Pharetra massa massa ultricies</span></li>
+              <li><i class="bi bi-dot"></i> <span>Massa ultricies mi quis hendrerit</span></li>
             </ul>
 
             <div class="text-center mt-auto">
@@ -764,52 +769,6 @@
 
           </div>
         </div>< End Pricing Item -->
-
-    <!-- <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="400">
-      <div class="pricing-item featured">
-
-        <div class="pricing-header">
-          <h3>Business Plan</h3>
-          <h4><sup>$</sup>29<span> / month</span></h4>
-        </div>
-
-        <ul>
-          <li><i class="bi bi-dot"></i> <span>Quam adipiscing vitae proin</span></li>
-          <li><i class="bi bi-dot"></i> <span>Nec feugiat nisl pretium</span></li>
-          <li><i class="bi bi-dot"></i> <span>Nulla at volutpat diam uteera</span></li>
-          <li><i class="bi bi-dot"></i> <span>Pharetra massa massa ultricies</span></li>
-          <li><i class="bi bi-dot"></i> <span>Massa ultricies mi quis hendrerit</span></li>
-        </ul>
-
-        <div class="text-center mt-auto">
-          <a href="#" class="buy-btn">Buy Now</a>
-        </div>
-
-      </div>
-    </div><End Pricing Item -->
-
-    <!-- <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="600">
-      <div class="pricing-item">
-
-        <div class="pricing-header">
-          <h3>Developer Plan</h3>
-          <h4><sup>$</sup>49<span> / month</span></h4>
-        </div>
-
-        <ul>
-          <li><i class="bi bi-dot"></i> <span>Quam adipiscing vitae proin</span></li>
-          <li><i class="bi bi-dot"></i> <span>Nec feugiat nisl pretium</span></li>
-          <li><i class="bi bi-dot"></i> <span>Nulla at volutpat diam uteera</span></li>
-          <li><i class="bi bi-dot"></i> <span>Pharetra massa massa ultricies</span></li>
-          <li><i class="bi bi-dot"></i> <span>Massa ultricies mi quis hendrerit</span></li>
-        </ul>
-
-        <div class="text-center mt-auto">
-          <a href="#" class="buy-btn">Buy Now</a>
-        </div>
-
-      </div>
-    </div>< End Pricing Item -->
 
     <!-- </div> -->
 
@@ -886,255 +845,255 @@
 
     <!-- Section Title -->
     <!-- <div class="container section-title" data-aos="fade-up">
-      <h2>Portfolio</h2>
-      <p>Découvrez nos réalisations qui témoignent de notre savoir-faire et de notre créativité.</p>
-    </div> -->
+          <h2>Portfolio</h2>
+          <p>Découvrez nos réalisations qui témoignent de notre savoir-faire et de notre créativité.</p>
+        </div> -->
 
     <!-- <div class="container-fluid"> -->
 
     <!-- <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
 
-      <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
-        <li data-filter="*" class="filter-active">All</li>
-        <li data-filter=".filter-app">App</li>
-        <li data-filter=".filter-product">Product</li>
-        <li data-filter=".filter-branding">Branding</li>
-        <li data-filter=".filter-books">Books</li>
-      </ul> End Portfolio Filters -->
+          <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
+            <li data-filter="*" class="filter-active">All</li>
+            <li data-filter=".filter-app">App</li>
+            <li data-filter=".filter-product">Product</li>
+            <li data-filter=".filter-branding">Branding</li>
+            <li data-filter=".filter-books">Books</li>
+          </ul> End Portfolio Filters -->
 
     <!-- <div class="row g-0 isotope-container" data-aos="fade-up" data-aos-delay="200">
 
-      <div class="col-xl-3 col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-        <div class="portfolio-content h-100">
-          <images src="assets/images/portfolio/app-1.jpg" class="images-fluid" alt="">
-          <div class="portfolio-info">
-            <a href="assets/images/portfolio/app-1.jpg" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-            <a href="portfolio-details.blade.php" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-          </div>
-        </div>
-      </div>End Portfolio Item -->
+          <div class="col-xl-3 col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
+            <div class="portfolio-content h-100">
+              <images src="assets/images/portfolio/app-1.jpg" class="images-fluid" alt="">
+              <div class="portfolio-info">
+                <a href="assets/images/portfolio/app-1.jpg" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                <a href="portfolio-details.blade.php" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+              </div>
+            </div>
+          </div>End Portfolio Item -->
 
     <!-- <div class="col-xl-3 col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
-      <div class="portfolio-content h-100">
-        <images src="assets/images/portfolio/product-1.jpg" class="images-fluid" alt="">
-        <div class="portfolio-info">
-          <a href="assets/images/portfolio/product-1.jpg" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-          <a href="portfolio-details.blade.php" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+          <div class="portfolio-content h-100">
+            <images src="assets/images/portfolio/product-1.jpg" class="images-fluid" alt="">
+            <div class="portfolio-info">
+              <a href="assets/images/portfolio/product-1.jpg" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+              <a href="portfolio-details.blade.php" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
 
-    <div class="col-xl-3 col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
-      <div class="portfolio-content h-100">
-        <images src="assets/images/portfolio/branding-1.jpg" class="images-fluid" alt="">
-        <div class="portfolio-info">
-          <a href="assets/images/portfolio/branding-1.jpg" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-          <a href="portfolio-details.blade.php" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-        </div>
-      </div>
-    </div> End Portfolio Item
+        <div class="col-xl-3 col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
+          <div class="portfolio-content h-100">
+            <images src="assets/images/portfolio/branding-1.jpg" class="images-fluid" alt="">
+            <div class="portfolio-info">
+              <a href="assets/images/portfolio/branding-1.jpg" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+              <a href="portfolio-details.blade.php" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+            </div>
+          </div>
+        </div> End Portfolio Item
 
-    <div class="col-xl-3 col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
-      <div class="portfolio-content h-100">
-        <images src="assets/images/portfolio/books-1.jpg" class="images-fluid" alt="">
-        <div class="portfolio-info">
-          <a href="assets/images/portfolio/books-1.jpg" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-          <a href="portfolio-details.blade.php" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-        </div>
-      </div>
-    </div> End Portfolio Item
+        <div class="col-xl-3 col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
+          <div class="portfolio-content h-100">
+            <images src="assets/images/portfolio/books-1.jpg" class="images-fluid" alt="">
+            <div class="portfolio-info">
+              <a href="assets/images/portfolio/books-1.jpg" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+              <a href="portfolio-details.blade.php" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+            </div>
+          </div>
+        </div> End Portfolio Item
 
-    <div class="col-xl-3 col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-      <div class="portfolio-content h-100">
-        <images src="assets/images/portfolio/app-2.jpg" class="images-fluid" alt="">
-        <div class="portfolio-info">
-          <a href="assets/images/portfolio/app-2.jpg" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-          <a href="portfolio-details.blade.php" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-        </div>
-      </div>
-    </div> End Portfolio Item
+        <div class="col-xl-3 col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
+          <div class="portfolio-content h-100">
+            <images src="assets/images/portfolio/app-2.jpg" class="images-fluid" alt="">
+            <div class="portfolio-info">
+              <a href="assets/images/portfolio/app-2.jpg" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+              <a href="portfolio-details.blade.php" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+            </div>
+          </div>
+        </div> End Portfolio Item
 
-    <div class="col-xl-3 col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
-      <div class="portfolio-content h-100">
-        <images src="assets/images/portfolio/product-2.jpg" class="images-fluid" alt="">
-        <div class="portfolio-info">
-          <a href="assets/images/portfolio/product-2.jpg" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-          <a href="portfolio-details.blade.php" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-        </div>
-      </div>
-    </div> End Portfolio Item
+        <div class="col-xl-3 col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
+          <div class="portfolio-content h-100">
+            <images src="assets/images/portfolio/product-2.jpg" class="images-fluid" alt="">
+            <div class="portfolio-info">
+              <a href="assets/images/portfolio/product-2.jpg" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+              <a href="portfolio-details.blade.php" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+            </div>
+          </div>
+        </div> End Portfolio Item
 
-    <div class="col-xl-3 col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
-      <div class="portfolio-content h-100">
-        <images src="assets/images/portfolio/branding-2.jpg" class="images-fluid" alt="">
-        <div class="portfolio-info">
-          <a href="assets/images/portfolio/branding-2.jpg" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-          <a href="portfolio-details.blade.php" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-        </div>
-      </div>
-    </div>End Portfolio Item -->
+        <div class="col-xl-3 col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
+          <div class="portfolio-content h-100">
+            <images src="assets/images/portfolio/branding-2.jpg" class="images-fluid" alt="">
+            <div class="portfolio-info">
+              <a href="assets/images/portfolio/branding-2.jpg" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+              <a href="portfolio-details.blade.php" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+            </div>
+          </div>
+        </div>End Portfolio Item -->
 
     <!-- <div class="col-xl-3 col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
-      <div class="portfolio-content h-100">
-        <images src="assets/images/portfolio/books-2.jpg" class="images-fluid" alt="">
-        <div class="portfolio-info">
-          <a href="assets/images/portfolio/books-2.jpg" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-          <a href="portfolio-details.blade.php" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-        </div>
-      </div>
-    </div> End Portfolio Item
+          <div class="portfolio-content h-100">
+            <images src="assets/images/portfolio/books-2.jpg" class="images-fluid" alt="">
+            <div class="portfolio-info">
+              <a href="assets/images/portfolio/books-2.jpg" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+              <a href="portfolio-details.blade.php" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+            </div>
+          </div>
+        </div> End Portfolio Item
 
-    <div class="col-xl-3 col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-      <div class="portfolio-content h-100">
-        <images src="assets/images/portfolio/app-3.jpg" class="images-fluid" alt="">
-        <div class="portfolio-info">
-          <a href="assets/images/portfolio/app-3.jpg" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-          <a href="portfolio-details.blade.php" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-        </div>
-      </div>
-    </div> End Portfolio Item
+        <div class="col-xl-3 col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
+          <div class="portfolio-content h-100">
+            <images src="assets/images/portfolio/app-3.jpg" class="images-fluid" alt="">
+            <div class="portfolio-info">
+              <a href="assets/images/portfolio/app-3.jpg" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+              <a href="portfolio-details.blade.php" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+            </div>
+          </div>
+        </div> End Portfolio Item
 
-    <div class="col-xl-3 col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
-      <div class="portfolio-content h-100">
-        <images src="assets/images/portfolio/product-3.jpg" class="images-fluid" alt="">
-        <div class="portfolio-info">
-          <a href="assets/images/portfolio/product-3.jpg" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-          <a href="portfolio-details.blade.php" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-        </div>
-      </div>
-    </div> End Portfolio Item
+        <div class="col-xl-3 col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
+          <div class="portfolio-content h-100">
+            <images src="assets/images/portfolio/product-3.jpg" class="images-fluid" alt="">
+            <div class="portfolio-info">
+              <a href="assets/images/portfolio/product-3.jpg" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+              <a href="portfolio-details.blade.php" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+            </div>
+          </div>
+        </div> End Portfolio Item
 
-    <div class="col-xl-3 col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
-      <div class="portfolio-content h-100">
-        <images src="assets/images/portfolio/branding-3.jpg" class="images-fluid" alt="">
-        <div class="portfolio-info">
-          <a href="assets/images/portfolio/branding-3.jpg" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-          <a href="portfolio-details.blade.php" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-        </div>
-      </div>
-    </div> End Portfolio Item
+        <div class="col-xl-3 col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
+          <div class="portfolio-content h-100">
+            <images src="assets/images/portfolio/branding-3.jpg" class="images-fluid" alt="">
+            <div class="portfolio-info">
+              <a href="assets/images/portfolio/branding-3.jpg" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+              <a href="portfolio-details.blade.php" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+            </div>
+          </div>
+        </div> End Portfolio Item
 
-    <div class="col-xl-3 col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
-      <div class="portfolio-content h-100">
-        <images src="assets/images/portfolio/books-3.jpg" class="images-fluid" alt="">
-        <div class="portfolio-info">
-          <a href="assets/images/portfolio/books-3.jpg" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-          <a href="portfolio-details.blade.php" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-        </div>
-      </div>
-    </div> End Portfolio Item
+        <div class="col-xl-3 col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
+          <div class="portfolio-content h-100">
+            <images src="assets/images/portfolio/books-3.jpg" class="images-fluid" alt="">
+            <div class="portfolio-info">
+              <a href="assets/images/portfolio/books-3.jpg" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+              <a href="portfolio-details.blade.php" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+            </div>
+          </div>
+        </div> End Portfolio Item
 
-  </div> End Portfolio Container
+      </div> End Portfolio Container
 
-</div>
+    </div>
 
-</div>
+    </div>
 
-</section>/Portfolio Section -->
+    </section>/Portfolio Section -->
 
     <!-- Team Section -->
     <!-- <section id="team" class="team section"> -->
 
     <!-- Section Title -->
     <!-- <div class="container section-title" data-aos="fade-up">
-      <div class="section-header">
-        <div class="decorated-title">
-          <span>NOTRE ÉQUIPE</span>
-        </div>
-      </div>
-      <p>Une équipe passionnée et experte, dédiée à accompagner votre réussite.</p>
-    </div> -->
+          <div class="section-header">
+            <div class="decorated-title">
+              <span>NOTRE ÉQUIPE</span>
+            </div>
+          </div>
+          <p>Une équipe passionnée et experte, dédiée à accompagner votre réussite.</p>
+        </div> -->
 
     <!-- <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-      <div class="row gy-5"> -->
+          <div class="row gy-5"> -->
 
     <!-- <div class="col-xl-4 col-md-6 d-flex" data-aos="zoom-in" data-aos-delay="200">
-      <div class="team-member">
-        <div class="member-images">
-          <images src="assets/images/team/team-1.jpg" class="images-fluid" alt="">
-        </div>
-        <div class="member-info">
-          <div class="social">
-            <a href="" style="color: #fff !important;">
-              <i class="bi bi-twitter-x" style="color: #fff !important;"></i>
-            </a>
-            <a href="" style="color: #fff !important;">
-              <i class="bi bi-facebook" style="color: #fff !important;"></i>
-            </a>
-            <a href="" style="color: #fff !important;">
-              <i class="bi bi-instagram" style="color: #fff !important;"></i>
-            </a>
-            <a href="" style="color: #fff !important;">
-              <i class="bi bi-linkedin" style="color: #fff !important;"></i>
-            </a>
+          <div class="team-member">
+            <div class="member-images">
+              <images src="assets/images/team/team-1.jpg" class="images-fluid" alt="">
+            </div>
+            <div class="member-info">
+              <div class="social">
+                <a href="" style="color: #fff !important;">
+                  <i class="bi bi-twitter-x" style="color: #fff !important;"></i>
+                </a>
+                <a href="" style="color: #fff !important;">
+                  <i class="bi bi-facebook" style="color: #fff !important;"></i>
+                </a>
+                <a href="" style="color: #fff !important;">
+                  <i class="bi bi-instagram" style="color: #fff !important;"></i>
+                </a>
+                <a href="" style="color: #fff !important;">
+                  <i class="bi bi-linkedin" style="color: #fff !important;"></i>
+                </a>
+              </div>
+              <h4>Walter White</h4>
+              <span>Chief Executive Officer</span>
+            </div>
           </div>
-          <h4>Walter White</h4>
-          <span>Chief Executive Officer</span>
-        </div>
-      </div>
-    </div> -->
+        </div> -->
 
     <!-- <div class="col-xl-4 col-md-6 d-flex" data-aos="zoom-in" data-aos-delay="400">
-      <div class="team-member">
-        <div class="member-images">
-          <images src="assets/images/team/team-2.jpg" class="images-fluid" alt="">
-        </div>
-        <div class="member-info">
-          <div class="social">
-            <a href="" style="color: #fff !important;">
-              <i class="bi bi-twitter-x" style="color: #fff !important;"></i>
-            </a>
-            <a href="" style="color: #fff !important;">
-              <i class="bi bi-facebook" style="color: #fff !important;"></i>
-            </a>
-            <a href="" style="color: #fff !important;">
-              <i class="bi bi-instagram" style="color: #fff !important;"></i>
-            </a>
-            <a href="" style="color: #fff !important;">
-              <i class="bi bi-linkedin" style="color: #fff !important;"></i>
-            </a>
+          <div class="team-member">
+            <div class="member-images">
+              <images src="assets/images/team/team-2.jpg" class="images-fluid" alt="">
+            </div>
+            <div class="member-info">
+              <div class="social">
+                <a href="" style="color: #fff !important;">
+                  <i class="bi bi-twitter-x" style="color: #fff !important;"></i>
+                </a>
+                <a href="" style="color: #fff !important;">
+                  <i class="bi bi-facebook" style="color: #fff !important;"></i>
+                </a>
+                <a href="" style="color: #fff !important;">
+                  <i class="bi bi-instagram" style="color: #fff !important;"></i>
+                </a>
+                <a href="" style="color: #fff !important;">
+                  <i class="bi bi-linkedin" style="color: #fff !important;"></i>
+                </a>
+              </div>
+              <h4>Sarah Jhonson</h4>
+              <span>Product Manager</span>
+            </div>
           </div>
-          <h4>Sarah Jhonson</h4>
-          <span>Product Manager</span>
-        </div>
-      </div>
-    </div> -->
+        </div> -->
 
     <!-- <div class="col-xl-4 col-md-6 d-flex" data-aos="zoom-in" data-aos-delay="600">
-      <div class="team-member">
-        <div class="member-images">
-          <images src="assets/images/team/team-3.jpg" class="images-fluid" alt="">
-        </div>
-        <div class="member-info">
-          <div class="social">
-            <a href="" style="color: #fff !important;">
-              <i class="bi bi-twitter-x" style="color: #fff !important;"></i>
-            </a>
-            <a href="" style="color: #fff !important;">
-              <i class="bi bi-facebook" style="color: #fff !important;"></i>
-            </a>
-            <a href="" style="color: #fff !important;">
-              <i class="bi bi-instagram" style="color: #fff !important;"></i>
-            </a>
-            <a href="" style="color: #fff !important;">
-              <i class="bi bi-linkedin" style="color: #fff !important;"></i>
-            </a>
+          <div class="team-member">
+            <div class="member-images">
+              <images src="assets/images/team/team-3.jpg" class="images-fluid" alt="">
+            </div>
+            <div class="member-info">
+              <div class="social">
+                <a href="" style="color: #fff !important;">
+                  <i class="bi bi-twitter-x" style="color: #fff !important;"></i>
+                </a>
+                <a href="" style="color: #fff !important;">
+                  <i class="bi bi-facebook" style="color: #fff !important;"></i>
+                </a>
+                <a href="" style="color: #fff !important;">
+                  <i class="bi bi-instagram" style="color: #fff !important;"></i>
+                </a>
+                <a href="" style="color: #fff !important;">
+                  <i class="bi bi-linkedin" style="color: #fff !important;"></i>
+                </a>
+              </div>
+              <h4>William Anderson</h4>
+              <span>CTO</span>
+            </div>
           </div>
-          <h4>William Anderson</h4>
-          <span>CTO</span>
-        </div>
-      </div>
-    </div> -->
+        </div> -->
 
     <!-- </div>
 
 
-            </div>
+                </div>
 
-          </div>
+              </div>
 
-        </section> -->
+            </section> -->
 
     <!-- Recent Posts Section -->
     {{-- <section id="recent-posts" class="recent-posts section">
@@ -1257,13 +1216,10 @@
         </div><!-- End Section Title -->
 
         <div class="mb-5">
-    <iframe
-        style="width: 100%; height: 400px; border:0;"
-        src="{{ $settings->map_location }}"        allowfullscreen=""
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
-</div>
+            <iframe style="width: 100%; height: 400px; border:0;" src="{{ $settings->map_location }}" allowfullscreen=""
+                loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
 
         <!-- End Google Maps -->
 
@@ -1274,33 +1230,33 @@
                 <div class="col-lg-4">
 
                     <div class="info">
-    <h3>Contactez-nous</h3>
-    <p>Notre équipe est prête à vous accompagner et à répondre à toutes vos questions.</p>
+                        <h3>Contactez-nous</h3>
+                        <p>Notre équipe est prête à vous accompagner et à répondre à toutes vos questions.</p>
 
-    <div class="info-item d-flex">
-        <i class="bi bi-geo-alt flex-shrink-0"></i>
-        <div>
-            <h4>Localisation:</h4>
-            <p>Boulevard du HAHO, Hedzranawoe, Sagboville</p> {{-- Fixe comme demandé --}}
-        </div>
-    </div><!-- End Info Item -->
+                        <div class="info-item d-flex">
+                            <i class="bi bi-geo-alt flex-shrink-0"></i>
+                            <div>
+                                <h4>Localisation:</h4>
+                                <p>{{ $settings->localisation }}</p> {{-- Fixe comme demandé --}}
+                            </div>
+                        </div><!-- End Info Item -->
 
-    <div class="info-item d-flex">
-        <i class="bi bi-envelope flex-shrink-0"></i>
-        <div>
-            <h4>Email:</h4>
-            <p>{{ $settings->email }}</p>
-        </div>
-    </div><!-- End Info Item -->
+                        <div class="info-item d-flex">
+                            <i class="bi bi-envelope flex-shrink-0"></i>
+                            <div>
+                                <h4>Email:</h4>
+                                <p>{{ $settings->email }}</p>
+                            </div>
+                        </div><!-- End Info Item -->
 
-    <div class="info-item d-flex">
-        <i class="bi bi-phone flex-shrink-0"></i>
-        <div>
-            <h4>Téléphone:</h4>
-            <p>{{ $settings->phone }}</p>
-        </div>
-    </div><!-- End Info Item -->
-</div>
+                        <div class="info-item d-flex">
+                            <i class="bi bi-phone flex-shrink-0"></i>
+                            <div>
+                                <h4>Téléphone:</h4>
+                                <p>{{ $settings->phone }}</p>
+                            </div>
+                        </div><!-- End Info Item -->
+                    </div>
 
 
                 </div>
@@ -1309,17 +1265,17 @@
                     <form action="forms/contact.php" method="post" role="form" class="php-email-form">
                         <div class="row">
                             <div class="col-md-6 form-group">
-                                <input type="text" name="name" class="form-control" id="name" placeholder="Votre nom"
-                                       required="">
+                                <input type="text" name="name" class="form-control" id="name"
+                                    placeholder="Votre nom" required="">
                             </div>
                             <div class="col-md-6 form-group mt-3 mt-md-0">
                                 <input type="email" class="form-control" name="email" id="email"
-                                       placeholder="Votre Email" required="">
+                                    placeholder="Votre Email" required="">
                             </div>
                         </div>
                         <div class="form-group mt-3">
-                            <input type="text" class="form-control" name="subject" id="subject" placeholder="Sujet"
-                                   required="">
+                            <input type="text" class="form-control" name="subject" id="subject"
+                                placeholder="Sujet" required="">
                         </div>
                         <div class="form-group mt-3">
                             <textarea class="form-control" name="message" placeholder="Message" required=""></textarea>

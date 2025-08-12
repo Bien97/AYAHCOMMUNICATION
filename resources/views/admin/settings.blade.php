@@ -3,6 +3,17 @@
 @section('content')
 <div class="container mt-4 px-2 px-md-4">
 
+    {{-- Affichage des erreurs de validation --}}
+    @if($errors->any())
+    <div class="alert alert-danger">
+        <ul class="mb-0">
+            @foreach($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
     {{-- ✅ Toast de succès --}}
     @if(session('success'))
     <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 9999">
@@ -68,6 +79,12 @@
                     <div class="border rounded p-3 bg-light h-100">
                         <h5 class="fw-bold">Téléphone</h5>
                         <p>{{ $settings->phone }}</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="border rounded p-3 bg-light h-100">
+                        <h5 class="fw-bold">Localisation</h5>
+                        <p>{{ $settings->localisation ?? 'Non définie' }}</p>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -166,7 +183,7 @@
 
 {{-- MODAL MODIFICATION --}}
 <div class="modal fade" id="editSettingsModal" tabindex="-1">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <form method="POST" action="{{ route('update.settings', $settings->id) }}" class="modal-content" enctype="multipart/form-data" id="settingsForm">
             @csrf
             @method('PUT')
@@ -203,6 +220,17 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                     <small class="form-text text-muted">Maximum 20 caractères</small>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Localisation <span class="text-danger">*</span></label>
+                    <textarea name="localisation" class="form-control @error('localisation') is-invalid @enderror" 
+                              rows="3" required maxlength="500" 
+                              placeholder="Ex: 123 Rue de la Paix, 75001 Paris, France">{{ old('localisation', $settings->localisation ?? '') }}</textarea>
+                    @error('localisation')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                    <small class="form-text text-muted">Maximum 500 caractères - Adresse complète de votre établissement</small>
                 </div>
                 
                 <div class="mb-3">
@@ -376,6 +404,7 @@
         const siteNameInput = settingsForm.querySelector('input[name="site_name"]');
         const emailInput = settingsForm.querySelector('input[name="email"]');
         const phoneInput = settingsForm.querySelector('input[name="phone"]');
+        const localisationInput = settingsForm.querySelector('textarea[name="localisation"]');
         const mapLocationInput = settingsForm.querySelector('input[name="map_location"]');
 
         // Validation du nom du site
@@ -415,6 +444,29 @@
             } else {
                 this.classList.remove('is-invalid');
                 hideFieldError(this);
+            }
+        });
+
+        // Validation de la localisation
+        localisationInput?.addEventListener('input', function() {
+            const remainingChars = 500 - this.value.length;
+            const helperText = this.parentNode.querySelector('.form-text');
+            
+            if (this.value.length > 500) {
+                this.classList.add('is-invalid');
+                showFieldError(this, 'La localisation ne peut pas dépasser 500 caractères');
+            } else if (this.value.trim() === '') {
+                this.classList.add('is-invalid');
+                showFieldError(this, 'La localisation est obligatoire');
+            } else {
+                this.classList.remove('is-invalid');
+                hideFieldError(this);
+            }
+            
+            // Mise à jour du compteur de caractères
+            if (helperText) {
+                helperText.textContent = `${remainingChars} caractères restants - Adresse complète de votre établissement`;
+                helperText.className = remainingChars < 50 ? 'form-text text-warning' : 'form-text text-muted';
             }
         });
 
@@ -466,7 +518,7 @@
         confirmEditBtn.addEventListener('click', () => {
             // Vérification finale avant soumission
             const invalidFields = settingsForm.querySelectorAll('.is-invalid');
-            const requiredFields = settingsForm.querySelectorAll('input[required]');
+            const requiredFields = settingsForm.querySelectorAll('input[required], textarea[required]');
             
             let hasErrors = false;
             

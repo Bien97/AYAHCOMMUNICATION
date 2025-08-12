@@ -3,6 +3,17 @@
 @section('content')
 <div class="container mt-4 px-2 px-md-4">
 
+    {{-- Affichage des erreurs de validation --}}
+    @if($errors->any())
+    <div class="alert alert-danger">
+        <ul class="mb-0">
+            @foreach($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
     @if(session('success'))
     <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 9999">
         <div class="toast align-items-center text-bg-success" role="alert" id="successToast" data-bs-delay="3000">
@@ -14,8 +25,8 @@
     </div>
     @endif
 
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>Services</h2>
+    <div class="d-flex justify-content-between align-items-center mb-3 section-card">
+        <h2 class="section-title">Services</h2>
         <button class="btn btn-custom-purple" data-bs-toggle="modal" data-bs-target="#addServiceModal">
             + Ajouter un service
         </button>
@@ -23,23 +34,23 @@
 
     <div class="row g-4">
         @forelse($services as $service)
-        <div class="col-md-6 col-lg-4">
+        <div class="col-12 col-md-6 col-lg-4 section-card">
             <div class="border rounded p-3 bg-light h-100 shadow-sm text-center">
 
                 @if($service->image)
-                <img src="{{ asset('storage/' . $service->image) }}" alt="{{ $service->title }}" class="img-fluid mb-3" style="max-height:150px; object-fit:contain;">
+                <img src="{{ asset('storage/' . $service->image) }}" alt="{{ $service->title }}" class="img-fluid mb-3 service-image" loading="lazy" style="max-height:150px; object-fit:contain;">
                 @endif
 
-                <h5 class="fw-bold">{{ $service->title }}</h5>
+                <h5 class="fw-bold service-title">{{ $service->title }}</h5>
 
                 {{-- Prévisualisation de l’icône --}}
-                <div class="mb-2 mx-auto" style="font-size: 40px; color: #6A4A8F;">
+                <div class="mb-2 mx-auto icon-preview" style="font-size: 40px; color: #6A4A8F;">
                     <i class="{{ $service->icon }}"></i>
                 </div>
 
-                <p>{{ $service->description }}</p>
+                <p class="service-description">{{ $service->description }}</p>
 
-                <div class="d-flex justify-content-center gap-2 mt-3">
+                <div class="d-flex justify-content-center gap-2 mt-3 service-actions">
                     <button class="btn btn-outline-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editServiceModal{{ $service->id }}">
                         Modifier
                     </button>
@@ -53,7 +64,7 @@
 
         <!-- Modal Modification -->
         <div class="modal fade" id="editServiceModal{{ $service->id }}" tabindex="-1" aria-labelledby="editServiceLabel{{ $service->id }}" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
                 <form method="POST" action="{{ route('admin.services.update', $service->id) }}" class="modal-content" enctype="multipart/form-data" id="editForm{{ $service->id }}">
                     @csrf
                     @method('PUT')
@@ -103,7 +114,7 @@
 
         <!-- Modal Confirmation modification -->
         <div class="modal fade" id="confirmEditModal{{ $service->id }}" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header bg-warning text-dark">
                         <h5 class="modal-title">Confirmer la modification</h5>
@@ -126,7 +137,7 @@
 
         <!-- Modal Suppression -->
         <div class="modal fade" id="deleteServiceModal{{ $service->id }}" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-dialog-centered">
                 <form method="POST" action="{{ route('admin.services.destroy', $service->id) }}" class="modal-content">
                     @csrf
                     @method('DELETE')
@@ -149,14 +160,14 @@
         </div>
 
         @empty
-        <p>Aucun service pour l’instant.</p>
+        <p class="text-center text-muted mt-4 section-card">Aucun service pour l’instant.</p>
         @endforelse
     </div>
 </div>
 
 <!-- Modal Ajout -->
 <div class="modal fade" id="addServiceModal" tabindex="-1" aria-labelledby="addServiceLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <form method="POST" action="{{ route('admin.services.store') }}" class="modal-content" enctype="multipart/form-data">
             @csrf
 
@@ -211,16 +222,85 @@
     color: white;
     font-weight: 600;
     box-shadow: 0 4px 8px rgba(106, 74, 143, 0.4);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    user-select: none;
+    cursor: pointer;
 }
 .btn-custom-purple:hover,
 .btn-custom-purple:focus {
     background-color: #553a72;
     box-shadow: 0 6px 12px rgba(85, 58, 114, 0.6);
     color: white;
+    transform: translateY(-3px);
+    outline: none;
 }
+
 .icon-preview i {
     display: block;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+.icon-preview i:hover {
+    color: #553a72;
+    transform: scale(1.1);
+}
+
+/* Section cards animation */
+.section-card {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.7s ease forwards;
+    animation-delay: 0.2s;
+}
+
+.section-card:nth-child(1) { animation-delay: 0.15s; }
+.section-card:nth-child(2) { animation-delay: 0.3s; }
+.section-card:nth-child(3) { animation-delay: 0.45s; }
+.section-card:nth-child(4) { animation-delay: 0.6s; }
+.section-card:nth-child(5) { animation-delay: 0.75s; }
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 575.98px) {
+    .service-actions {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    .service-actions button {
+        width: 100%;
+    }
+}
+
+.service-image {
+    max-width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+.service-image:hover {
+    transform: scale(1.05);
+}
+
+.service-title {
+    transition: color 0.3s ease;
+}
+.service-title:hover {
+    color: #6A4A8F;
+}
+
+.service-description {
+    color: #444;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    transition: color 0.3s ease;
+}
+.service-description:hover {
+    color: #6A4A8F;
 }
 </style>
 @endpush
@@ -257,17 +337,22 @@
     // Initialiser Tom Select avec recherche, placeholder, clear button, et preview icône
     document.querySelectorAll('.icon-selector').forEach(select => {
         const ts = new TomSelect(select, {
-            allowEmptyOption: true,
             plugins: ['clear_button'],
-            searchField: 'text',
+            maxOptions: 20,
+            create: false,
             placeholder: select.getAttribute('placeholder') || '',
-            onChange(value) {
-                const preview = select.parentNode.querySelector('.icon-preview i');
-                if(preview) {
-                    preview.className = value || '';
+            onChange: (value) => {
+                const preview = select.parentElement.querySelector('.icon-preview i');
+                if (preview && value) {
+                    preview.className = value;
+                } else if (preview) {
+                    preview.className = '';
                 }
             }
         });
+
+        // Déclencher le onChange initial pour le preview
+        ts.setValue(select.value);
     });
 </script>
 @endpush

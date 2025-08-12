@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Client\BlogController;
 use App\Http\Controllers\Client\HomeController;
+use App\Http\Controllers\AdminController\AdminDashboardController;
 use App\Http\Controllers\AdminController\SettingsController;
 use App\Http\Controllers\AdminController\AboutController;
 use App\Http\Controllers\AdminController\PartnerController;
@@ -13,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
+
+
+Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])
+    ->name('admin.dashboard');
+
+
 Route::prefix('blog')->name('blog.')->group(function () {
     Route::get('/', [BlogController::class, 'index'])->name('index');
     Route::get('/:slug', [BlogController::class, 'show'])->name('show');
@@ -21,11 +28,6 @@ Route::prefix('blog')->name('blog.')->group(function () {
 // Page Dashboard
 Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
-});
-
-// Page About
-Route::get('/admin/about', function () {
-    return view('admin.about');
 });
 
 // Page Testimonials
@@ -86,6 +88,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
 // Admin Contact Routes
 Route::post('/contact/send', [ContactController::class, 'send'])->name('contact.send');
 
+Route::get('/login', function () {
+    return view('admin.login');
+})->name('login');
 
 
 

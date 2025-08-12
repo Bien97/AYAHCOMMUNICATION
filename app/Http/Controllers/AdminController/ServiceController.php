@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AdminController;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Service;
+use Illuminate\Validation\ValidationException;
 
 class ServiceController extends Controller
 {
@@ -151,51 +152,103 @@ class ServiceController extends Controller
     'x-square', 'x-square-fill', 'youtube', 'zoom-in', 'zoom-out',
     ];
 
-
-    return view('admin.services', compact('services', 'icons'));
+        return view('admin.services', compact('services', 'icons'));
     }
 
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'icon' => 'required|string|max:255',  // ex: "bi bi-alarm"
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,svg|max:2048',
-        ]);
+        try {
+            $data = $request->validate([
+                'title' => 'required|string|max:255',
+                'description' => 'required|string',
+                'icon' => 'required|string|max:255',
+                'image' => 'nullable|image|mimes:jpg,jpeg,png,svg|max:2048',
+            ], [
+                'title.required' => 'Le titre est obligatoire.',
+                'title.string' => 'Le titre doit être une chaîne de caractères.',
+                'title.max' => 'Le titre ne peut pas dépasser 255 caractères.',
 
-        if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('services', 'public');
+                'description.required' => 'La description est obligatoire.',
+                'description.string' => 'La description doit être une chaîne de caractères.',
+
+                'icon.required' => 'L\'icône est obligatoire.',
+                'icon.string' => 'L\'icône doit être une chaîne de caractères.',
+                'icon.max' => 'L\'icône ne peut pas dépasser 255 caractères.',
+
+                'image.image' => 'Le fichier doit être une image.',
+                'image.mimes' => 'L\'image doit être au format JPG, JPEG, PNG ou SVG.',
+                'image.max' => 'L\'image ne peut pas dépasser 2 Mo.',
+            ]);
+
+            if ($request->hasFile('image')) {
+                $data['image'] = $request->file('image')->store('services', 'public');
+            }
+
+            Service::create($data);
+
+            return back()->with('success', 'Service ajouté avec succès.');
+
+        } catch (ValidationException $e) {
+            // Redirige avec les erreurs de validation
+            return back()->withErrors($e->errors())->withInput();
+        } catch (\Exception $e) {
+            // Autre erreur possible (ex : problème stockage)
+            return back()->with('error', 'Une erreur est survenue : ' . $e->getMessage())->withInput();
         }
-
-        Service::create($data);
-
-        return back()->with('success', 'Service ajouté avec succès.');
     }
 
     public function update(Request $request, $id)
     {
-        $service = Service::findOrFail($id);
+        try {
+            $service = Service::findOrFail($id);
 
-        $data = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'icon' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,svg|max:2048',
-        ]);
+            $data = $request->validate([
+                'title' => 'required|string|max:255',
+                'description' => 'required|string',
+                'icon' => 'required|string|max:255',
+                'image' => 'nullable|image|mimes:jpg,jpeg,png,svg|max:2048',
+            ], [
+                'title.required' => 'Le titre est obligatoire.',
+                'title.string' => 'Le titre doit être une chaîne de caractères.',
+                'title.max' => 'Le titre ne peut pas dépasser 255 caractères.',
 
-        if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('services', 'public');
+                'description.required' => 'La description est obligatoire.',
+                'description.string' => 'La description doit être une chaîne de caractères.',
+
+                'icon.required' => 'L\'icône est obligatoire.',
+                'icon.string' => 'L\'icône doit être une chaîne de caractères.',
+                'icon.max' => 'L\'icône ne peut pas dépasser 255 caractères.',
+
+                'image.image' => 'Le fichier doit être une image.',
+                'image.mimes' => 'L\'image doit être au format JPG, JPEG, PNG ou SVG.',
+                'image.max' => 'L\'image ne peut pas dépasser 2 Mo.',
+            ]);
+
+            if ($request->hasFile('image')) {
+                $data['image'] = $request->file('image')->store('services', 'public');
+            }
+
+            $service->update($data);
+
+            return back()->with('success', 'Service mis à jour avec succès.');
+
+        } catch (ValidationException $e) {
+            return back()->withErrors($e->errors())->withInput();
+        } catch (\Exception $e) {
+            return back()->with('error', 'Une erreur est survenue : ' . $e->getMessage())->withInput();
         }
-
-        $service->update($data);
-
-        return back()->with('success', 'Service mis à jour avec succès.');
     }
 
     public function destroy($id)
     {
-        Service::destroy($id);
-        return back()->with('success', 'Service supprimé avec succès.');
+        try {
+            Service::destroy($id);
+            return back()->with('success', 'Service supprimé avec succès.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Impossible de supprimer le service : ' . $e->getMessage());
+        }
     }
 }
+
+
+

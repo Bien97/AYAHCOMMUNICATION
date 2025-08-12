@@ -3,6 +3,17 @@
 @section('content')
 <div class="container mt-4 px-2 px-md-4">
 
+    {{-- Affichage des erreurs de validation --}}
+    @if($errors->any())
+    <div class="alert alert-danger">
+        <ul class="mb-0">
+            @foreach($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
     {{-- ✅ Toast de succès --}}
     @if(session('success'))
     <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 9999">
