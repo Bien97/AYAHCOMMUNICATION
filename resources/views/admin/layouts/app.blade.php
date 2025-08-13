@@ -52,7 +52,7 @@
         .sidebar {
             height: 100vh;
             position: fixed;
-            top: 56px; /* Collé juste sous la navbar fixe */
+            top: 56px;
             left: 0;
             width: 250px;
             background-color: #FFFFFF;
@@ -103,17 +103,31 @@
             color: #6A4A8F;
         }
 
+        /* Lien actif */
         .sidebar a.active-link {
             background-color: #6A4A8F;
             color: #FFFFFF;
             border-left: 3px solid #6A4A8F;
         }
 
+        /* Lien actif au hover : reste pareil */
+        .sidebar a.active-link:hover {
+            background-color: #6A4A8F;
+            color: #FFFFFF;
+            border-left: 3px solid #6A4A8F;
+            transform: none;
+        }
+        .sidebar a.active-link:hover i,
+        .sidebar a.active-link:hover span {
+            transform: none;
+            color: #FFFFFF;
+        }
+
         /* Logo */
         .sidebar img {
             max-width: 150px;
             height: auto;
-            margin-top: -15px; /* image remontée */
+            margin-top: -15px;
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
             transition: transform 0.3s ease;
         }
@@ -122,7 +136,7 @@
         }
 
         .sidebar .text-center {
-            margin-top: 0; /* réduit espace au-dessus du logo */
+            margin-top: 0;
             margin-bottom: 1rem;
         }
 
@@ -199,7 +213,6 @@
 <body>
 
 <!-- Navbar -->
-<!-- Navbar -->
 <nav class="navbar navbar-dark fixed-top">
     <div class="container-fluid">
         <button class="toggle-btn me-3" id="sidebarToggle">
@@ -226,8 +239,9 @@
     </div>
 
     <a href="{{ url('/admin/dashboard') }}" class="{{ request()->is('admin/dashboard') ? 'active-link' : '' }}">
-        <i class="fas fa-chart-line me-2"></i><span>Dashboard</span>
-    </a>
+    <i class="fas fa-chart-line me-2"></i><span>Tableau de bord</span>
+</a>
+
     <a href="{{ url('/admin/about') }}" class="{{ request()->is('admin/about') ? 'active-link' : '' }}">
         <i class="fas fa-blog me-2"></i><span>A Propos</span>
     </a>

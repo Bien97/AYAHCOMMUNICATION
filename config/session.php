@@ -214,4 +214,8 @@ return [
 
     'partitioned' => env('SESSION_PARTITIONED_COOKIE', false),
 
+    'expire_on_close' => true,
+    'lifetime' => 30, // ou ce que tu veux comme durée
+
+
 ];

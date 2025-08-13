@@ -1,129 +1,305 @@
-@extends('admin.layouts.app')
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - @yield('title', 'Dashboard')</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-@section('content')
-<div class="container-fluid mt-5 px-2 px-md-4" style="max-width: 1140px;">
-    <div class="card shadow-sm">
-        <div class="card-body">
-            <h2 class="mb-4 text-primary">Tableau de Bord</h2>
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-            {{-- Onglets de navigation --}}
-            <ul class="nav nav-tabs flex-column flex-md-row" id="dashboardTabs" role="tablist" style="border-bottom: none;">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="stats-tab" data-bs-toggle="tab" data-bs-target="#stats" type="button" role="tab" aria-controls="stats" aria-selected="true">
-                        Statistiques
-                    </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="activities-tab" data-bs-toggle="tab" data-bs-target="#activities" type="button" role="tab" aria-controls="activities" aria-selected="false">
-                        Activités récentes
-                    </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="reports-tab" data-bs-toggle="tab" data-bs-target="#reports" type="button" role="tab" aria-controls="reports" aria-selected="false">
-                        Rapports
-                    </button>
-                </li>
-            </ul>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-            {{-- Contenu des panels --}}
-            <div class="tab-content mt-4" id="dashboardTabContent">
-                <div class="tab-pane fade show active" id="stats" role="tabpanel" aria-labelledby="stats-tab">
-                    <div class="p-3 content-panel">
-                        <h5>Statistiques</h5>
-                        <p>Statistiques de performance, graphiques et KPI ici.</p>
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="activities" role="tabpanel" aria-labelledby="activities-tab">
-                    <div class="p-3 content-panel">
-                        <h5>Activités Récentes</h5>
-                        <p>Dernières activités du système affichées ici.</p>
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="reports" role="tabpanel" aria-labelledby="reports-tab">
-                    <div class="p-3 content-panel">
-                        <h5>Rapports</h5>
-                        <p>Rapports générés automatiquement.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #FFFFFF;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            color: #5B5B5B;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #6A4A8F;
+            box-shadow: 0 2px 10px rgba(106, 74, 143, 0.3);
+            height: 56px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1030;
+        }
+
+        .navbar-brand {
+            color: #FFFFFF;
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: #FFFFFF;
+            font-size: 1.25rem;
+            transition: transform 0.3s ease;
+        }
+        .toggle-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            height: 100vh;
+            position: fixed;
+            top: 56px;
+            left: 0;
+            width: 250px;
+            background-color: #FFFFFF;
+            color: #5B5B5B;
+            margin-top: 0;
+            transition: all 0.3s ease-in-out;
+            z-index: 1020;
+            overflow: auto;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+        }
+
+        .sidebar.collapsed {
+            margin-left: -250px;
+        }
+
+        /* Liens */
+        .sidebar a {
+            color: #5B5B5B;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            font-size: 1.05rem;
+            font-weight: 500;
+            border-left: 3px solid transparent;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+            gap: 0.8rem;
+        }
+
+        .sidebar a span {
+            display: inline-block;
+            position: relative;
+            top: -2px;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background-color: #FFFFFF;
+            color: #6A4A8F;
+            border-left: 3px solid #6A4A8F;
+            text-decoration: none;
+        }
+
+        .sidebar a:hover i,
+        .sidebar a:hover span {
+            transform: translateX(5px);
+            color: #6A4A8F;
+        }
+
+        /* Lien actif */
+        .sidebar a.active-link {
+            background-color: #6A4A8F;
+            color: #FFFFFF;
+            border-left: 3px solid #6A4A8F;
+        }
+
+        /* Lien actif au hover : reste pareil */
+        .sidebar a.active-link:hover {
+            background-color: #6A4A8F;
+            color: #FFFFFF;
+            border-left: 3px solid #6A4A8F;
+            transform: none;
+        }
+        .sidebar a.active-link:hover i,
+        .sidebar a.active-link:hover span {
+            transform: none;
+            color: #FFFFFF;
+        }
+
+        /* Logo */
+        .sidebar img {
+            max-width: 150px;
+            height: auto;
+            margin-top: -15px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+            transition: transform 0.3s ease;
+        }
+        .sidebar img:hover {
+            transform: scale(1.05);
+        }
+
+        .sidebar .text-center {
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        /* Content */
+        .content {
+            margin-left: 250px;
+            margin-top: 56px;
+            padding: 30px;
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            transition: margin-left 0.3s ease;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.05);
+            color: #5B5B5B;
+        }
+
+        .content.expanded {
+            margin-left: 0 !important;
+        }
+
+        /* Overlay mobile */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 56px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(91, 91, 91, 0.5);
+            z-index: 1040;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* Scrollbar */
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background-color: rgba(91, 91, 91, 0.2);
+            border-radius: 10px;
+        }
+        .sidebar::-webkit-scrollbar-thumb:hover {
+            background-color: rgba(91, 91, 91, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                margin-left: -250px;
+                position: fixed;
+                width: 250px;
+                top: 56px;
+                height: calc(100% - 56px);
+                z-index: 1050;
+            }
+            .sidebar.show {
+                margin-left: 0;
+            }
+            .content {
+                margin-left: 0 !important;
+            }
+        }
+
+        .sidebar a i {
+            transition: transform 0.3s ease, color 0.3s ease;
+            color: inherit;
+        }
+    </style>
+
+    @stack('styles')
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-dark fixed-top">
+    <div class="container-fluid">
+        <button class="toggle-btn me-3" id="sidebarToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <a
+            href="{{ url('/') }}"
+            class="btn btn-outline-light btn-sm ms-auto d-flex align-items-center"
+            style="white-space: nowrap;"
+        >
+            <i class="fas fa-exchange-alt me-2"></i> Interface Client
+        </a>
     </div>
+</nav>
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+    <div class="text-center mb-4">
+        <a href="{{ url('/admin/dashboard') }}">
+        @if($settings && $settings->logo_header)
+            <img src="{{ asset('storage/' . $settings->logo_header) }}" alt="Logo" />
+        @endif
+        </a>
+    </div>
+
+    <a href="{{ url('/admin/tableau') }}" class="{{ request()->is('admin/tableau') ? 'active-link' : '' }}">
+        <i class="fas fa-chart-line me-2"></i><span>Tableau de bord</span>
+    </a>
+    <a href="{{ url('/admin/about') }}" class="{{ request()->is('admin/about') ? 'active-link' : '' }}">
+        <i class="fas fa-blog me-2"></i><span>A Propos</span>
+    </a>
+    <a href="{{ url('/admin/testimonials') }}" class="{{ request()->is('admin/testimonials') ? 'active-link' : '' }}">
+        <i class="fas fa-comment-dots me-2"></i><span>Testimonials</span>
+    </a>
+    <a href="{{ url('/admin/services') }}" class="{{ request()->is('admin/services') ? 'active-link' : '' }}">
+        <i class="fas fa-concierge-bell me-2"></i><span>Services</span>
+    </a>
+    <a href="{{ url('/admin/partners') }}" class="{{ request()->is('admin/partners') ? 'active-link' : '' }}">
+        <i class="fas fa-users me-2"></i><span>Partners</span>
+    </a>
+    <a href="{{ url('/admin/settings') }}" class="{{ request()->is('admin/settings') ? 'active-link' : '' }}">
+        <i class="fas fa-cog me-2"></i><span>Paramètres</span>
+    </a>
 </div>
 
-<style>
-    /* Onglets - texte gris + animations "éblouissantes" */
-    .nav-tabs .nav-link {
-        color: #5B5B5B;
-        font-weight: 600;
-        border: none;
-        border-bottom: 3px solid transparent;
-        transition: 
-            color 0.3s ease,
-            border-color 0.3s ease,
-            box-shadow 0.4s ease;
-        position: relative;
-        white-space: nowrap;
-        padding: 0.5rem 1rem;
-    }
+<!-- Overlay -->
+<div class="overlay" id="overlay"></div>
 
-    .nav-tabs .nav-link:hover,
-    .nav-tabs .nav-link:focus {
-        color: #6A4A8F;
-        border-bottom: 3px solid #6A4A8F;
-        box-shadow: 0 0 15px 3px rgba(106, 74, 143, 0.6);
-        z-index: 1;
-    }
+<!-- Main Content -->
+<div class="content" id="mainContent">
+    @yield('content')
+</div>
 
-    .nav-tabs .nav-link.active {
-        color: #6A4A8F;
-        border-bottom: 3px solid #6A4A8F;
-        box-shadow: 0 0 25px 5px rgba(106, 74, 143, 0.8);
-        font-weight: 700;
-    }
+<!-- Bootstrap Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    /* Contenu des onglets avec animation d'apparition en fondu */
-    .tab-pane {
-        opacity: 0;
-        transform: translateY(15px);
-        transition: opacity 0.5s ease, transform 0.5s ease;
-        border-radius: 0.25rem;
-        padding: 1rem 2rem;
-    }
+<!-- Sidebar Toggle Script -->
+<script>
+    const sidebar = document.getElementById('sidebar');
+    const content = document.getElementById('mainContent');
+    const overlay = document.getElementById('overlay');
+    const toggleButton = document.getElementById('sidebarToggle');
 
-    .tab-pane.show.active {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 575.98px) {
-        .container-fluid {
-            padding-left: 1rem;
-            padding-right: 1rem;
+    toggleButton.addEventListener('click', function () {
+        if (window.innerWidth <= 768) {
+            sidebar.classList.toggle('show');
+            overlay.classList.toggle('active');
+        } else {
+            sidebar.classList.toggle('collapsed');
+            content.classList.toggle('expanded');
         }
+    });
 
-        .nav-tabs {
-            flex-direction: column !important;
-            gap: 1rem;
-            border-bottom: none !important;
-        }
-        .nav-tabs .nav-link {
-            border: 1px solid transparent;
-            border-radius: 0.375rem;
-            padding: 0.75rem 1rem;
-            font-size: 1rem;
-            text-align: center;
-        }
-        .nav-tabs .nav-link.active {
-            border-color: #6A4A8F;
-            box-shadow: 0 0 15px 3px rgba(106, 74, 143, 0.7);
-            font-weight: 700;
-        }
+    overlay.addEventListener('click', function () {
+        sidebar.classList.remove('show');
+        overlay.classList.remove('active');
+    });
 
-        .tab-pane {
-            padding: 1rem 1rem;
-            font-size: 0.95rem;
+    window.addEventListener('resize', function () {
+        if (window.innerWidth > 768) {
+            sidebar.classList.remove('show');
+            overlay.classList.remove('active');
         }
-    }
-</style>
-@endsection
+    });
+</script>
+
+@stack('scripts')
+</body>
+</html>
+@extends('admin.layouts.app')

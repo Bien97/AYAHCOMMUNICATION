@@ -3,52 +3,24 @@
 @section('content')
 <div class="container mt-4 px-2 px-md-4">
 
-    {{-- Affichage des erreurs de validation --}}
-    @if($errors->any())
-    <div class="alert alert-danger">
-        <ul class="mb-0">
-            @foreach($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
-
-    {{-- ✅ Toast de succès --}}
+    {{-- Messages Flash --}}
     @if(session('success'))
-    <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 9999">
-        <div class="toast align-items-center text-bg-success" role="alert" id="successToast" data-bs-delay="4000">
-            <div class="d-flex">
-                <div class="toast-body">
-                    {{ session('success') }}
-                </div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-            </div>
-        </div>
+    <div class="alert alert-success alert-dismissible fade show">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
     @endif
 
-    {{-- ❌ Toast d'erreur --}}
     @if(session('error'))
-    <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 9999">
-        <div class="toast align-items-center text-bg-danger" role="alert" id="errorToast" data-bs-delay="5000">
-            <div class="d-flex">
-                <div class="toast-body">
-                    {{ session('error') }}
-                </div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-            </div>
-        </div>
+    <div class="alert alert-danger alert-dismissible fade show">
+        {{ session('error') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
     @endif
 
-    {{-- ⚠️ Affichage des erreurs de validation --}}
     @if($errors->any())
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <h6 class="alert-heading mb-2">
-            <i class="fas fa-exclamation-triangle me-2"></i>
-            Erreurs de validation détectées :
-        </h6>
+    <div class="alert alert-danger alert-dismissible fade show">
+        <h6 class="alert-heading mb-2">Erreurs de validation :</h6>
         <ul class="mb-0 ps-3">
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
@@ -58,168 +30,139 @@
     </div>
     @endif
 
-    <div class="d-flex justify-content-between align-items-center mb-3">
+    {{-- En-tête --}}
+    <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>A Propos</h2>
-        <button class="btn btn-custom-purple" data-bs-toggle="modal" data-bs-target="#addAboutModal">
-            + Ajouter une section
-        </button>
+        @if($aboutSection->getFilledSectionsCount() < 3)
+            <button class="btn btn-custom-purple" data-bs-toggle="modal" data-bs-target="#addAboutModal">
+                + Ajouter une section ({{ 3 - $aboutSection->getFilledSectionsCount() }} restante(s))
+            </button>
+        @else
+            <span class="badge bg-warning text-dark fs-6">Maximum de 3 sections atteint</span>
+        @endif
     </div>
+
+    {{-- Image commune --}}
+    @if($aboutSection->image_about)
+        <div class="text-center mb-4">
+            <div class="border rounded p-3 bg-light shadow-sm d-inline-block">
+                <h5 class="mb-3">Image commune aux sections</h5>
+                <button class="btn btn-custom-purple-outline btn-sm" data-bs-toggle="modal" data-bs-target="#imageModal">
+                    <i class="fas fa-image me-1"></i> Voir l'image
+                </button>
+            </div>
+        </div>
+
+        {{-- Modal Image --}}
+        <div class="modal fade" id="imageModal" tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Image About</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <img src="{{ asset('storage/' . $aboutSection->image_about) }}" class="img-fluid" alt="About Image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 
     {{-- Liste des sections --}}
     <div class="row g-4">
-        @forelse($aboutSections as $section)
+        @php
+            $sectionsData = [];
+            for($i = 1; $i <= 3; $i++) {
+                $titleField = $i == 1 ? 'title' : "title_{$i}";
+                $paragraphField = $i == 1 ? 'paragraph' : "paragraph_{$i}";
+                $title = $aboutSection->getAttribute($titleField);
+                $paragraph = $aboutSection->getAttribute($paragraphField);
+                
+                if($title && $paragraph) {
+                    $sectionsData[] = [
+                        'number' => $i,
+                        'title' => $title,
+                        'paragraph' => $paragraph,
+                        'titleField' => $titleField,
+                        'paragraphField' => $paragraphField
+                    ];
+                }
+            }
+        @endphp
+
+        @forelse($sectionsData as $section)
             <div class="col-md-6">
                 <div class="border rounded p-3 bg-light h-100 shadow-sm">
-
-                    <h5 class="fw-bold">#{{ $section->id }} - {{ $section->title }}</h5>
-
-                    {{-- Affichage de l'image si elle existe --}}
-                    @if($section->image_about)
-                        <div class="mb-3">
-                            <button class="btn btn-custom-purple-outline btn-sm" data-bs-toggle="modal" data-bs-target="#imageModal{{ $section->id }}">
-                                <i class="fas fa-image me-1"></i>
-                                Voir l'image
-                            </button>
-                        </div>
-                    @endif
-
-                    <p style="white-space: pre-wrap;">{{ $section->paragraph }}</p>
+                    <h5 class="fw-bold">Section {{ $section['number'] }} - {{ $section['title'] }}</h5>
+                    <p style="white-space: pre-wrap;">{{ $section['paragraph'] }}</p>
 
                     <div class="d-flex gap-2 mt-3">
-                        {{-- Bouton Modifier --}}
-                        <button class="btn btn-outline-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editAboutModal{{ $section->id }}">
+                        <button class="btn btn-outline-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ $section['number'] }}">
                             Modifier
                         </button>
-
-                        {{-- Bouton Supprimer --}}
-                        <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteAboutModal{{ $section->id }}">
+                        <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $section['number'] }}">
                             Supprimer
                         </button>
                     </div>
                 </div>
             </div>
 
-            {{-- Modal Image Preview --}}
-            @if($section->image_about)
-            <div class="modal fade" id="imageModal{{ $section->id }}" tabindex="-1">
-                <div class="modal-dialog modal-lg modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Image - {{ $section->title }}</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                        </div>
-                        <div class="modal-body text-center">
-                            <img src="{{ asset('storage/' . $section->image_about) }}" class="img-fluid" alt="{{ $section->title }}">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @endif
-
             {{-- Modal Modification --}}
-            <div class="modal fade" id="editAboutModal{{ $section->id }}" tabindex="-1">
+            <div class="modal fade" id="editModal{{ $section['number'] }}" tabindex="-1">
                 <div class="modal-dialog modal-lg">
-                    <form method="POST" action="{{ route('admin.about.update', $section->id) }}" class="modal-content" enctype="multipart/form-data" id="editForm{{ $section->id }}">
+                    <form method="POST" action="{{ route('admin.about.update', $section['number']) }}" class="modal-content" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-
                         <div class="modal-header">
-                            <h5 class="modal-title">Modifier la section #{{ $section->id }}</h5>
+                            <h5 class="modal-title">Modifier la section {{ $section['number'] }}</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
-
                         <div class="modal-body">
                             <div class="mb-3">
-                                <label for="title_{{ $section->id }}" class="form-label">Titre <span class="text-danger">*</span></label>
-                                <input type="text" name="title" id="title_{{ $section->id }}" 
-                                       class="form-control @error('title') is-invalid @enderror" 
-                                       value="{{ old('title', $section->title) }}" required maxlength="255">
-                                @error('title')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                <label class="form-label">Titre <span class="text-danger">*</span></label>
+                                <input type="text" name="title" class="form-control" value="{{ $section['title'] }}" required maxlength="255">
                             </div>
-
                             <div class="mb-3">
-                                <label for="paragraph_{{ $section->id }}" class="form-label">Paragraphe <span class="text-danger">*</span></label>
-                                <textarea name="paragraph" id="paragraph_{{ $section->id }}" rows="5" 
-                                          class="form-control @error('paragraph') is-invalid @enderror" required>{{ old('paragraph', $section->paragraph) }}</textarea>
-                                @error('paragraph')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                <label class="form-label">Paragraphe <span class="text-danger">*</span></label>
+                                <textarea name="paragraph" class="form-control" rows="5" required>{{ $section['paragraph'] }}</textarea>
                             </div>
-
                             <div class="mb-3">
-                                <label for="image_about_{{ $section->id }}" class="form-label">Image About</label>
-                                <input type="file" name="image_about" id="image_about_{{ $section->id }}" 
-                                       class="form-control @error('image_about') is-invalid @enderror" accept="image/*">
-                                @error('image_about')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                                @if ($section->image_about)
+                                <label class="form-label">Image About (commune à toutes les sections)</label>
+                                <input type="file" name="image_about" class="form-control" accept="image/*">
+                                @if($aboutSection->image_about)
                                     <small class="text-muted d-block mt-1">
                                         <i class="fas fa-file-image me-1"></i>
-                                        Actuel: {{ basename($section->image_about) }}
+                                        Actuel: {{ basename($aboutSection->image_about) }}
                                     </small>
                                 @endif
                                 <small class="form-text text-muted">Formats acceptés: JPG, JPEG, PNG, SVG - Max: 5MB</small>
                             </div>
                         </div>
-
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                            {{-- Bouton pour ouvrir modal confirmation --}}
-                            <button type="button" class="btn btn-custom-purple" data-bs-toggle="modal" data-bs-target="#confirmEditModal{{ $section->id }}">
-                                Enregistrer
-                            </button>
+                            <button type="submit" class="btn btn-custom-purple">Enregistrer</button>
                         </div>
                     </form>
                 </div>
             </div>
 
-            {{-- Modal Confirmation modification --}}
-            <div class="modal fade" id="confirmEditModal{{ $section->id }}" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header bg-warning text-dark">
-                            <h5 class="modal-title">Confirmer la modification</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                        </div>
-
-                        <div class="modal-body">
-                            Voulez-vous vraiment enregistrer ces modifications pour la section "{{ $section->title }}" ?
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                            <button type="button" class="btn btn-warning" id="confirmEditBtn{{ $section->id }}">
-                                <span class="spinner-border spinner-border-sm me-2 d-none" id="spinnerEdit{{ $section->id }}"></span>
-                                Oui, enregistrer
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             {{-- Modal Suppression --}}
-            <div class="modal fade" id="deleteAboutModal{{ $section->id }}" tabindex="-1">
+            <div class="modal fade" id="deleteModal{{ $section['number'] }}" tabindex="-1">
                 <div class="modal-dialog">
-                    <form method="POST" action="{{ route('admin.about.destroy', $section->id) }}" class="modal-content">
+                    <form method="POST" action="{{ route('admin.about.destroy', $section['number']) }}" class="modal-content">
                         @csrf
                         @method('DELETE')
-
                         <div class="modal-header bg-danger text-white">
                             <h5 class="modal-title">Confirmer la suppression</h5>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                         </div>
-
                         <div class="modal-body">
-                            ⚠️ Cette action supprimera définitivement la section « {{ $section->title }} » 
-                            @if($section->image_about)
-                                <strong>et son image associée</strong>
-                            @endif. 
-                            Voulez-vous continuer ?
+                            ⚠️ Supprimer définitivement la section {{ $section['number'] }} « {{ $section['title'] }} » ?
+                            @if($section['number'] == 1 && count($sectionsData) == 1)
+                                <br><strong>L'image commune sera également supprimée.</strong>
+                            @endif
                         </div>
-
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
                             <button type="submit" class="btn btn-danger">Oui, supprimer</button>
@@ -228,62 +171,59 @@
                 </div>
             </div>
         @empty
-            <p class="text-center text-muted">Aucune section pour l'instant.</p>
+            <div class="col-12">
+                <p class="text-center text-muted">Aucune section pour l'instant.</p>
+            </div>
         @endforelse
     </div>
 </div>
 
 {{-- Modal Ajout --}}
+@if($aboutSection->getFilledSectionsCount() < 3)
 <div class="modal fade" id="addAboutModal" tabindex="-1">
     <div class="modal-dialog modal-lg">
-        <form method="POST" action="{{ route('admin.about.store') }}" class="modal-content" enctype="multipart/form-data" id="addForm">
+        <form method="POST" action="{{ route('admin.about.store') }}" class="modal-content" enctype="multipart/form-data">
             @csrf
             <div class="modal-header">
                 <h5 class="modal-title">Ajouter une nouvelle section</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-
             <div class="modal-body">
-                <div class="mb-3">
-                    <label for="title_add" class="form-label">Titre <span class="text-danger">*</span></label>
-                    <input type="text" name="title" id="title_add" 
-                           class="form-control @error('title') is-invalid @enderror" 
-                           value="{{ old('title') }}" required maxlength="255">
-                    @error('title')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Cette section sera la <strong>section {{ $aboutSection->getNextAvailableSection() ?? 'suivante' }}</strong>
                 </div>
 
                 <div class="mb-3">
-                    <label for="paragraph_add" class="form-label">Paragraphe <span class="text-danger">*</span></label>
-                    <textarea name="paragraph" id="paragraph_add" rows="5" 
-                              class="form-control @error('paragraph') is-invalid @enderror" required>{{ old('paragraph') }}</textarea>
-                    @error('paragraph')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
+                    <label class="form-label">Titre <span class="text-danger">*</span></label>
+                    <input type="text" name="title" class="form-control" value="{{ old('title') }}" required maxlength="255">
                 </div>
 
                 <div class="mb-3">
-                    <label for="image_about_add" class="form-label">Image About</label>
-                    <input type="file" name="image_about" id="image_about_add" 
-                           class="form-control @error('image_about') is-invalid @enderror" accept="image/*">
-                    @error('image_about')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
+                    <label class="form-label">Paragraphe <span class="text-danger">*</span></label>
+                    <textarea name="paragraph" class="form-control" rows="5" required>{{ old('paragraph') }}</textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Image About (commune à toutes les sections)</label>
+                    <input type="file" name="image_about" class="form-control" accept="image/*">
+                    @if($aboutSection->image_about)
+                        <small class="text-info d-block mt-1">
+                            <i class="fas fa-file-image me-1"></i>
+                            Une image existe déjà. Laissez vide pour la conserver.
+                        </small>
+                    @endif
                     <small class="form-text text-muted">Formats acceptés: JPG, JPEG, PNG, SVG - Max: 5MB</small>
                 </div>
             </div>
-
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                <button type="submit" class="btn btn-custom-purple">
-                    <span class="spinner-border spinner-border-sm me-2 d-none" id="spinnerAdd"></span>
-                    Ajouter
-                </button>
+                <button type="submit" class="btn btn-custom-purple">Ajouter</button>
             </div>
         </form>
     </div>
 </div>
+@endif
 
 @endsection
 
@@ -322,19 +262,6 @@
 
 @push('scripts')
 <script>
-    // Toast auto disparition
-    const successToastEl = document.getElementById('successToast');
-    if (successToastEl) {
-        const toast = new bootstrap.Toast(successToastEl);
-        toast.show();
-    }
-    
-    const errorToastEl = document.getElementById('errorToast');
-    if (errorToastEl) {
-        const toast = new bootstrap.Toast(errorToastEl);
-        toast.show();
-    }
-
     // Validation des fichiers images côté client
     function validateImageFile(input) {
         const file = input.files[0];
@@ -382,57 +309,15 @@
         }
     }
 
-    // Confirmation modification dynamique
-    @foreach($aboutSections as $section)
-    document.getElementById('confirmEditBtn{{ $section->id }}').addEventListener('click', function() {
-        const form = document.getElementById('editForm{{ $section->id }}');
-        const spinner = document.getElementById('spinnerEdit{{ $section->id }}');
-        
-        // Vérification finale
-        const requiredFields = form.querySelectorAll('input[required], textarea[required]');
-        let hasErrors = false;
-        
-        requiredFields.forEach(field => {
-            if (field.value.trim() === '') {
-                field.classList.add('is-invalid');
-                hasErrors = true;
+    // Si des erreurs sont présentes au chargement, ouvrir le modal d'ajout
+    @if($errors->any() && (old('title') || old('paragraph')))
+        document.addEventListener('DOMContentLoaded', function() {
+            const addModal = document.getElementById('addAboutModal');
+            if (addModal) {
+                const modal = new bootstrap.Modal(addModal);
+                modal.show();
             }
         });
-
-        if (hasErrors) {
-            alert('Veuillez remplir tous les champs obligatoires.');
-            return;
-        }
-
-        // Afficher spinner et soumettre
-        spinner.classList.remove('d-none');
-        this.disabled = true;
-
-        // Fermer les modals avant submit
-        const confirmModal = bootstrap.Modal.getInstance(document.getElementById('confirmEditModal{{ $section->id }}'));
-        confirmModal.hide();
-
-        const editModal = bootstrap.Modal.getInstance(document.getElementById('editAboutModal{{ $section->id }}'));
-        editModal.hide();
-
-        form.submit();
-    });
-    @endforeach
-
-    // Gestion du formulaire d'ajout
-    const addForm = document.getElementById('addForm');
-    const addSpinner = document.getElementById('spinnerAdd');
-    
-    addForm.addEventListener('submit', function() {
-        addSpinner.classList.remove('d-none');
-    });
-
-    // Si des erreurs sont présentes au chargement, ouvrir automatiquement le modal approprié
-    @if($errors->any())
-        @if(old('title') || old('paragraph'))
-            const addModal = new bootstrap.Modal(document.getElementById('addAboutModal'));
-            addModal.show();
-        @endif
     @endif
 </script>
 @endpush

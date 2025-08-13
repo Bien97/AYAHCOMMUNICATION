@@ -144,8 +144,8 @@
                     <ul class="nav nav-pills mb-3">
                         <li><a class="nav-link active" data-bs-toggle="pill" href="#about-tab1">{{ $aboutSection->title }}</a>
                         </li>
-                        <li><a class="nav-link" data-bs-toggle="pill" href="#about-tab2">{{ $aboutSection->title }} </a></li>
-                        <li><a class="nav-link" data-bs-toggle="pill" href="#about-tab3">{{ $aboutSection->title }}</a></li>
+                        <li><a class="nav-link" data-bs-toggle="pill" href="#about-tab2">{{ $aboutSection->title_2 }} </a></li>
+                        <li><a class="nav-link" data-bs-toggle="pill" href="#about-tab3">{{ $aboutSection->title_3 }}</a></li>
                     </ul><!-- End Tabs -->
 
                     <!-- Tab Content -->
@@ -153,10 +153,7 @@
 
                         <div class="tab-pane fade show active" id="about-tab1">
 
-                            <p class="fst-italic">Chez AYAH COMMUNICATION, nous concevons des solutions innovantes
-                                adaptées à vos besoins. Notre équipe passionnée garantit un suivi rapide et rigoureux,
-                                offrant des prestations uniques qui renforcent votre visibilité et impact. Chaque projet
-                                allie créativité et efficacité pour votre réussite.</p>
+                            <p class="fst-italic">{{ $aboutSection->paragraph }}</p>
 
                             <div class="d-flex align-items-center mt-4">
                                 <i class="bi bi-check2"></i>
@@ -174,12 +171,7 @@
 
                         <div class="tab-pane fade" id="about-tab2">
 
-                            <p class="fst-italic">AYAH COMMUNICATION ne se limite pas à la stratégie : nous offrons un
-                                accompagnement global et personnalisé qui couvre tous les aspects essentiels à la
-                                réussite de votre communication. De la définition précise de vos besoins à la création
-                                de contenus percutants, en passant par l’intégration des dernières innovations
-                                digitales, notre équipe vous guide à chaque étape pour assurer un impact durable et
-                                mesurable.</p>
+                            <p class="fst-italic">{{ $aboutSection->paragraph_2 }}</p></p>
 
                             <div class="d-flex align-items-center mt-4">
                                 <i class="bi bi-check2"></i>
@@ -197,12 +189,7 @@
 
                         <div class="tab-pane fade" id="about-tab3">
 
-                            <p class="fst-italic">Chez AYAH COMMUNICATION, nous savons que l’image de marque est le
-                                reflet essentiel de votre entreprise. C’est pourquoi nous accompagnons nos clients dans
-                                la création et le développement d’une identité visuelle cohérente, distinctive et
-                                authentique. De la conception du logo à la définition de la charte graphique, nous
-                                mettons tout en œuvre pour que votre marque parle à votre audience et s’impose
-                                durablement sur le marché.</p>
+                            <p class="fst-italic">{{ $aboutSection->paragraph_3 }}</p></p>
 
                             <div class="d-flex align-items-center mt-4">
                                 <i class="bi bi-check2"></i>
