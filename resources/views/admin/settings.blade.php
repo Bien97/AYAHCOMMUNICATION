@@ -184,7 +184,7 @@
 {{-- MODAL MODIFICATION --}}
 <div class="modal fade" id="editSettingsModal" tabindex="-1">
     <div class="modal-dialog modal-lg">
-        <form method="POST" action="{{ route('update.settings', $settings->id) }}" class="modal-content" enctype="multipart/form-data" id="settingsForm">
+        <form method="POST" action="{{ route('admin.settings.update', $settings->id) }}" class="modal-content" enctype="multipart/form-data" id="settingsForm">
             @csrf
             @method('PUT')
 
@@ -325,7 +325,7 @@
 {{-- MODAL SUPPRESSION --}}
 <div class="modal fade" id="confirmDeleteModal" tabindex="-1">
     <div class="modal-dialog">
-        <form method="POST" action="{{ route('delete.settings', $settings->id) }}" class="modal-content">
+        <form method="POST" action="{{ route('admin.settings.destroy', $settings->id) }}" class="modal-content">
             @csrf
             @method('DELETE')
             <div class="modal-header bg-danger text-white">

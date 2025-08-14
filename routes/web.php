@@ -10,9 +10,18 @@ use App\Http\Controllers\AdminController\PartnerController;
 use App\Http\Controllers\AdminController\ServiceController;
 use App\Http\Controllers\AdminController\TestimonialController;
 use App\Http\Controllers\AdminController\ContactController;
+use App\Http\Controllers\AdminController\ProfileController;
+use App\Http\Controllers\AdminController\UserController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
+
+Route::get('/login', function () {
+    return redirect()->route('admin.login');
+})->name('login');
+
 
 // Routes admin publiques (ex : page login, login submit, logout)
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -38,7 +47,7 @@ Route::prefix('admin')->middleware(['auth', 'admin.auth'])->name('admin.')->grou
     Route::view('/portfolio', 'admin.portfolio')->name('portfolio');
 
     // Settings CRUD
-    Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
+     Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
     Route::put('/settings/{id}', [SettingsController::class, 'update'])->name('settings.update');
     Route::delete('/settings/{id}', [SettingsController::class, 'destroy'])->name('settings.destroy');
 
@@ -66,6 +75,22 @@ Route::prefix('admin')->middleware(['auth', 'admin.auth'])->name('admin.')->grou
     Route::put('/testimonials/{id}', [TestimonialController::class, 'update'])->name('testimonials.update');
     Route::delete('/testimonials/{id}', [TestimonialController::class, 'destroy'])->name('testimonials.destroy');
 
-    // Contact send (POST)
-    Route::post('/contact/send', [ContactController::class, 'send'])->name('contact.send');
+    // Users CRUD
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::post('/users', [UserController::class, 'store'])->name('users.store');
+    Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+
+    // Profil utilisateur connecté
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+
+    
 });
+
+Route::post('/contact/send', [ContactController::class, 'send'])->name('contact.send');
+
+Route::post('/logout', function () {
+    Auth::logout();
+    return redirect('/admin/login'); // ou la page d'accueil client
+})->name('logout');

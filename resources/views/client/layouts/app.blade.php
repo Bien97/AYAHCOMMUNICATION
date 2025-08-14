@@ -27,79 +27,217 @@
 </head>
 
 <body class="index-page">
-<!-- HEADER -->
-@include('client.partials.header')
+    <!-- HEADER -->
+    @include('client.partials.header')
 
-<!-- HERO SECTION -->
-<main class="main">
-    @yield('content')
-</main>
+    <!-- HERO SECTION -->
+    <main class="main">
+        @yield('content')
+    </main>
 
-<!-- FOOTER -->
-@include('client.partials.footer')
+    <!-- FOOTER -->
+    @include('client.partials.footer')
 
-<!-- Scroll Top -->
-<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
-        class="bi bi-arrow-up-short"></i></a>
+    <!-- Scroll Top -->
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
 
-<!-- Preloader -->
-<div id="preloader"></div>
+    <!-- Preloader -->
+    <div id="preloader"></div>
 
-<script src="{{ asset('assets/core.js') }}"></script>
+    <script src="{{ asset('assets/core.js') }}"></script>
 
-@vite(['resources/js/client/app.js'])
+    @vite(['resources/js/client/app.js'])
 
 
-<script>
-    window.addEventListener('scroll', function () {
-        const header = document.getElementById('header');
-        if (window.scrollY > 50) {
-            header.classList.add('header-scrolled');
+    <script>
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('header-scrolled');
+            } else {
+                header.classList.remove('header-scrolled');
+            }
+        });
+    </script>
+
+    <!-- Scroll Script -->
+    <script>
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.remove('transparent-header');
+                header.classList.add('header-scrolled');
+            } else {
+                header.classList.add('transparent-header');
+                header.classList.remove('header-scrolled');
+            }
+        });
+    </script>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const lang = urlParams.get('lang');
+        const langToggle = document.querySelector('.lang-toggle');
+
+        if (lang === 'en') {
+            langToggle.innerHTML = '🌐 EN <i class="bi bi-chevron-down"></i>';
         } else {
-            header.classList.remove('header-scrolled');
+            langToggle.innerHTML = '🌐 FR <i class="bi bi-chevron-down"></i>';
         }
-    });
-</script>
+    </script>
 
-<!-- Scroll Script -->
-<script>
-    window.addEventListener('scroll', function () {
-        const header = document.getElementById('header');
-        if (window.scrollY > 50) {
-            header.classList.remove('transparent-header');
-            header.classList.add('header-scrolled');
-        } else {
-            header.classList.add('transparent-header');
-            header.classList.remove('header-scrolled');
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let currentCaptcha = '';
+        let attemptsLeft = 3;
+        let formData = {};
+
+        // Générer un CAPTCHA aléatoire
+        function generateCaptcha() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let captcha = '';
+            for (let i = 0; i < 5; i++) captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+            currentCaptcha = captcha;
+            document.getElementById('captchaCode').textContent = captcha;
+            document.getElementById('captchaInput').value = '';
+            hideMessages();
         }
-    });
-</script>
 
-<script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-</script>
+        // Masquer messages CAPTCHA
+        function hideMessages() {
+            document.getElementById('captchaError').style.display = 'none';
+            document.getElementById('captchaSuccess').style.display = 'none';
+        }
 
-<script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const lang = urlParams.get('lang');
-    const langToggle = document.querySelector('.lang-toggle');
+        // Afficher CAPTCHA
+        function showCaptcha() {
+            document.getElementById('captchaOverlay').style.display = 'block';
+            resetCaptcha();
+            setTimeout(() => document.getElementById('captchaInput').focus(), 300);
+        }
 
-    if (lang === 'en') {
-        langToggle.innerHTML = '🌐 EN <i class="bi bi-chevron-down"></i>';
-    } else {
-        langToggle.innerHTML = '🌐 FR <i class="bi bi-chevron-down"></i>';
-    }
-</script>
+        // Fermer CAPTCHA
+        function closeCaptcha() {
+            document.getElementById('captchaOverlay').style.display = 'none';
+            resetCaptcha();
+        }
 
-<!-- <script>
-document.addEventListener("DOMContentLoaded", function () {
-  const toggle = document.querySelector('.mobile-nav-toggle');
-  const navmenu = document.querySelector('.navmenu');
+        // Réinitialiser CAPTCHA
+        function resetCaptcha() {
+            attemptsLeft = 3;
+            document.getElementById('attemptsCount').textContent = attemptsLeft;
+            document.getElementById('captchaInput').value = '';
+            hideMessages();
+            generateCaptcha();
+        }
 
-  toggle.addEventListener('click', function () {
-    document.body.classList.toggle('mobile-nav-active');
-  });
-});
-</script> -->
+        // Vérifier CAPTCHA
+        function verifyCaptcha() {
+            const userInput = document.getElementById('captchaInput').value.toUpperCase();
+            if (userInput === currentCaptcha) {
+                document.getElementById('captchaSuccess').style.display = 'block';
+                document.getElementById('captchaError').style.display = 'none';
+                setTimeout(() => {
+                    closeCaptcha();
+                    submitForm();
+                }, 1000);
+            } else {
+                attemptsLeft--;
+                document.getElementById('attemptsCount').textContent = attemptsLeft;
+                document.getElementById('captchaError').style.display = 'block';
+                document.getElementById('captchaSuccess').style.display = 'none';
+                document.getElementById('captchaInput').value = '';
+                if (attemptsLeft <= 0) {
+                    setTimeout(() => {
+                        closeCaptcha();
+                        showError('Trop de tentatives ! Réessayez plus tard.');
+                    }, 1000);
+                } else {
+                    setTimeout(generateCaptcha, 500);
+                }
+            }
+        }
+
+        // Afficher message d'erreur
+        function showError(message) {
+            const errorDiv = document.querySelector('.error-message');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        // Soumission du formulaire (après CAPTCHA)
+        function submitForm() {
+            document.querySelector('.loading').style.display = 'block';
+            document.querySelector('.error-message').style.display = 'none';
+            document.querySelector('.sent-message').style.display = 'none';
+
+            formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value,
+                _token: document.querySelector('input[name="_token"]').value
+            };
+
+            fetch('{{ route('contact.send') }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                })
+                .then(res => res.json())
+                .then(data => {
+                    document.querySelector('.loading').style.display = 'none';
+                    if (data.success) {
+                        document.querySelector('.sent-message').style.display = 'block';
+                        document.getElementById('contactForm').reset();
+                    } else {
+                        showError(data.message || "Erreur lors de l'envoi du message.");
+                    }
+                })
+                .catch(() => {
+                    document.querySelector('.loading').style.display = 'none';
+                    showError("Erreur de connexion. Veuillez réessayer.");
+                });
+        }
+
+        // Soumission du formulaire (initial)
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (!this.checkValidity()) {
+                showError('Veuillez remplir tous les champs obligatoires.');
+                return;
+            }
+            showCaptcha();
+        });
+
+        // Valider CAPTCHA avec Entrée
+        document.getElementById('captchaInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') verifyCaptcha();
+        });
+    </script>
+
+
+
+    <!-- <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const toggle = document.querySelector('.mobile-nav-toggle');
+            const navmenu = document.querySelector('.navmenu');
+
+            toggle.addEventListener('click', function() {
+                document.body.classList.toggle('mobile-nav-active');
+            });
+        });
+    </script> -->
 </body>
+
 </html>
