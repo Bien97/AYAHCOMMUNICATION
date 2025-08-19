@@ -80,11 +80,11 @@
     </script>
 
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const lang = urlParams.get('lang');
+        // Script pour gérer la langue - utilise la locale Laravel au lieu du paramètre URL
         const langToggle = document.querySelector('.lang-toggle');
+        const currentLocale = '{{ app()->getLocale() }}';
 
-        if (lang === 'en') {
+        if (currentLocale === 'en') {
             langToggle.innerHTML = '🌐 EN <i class="bi bi-chevron-down"></i>';
         } else {
             langToggle.innerHTML = '🌐 FR <i class="bi bi-chevron-down"></i>';
@@ -93,136 +93,189 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
-        let currentCaptcha = '';
-        let attemptsLeft = 3;
-        let formData = {};
+        document.addEventListener('DOMContentLoaded', function() {
+            let currentCaptcha = '';
+            let attemptsLeft = 3;
+            let formData = {};
 
-        // Générer un CAPTCHA aléatoire
-        function generateCaptcha() {
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-            let captcha = '';
-            for (let i = 0; i < 5; i++) captcha += chars.charAt(Math.floor(Math.random() * chars.length));
-            currentCaptcha = captcha;
-            document.getElementById('captchaCode').textContent = captcha;
-            document.getElementById('captchaInput').value = '';
-            hideMessages();
-        }
+            // Générer un CAPTCHA aléatoire
+            function generateCaptcha() {
+                const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+                let captcha = '';
+                for (let i = 0; i < 5; i++) captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+                currentCaptcha = captcha;
+                const captchaCodeEl = document.getElementById('captchaCode');
+                const captchaInputEl = document.getElementById('captchaInput');
+                if (captchaCodeEl) captchaCodeEl.textContent = captcha;
+                if (captchaInputEl) captchaInputEl.value = '';
+                hideMessages();
+            }
 
-        // Masquer messages CAPTCHA
-        function hideMessages() {
-            document.getElementById('captchaError').style.display = 'none';
-            document.getElementById('captchaSuccess').style.display = 'none';
-        }
+            // Masquer messages CAPTCHA
+            function hideMessages() {
+                const errorEl = document.getElementById('captchaError');
+                const successEl = document.getElementById('captchaSuccess');
+                if (errorEl) errorEl.style.display = 'none';
+                if (successEl) successEl.style.display = 'none';
+            }
 
-        // Afficher CAPTCHA
-        function showCaptcha() {
-            document.getElementById('captchaOverlay').style.display = 'block';
-            resetCaptcha();
-            setTimeout(() => document.getElementById('captchaInput').focus(), 300);
-        }
-
-        // Fermer CAPTCHA
-        function closeCaptcha() {
-            document.getElementById('captchaOverlay').style.display = 'none';
-            resetCaptcha();
-        }
-
-        // Réinitialiser CAPTCHA
-        function resetCaptcha() {
-            attemptsLeft = 3;
-            document.getElementById('attemptsCount').textContent = attemptsLeft;
-            document.getElementById('captchaInput').value = '';
-            hideMessages();
-            generateCaptcha();
-        }
-
-        // Vérifier CAPTCHA
-        function verifyCaptcha() {
-            const userInput = document.getElementById('captchaInput').value.toUpperCase();
-            if (userInput === currentCaptcha) {
-                document.getElementById('captchaSuccess').style.display = 'block';
-                document.getElementById('captchaError').style.display = 'none';
-                setTimeout(() => {
-                    closeCaptcha();
-                    submitForm();
-                }, 1000);
-            } else {
-                attemptsLeft--;
-                document.getElementById('attemptsCount').textContent = attemptsLeft;
-                document.getElementById('captchaError').style.display = 'block';
-                document.getElementById('captchaSuccess').style.display = 'none';
-                document.getElementById('captchaInput').value = '';
-                if (attemptsLeft <= 0) {
+            // Afficher CAPTCHA
+            function showCaptcha() {
+                const overlayEl = document.getElementById('captchaOverlay');
+                if (overlayEl) {
+                    overlayEl.style.display = 'flex';
+                    resetCaptcha();
                     setTimeout(() => {
-                        closeCaptcha();
-                        showError('Trop de tentatives ! Réessayez plus tard.');
-                    }, 1000);
-                } else {
-                    setTimeout(generateCaptcha, 500);
+                        const inputEl = document.getElementById('captchaInput');
+                        if (inputEl) inputEl.focus();
+                    }, 300);
                 }
             }
-        }
 
-        // Afficher message d'erreur
-        function showError(message) {
-            const errorDiv = document.querySelector('.error-message');
-            errorDiv.textContent = message;
-            errorDiv.style.display = 'block';
-            setTimeout(() => {
-                errorDiv.style.display = 'none';
-            }, 5000);
-        }
-
-        // Soumission du formulaire (après CAPTCHA)
-        function submitForm() {
-            document.querySelector('.loading').style.display = 'block';
-            document.querySelector('.error-message').style.display = 'none';
-            document.querySelector('.sent-message').style.display = 'none';
-
-            formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                subject: document.getElementById('subject').value,
-                message: document.getElementById('message').value,
-                _token: document.querySelector('input[name="_token"]').value
-            };
-
-            fetch('{{ route('contact.send') }}', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(formData)
-                })
-                .then(res => res.json())
-                .then(data => {
-                    document.querySelector('.loading').style.display = 'none';
-                    if (data.success) {
-                        document.querySelector('.sent-message').style.display = 'block';
-                        document.getElementById('contactForm').reset();
-                    } else {
-                        showError(data.message || "Erreur lors de l'envoi du message.");
-                    }
-                })
-                .catch(() => {
-                    document.querySelector('.loading').style.display = 'none';
-                    showError("Erreur de connexion. Veuillez réessayer.");
-                });
-        }
-
-        // Soumission du formulaire (initial)
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            if (!this.checkValidity()) {
-                showError('Veuillez remplir tous les champs obligatoires.');
-                return;
+            // Fermer CAPTCHA
+            function closeCaptcha() {
+                const overlayEl = document.getElementById('captchaOverlay');
+                if (overlayEl) {
+                    overlayEl.style.display = 'none';
+                    resetCaptcha();
+                }
             }
-            showCaptcha();
-        });
 
-        // Valider CAPTCHA avec Entrée
-        document.getElementById('captchaInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') verifyCaptcha();
+            // Réinitialiser CAPTCHA
+            function resetCaptcha() {
+                attemptsLeft = 3;
+                const attemptsEl = document.getElementById('attemptsCount');
+                const inputEl = document.getElementById('captchaInput');
+                if (attemptsEl) attemptsEl.textContent = attemptsLeft;
+                if (inputEl) inputEl.value = '';
+                hideMessages();
+                generateCaptcha();
+            }
+
+            // Vérifier CAPTCHA
+            function verifyCaptcha() {
+                const inputEl = document.getElementById('captchaInput');
+                if (!inputEl) return;
+
+                const userInput = inputEl.value.toUpperCase();
+                if (userInput === currentCaptcha) {
+                    const successEl = document.getElementById('captchaSuccess');
+                    const errorEl = document.getElementById('captchaError');
+                    if (successEl) successEl.style.display = 'block';
+                    if (errorEl) errorEl.style.display = 'none';
+                    setTimeout(() => {
+                        closeCaptcha();
+                        submitForm();
+                    }, 1000);
+                } else {
+                    attemptsLeft--;
+                    const attemptsEl = document.getElementById('attemptsCount');
+                    const errorEl = document.getElementById('captchaError');
+                    const successEl = document.getElementById('captchaSuccess');
+
+                    if (attemptsEl) attemptsEl.textContent = attemptsLeft;
+                    if (errorEl) errorEl.style.display = 'block';
+                    if (successEl) successEl.style.display = 'none';
+                    if (inputEl) inputEl.value = '';
+
+                    if (attemptsLeft <= 0) {
+                        setTimeout(() => {
+                            closeCaptcha();
+                            showError('Trop de tentatives ! Réessayez plus tard.');
+                        }, 1000);
+                    } else {
+                        setTimeout(generateCaptcha, 500);
+                    }
+                }
+            }
+
+            // Afficher message d'erreur
+            function showError(message) {
+                const errorDiv = document.querySelector('.error-message');
+                if (errorDiv) {
+                    errorDiv.textContent = message;
+                    errorDiv.style.display = 'block';
+                    setTimeout(() => {
+                        errorDiv.style.display = 'none';
+                    }, 5000);
+                }
+            }
+
+            // Soumission du formulaire (après CAPTCHA)
+            function submitForm() {
+                const loadingEl = document.querySelector('.loading');
+                const errorEl = document.querySelector('.error-message');
+                const sentEl = document.querySelector('.sent-message');
+
+                if (loadingEl) loadingEl.style.display = 'block';
+                if (errorEl) errorEl.style.display = 'none';
+                if (sentEl) sentEl.style.display = 'none';
+
+                // Utiliser FormData au lieu de JSON pour une meilleure compatibilité avec Laravel
+                const formData = new FormData();
+                formData.append('name', document.getElementById('name')?.value || '');
+                formData.append('email', document.getElementById('email')?.value || '');
+                formData.append('subject', document.getElementById('subject')?.value || '');
+                formData.append('message', document.getElementById('message')?.value || '');
+                formData.append('_token', document.querySelector('input[name="_token"]')?.value || '');
+
+                fetch('{{ route('contact.send_email') }}', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(res => {
+                        if (!res.ok) {
+                            return res.json().then(errorData => {
+                                throw new Error(`HTTP ${res.status}: ${JSON.stringify(errorData)}`);
+                            });
+                        }
+                        return res.json();
+                    })
+                    .then(data => {
+                        if (loadingEl) loadingEl.style.display = 'none';
+                        if (data.success) {
+                            if (sentEl) sentEl.style.display = 'block';
+                            const formEl = document.getElementById('contactForm');
+                            if (formEl) formEl.reset();
+                        } else {
+                            showError(data.message || "Erreur lors de l'envoi du message.");
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erreur complète:', error);
+                        if (loadingEl) loadingEl.style.display = 'none';
+                        showError("Une erreur est survenue. Veuillez réessayer plus tard.");
+                    });
+            }
+
+            // Soumission du formulaire avec JavaScript
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    if (!this.checkValidity()) {
+                        showError('Veuillez remplir tous les champs obligatoires.');
+                        return;
+                    }
+                    showCaptcha();
+                });
+            }
+
+            // Ajouter support touche Entrée pour le CAPTCHA
+            document.addEventListener('keypress', function(e) {
+                const captchaInput = document.getElementById('captchaInput');
+                const overlayVisible = document.getElementById('captchaOverlay')?.style.display === 'flex';
+
+                if (e.key === 'Enter' && overlayVisible && captchaInput && document.activeElement ===
+                    captchaInput) {
+                    verifyCaptcha();
+                }
+            });
+
+            // Exposer les fonctions globalement pour les boutons onclick
+            window.generateCaptcha = generateCaptcha;
+            window.verifyCaptcha = verifyCaptcha;
+            window.closeCaptcha = closeCaptcha;
         });
     </script>
 
