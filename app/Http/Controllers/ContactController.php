@@ -9,62 +9,75 @@ use Illuminate\Support\Facades\Log;
 
 class ContactController extends Controller
 {
+    // Méthode unifiée : validation + CAPTCHA + envoi d'email
     public function send(Request $request)
     {
-        $messages = [
-            'name.required'    => 'Le nom est obligatoire.',
-            'name.string'      => 'Le nom doit être une chaîne de caractères.',
-            'name.max'         => 'Le nom ne peut pas dépasser 255 caractères.',
-            'name.regex'       => 'Le nom ne doit pas contenir de chiffres.',
-
-            'email.required'   => 'L’adresse e-mail est obligatoire.',
-            'email.email'      => 'L’adresse e-mail n’est pas valide.',
-            'email.max'        => 'L’e-mail ne peut pas dépasser 255 caractères.',
-
-            'subject.required' => 'L’objet est obligatoire.',
-            'subject.string'   => 'L’objet doit être une chaîne de caractères.',
-            'subject.max'      => 'L’objet ne peut pas dépasser 255 caractères.',
-
-            'message.required' => 'Le message est obligatoire.',
-            'message.string'   => 'Le message doit être une chaîne de caractères.',
-            'message.max'      => 'Le message ne peut pas dépasser 5000 caractères.',
-        ];
-
-        $validator = Validator::make($request->all(), [
-            'name'    => ['required', 'string', 'max:255', 'regex:/^[^\d]+$/u'],
-            'email'   => 'required|email|max:255',
-            'subject' => 'required|string|max:255',
-            'message' => 'required|string|max:5000',
-        ], $messages);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'errors'  => $validator->errors(),
-                'message' => 'Veuillez corriger les erreurs dans le formulaire.'
-            ], 422);
-        }
-
         try {
-            $data = $request->only(['name', 'email', 'subject', 'message']);
+            // Validation des données (sans captcha_verified qui est un champ interne)
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|max:255',
+                'subject' => 'required|string|max:255',
+                'messageContent' => 'required|string|max:5000'
+            ]);
 
-            Mail::send('emails.contact', $data, function ($message) use ($data) {
-                $message->to('votre-email@entreprise.com')
-                        ->subject('Contact: ' . $data['subject'])
-                        ->replyTo($data['email'], $data['name']);
-            });
+            if ($validator->fails()) {
+                Log::warning('ContactController: Échec de validation', $validator->errors()->toArray());
+                return response()->json([
+                    'success' => false,
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+
+            // Si CAPTCHA n'est pas encore validé, demander validation
+            $captchaVerified = $request->input('captcha_verified');
+            $isCaptchaValid = $captchaVerified === true || $captchaVerified === 'true' || $captchaVerified === '1';
+
+            if (!$isCaptchaValid) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Données validées. Veuillez compléter le CAPTCHA.',
+                    'show_captcha' => true
+                ]);
+            }
+
+            // CAPTCHA validé - Procéder à l'envoi de l'email
+
+            // Préparer les données pour l'email
+            $formData = $request->only(['name', 'email', 'subject', 'messageContent']);
+
+            // Envoyer l'email
+            try {
+                Mail::send('emails.contact', $formData, function ($mailMessage) use ($formData) {
+                    $mailMessage->to(env('CONTACT_RECIPIENT_EMAIL', 'parlons@a-yah.com'), env('CONTACT_RECIPIENT_NAME', 'AYAH Communication'))
+                        ->subject('Nouveau message de contact : ' . $formData['subject'])
+                        ->from(env('MAIL_FROM_ADDRESS', 'parlons@a-yah.com'), env('MAIL_FROM_NAME', 'AYAH Communication'))
+                        ->replyTo($formData['email'], $formData['name']);
+                });
+            } catch (\Exception $mailException) {
+                Log::error('ContactController: Erreur spécifique à l\'envoi d\'email', [
+                    'message' => $mailException->getMessage(),
+                    'file' => $mailException->getFile(),
+                    'line' => $mailException->getLine(),
+                    'formData' => $formData
+                ]);
+                throw $mailException; // Re-lancer l'exception pour qu'elle soit captée par le catch principal
+            }
 
             return response()->json([
                 'success' => true,
-                'message' => 'Message envoyé avec succès !'
+                'message' => 'Votre message a été envoyé avec succès!'
             ]);
-
         } catch (\Exception $e) {
-            Log::error('Erreur envoi email contact : ' . $e->getMessage());
+            Log::error('ContactController: Erreur lors du traitement', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ]);
 
             return response()->json([
                 'success' => false,
-                'message' => 'Une erreur est survenue lors de l’envoi du message.'
+                'message' => 'Une erreur est survenue lors de l\'envoi du message.'
             ], 500);
         }
     }

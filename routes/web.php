@@ -22,7 +22,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
 // Routes pour le contact avec CAPTCHA
 Route::post('/contact/send', [ContactController::class, 'send'])->name('contact.send');
-Route::post('/contact/send-email', [ContactController::class, 'sendEmail'])->name('contact.send_email');
+// Route::post('/contact/send-email', [ContactController::class, 'sendEmail'])->name('contact.send_email');
 
 Route::get('/login', function () {
     return redirect()->route('admin.login');
@@ -91,8 +91,6 @@ Route::prefix('admin')->middleware(['auth', 'admin.auth'])->name('admin.')->grou
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 });
-
-Route::post('/contact/send', [ContactController::class, 'send'])->name('contact.send');
 
 Route::post('/logout', function () {
     Auth::logout();

@@ -391,10 +391,10 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="openConfirmModal" class="btn"
+                        {{-- <button type="button" id="openConfirmModal" class="btn"
                             style="background-color: #6A4A8F; color: #fff;">
                             Modifier
-                        </button>
+                        </button> --}}
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
                     </div>
                 </form>

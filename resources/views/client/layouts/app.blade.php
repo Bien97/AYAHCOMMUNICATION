@@ -10,9 +10,11 @@
     <meta name="keywords" content="">
 
     <!-- Favicons -->
-    <link href="{{ asset('assets/images/fav2.png') }}" rel="icon">
-    <link href="{{ asset('assets/images/apple-touch-icon.png') }}" rel="apple-touch-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.7.0/css/flag-icons.min.css">
+    <link rel="icon" type="image/png" href="{{ asset('favicon-96x96.png') }}" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}" />
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}" />
+    <link rel="manifest" href="{{ asset('site.webmanifest') }}" />
 
 
     <!-- Fonts -->
@@ -119,17 +121,64 @@
                 if (successEl) successEl.style.display = 'none';
             }
 
-            // Afficher CAPTCHA
+            // Afficher CAPTCHA avec validation préalable
             function showCaptcha() {
-                const overlayEl = document.getElementById('captchaOverlay');
-                if (overlayEl) {
-                    overlayEl.style.display = 'flex';
-                    resetCaptcha();
-                    setTimeout(() => {
-                        const inputEl = document.getElementById('captchaInput');
-                        if (inputEl) inputEl.focus();
-                    }, 300);
-                }
+                const loadingEl = document.querySelector('.loading');
+                const errorEl = document.querySelector('.error-message');
+
+                if (loadingEl) loadingEl.style.display = 'block';
+                if (errorEl) errorEl.style.display = 'none';
+
+                // Préparer les données pour la validation
+                const formData = new FormData();
+                formData.append('name', document.getElementById('name')?.value || '');
+                formData.append('email', document.getElementById('email')?.value || '');
+                formData.append('subject', document.getElementById('subject')?.value || '');
+                formData.append('messageContent', document.getElementById('messageContent')?.value || '');
+                formData.append('_token', document.querySelector('input[name="_token"]')?.value || '');
+
+                // Premier appel : validation des données
+                fetch('{{ route('contact.send') }}', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(res => {
+                        if (!res.ok) {
+                            return res.json().then(errorData => {
+                                throw new Error(`Erreur de validation`);
+                            });
+                        }
+                        return res.json();
+                    })
+                    .then(data => {
+                        if (loadingEl) loadingEl.style.display = 'none';
+
+                        if (data.success && data.show_captcha) {
+                            // Données validées, afficher le CAPTCHA
+                            const overlayEl = document.getElementById('captchaOverlay');
+                            if (overlayEl) {
+                                overlayEl.style.display = 'flex';
+                                resetCaptcha();
+                                setTimeout(() => {
+                                    const inputEl = document.getElementById('captchaInput');
+                                    if (inputEl) inputEl.focus();
+                                }, 300);
+                            }
+                        } else if (data.success) {
+                            // Email envoyé directement (ne devrait pas arriver)
+                            const sentEl = document.querySelector('.sent-message');
+                            if (sentEl) sentEl.style.display = 'block';
+                            const formEl = document.getElementById('contactForm');
+                            if (formEl) formEl.reset();
+                        } else {
+                            // Erreur de validation - cacher le loading et ne rien afficher
+                            // (les erreurs ne sont plus affichées à l'utilisateur)
+                        }
+                    })
+                    .catch(error => {
+                        if (loadingEl) loadingEl.style.display = 'none';
+                        // Ne pas afficher les erreurs - juste cacher le loading
+                    });
             }
 
             // Fermer CAPTCHA
@@ -181,23 +230,11 @@
                     if (attemptsLeft <= 0) {
                         setTimeout(() => {
                             closeCaptcha();
-                            showError('Trop de tentatives ! Réessayez plus tard.');
+                            // Trop de tentatives - juste fermer le CAPTCHA sans message d'erreur
                         }, 1000);
                     } else {
                         setTimeout(generateCaptcha, 500);
                     }
-                }
-            }
-
-            // Afficher message d'erreur
-            function showError(message) {
-                const errorDiv = document.querySelector('.error-message');
-                if (errorDiv) {
-                    errorDiv.textContent = message;
-                    errorDiv.style.display = 'block';
-                    setTimeout(() => {
-                        errorDiv.style.display = 'none';
-                    }, 5000);
                 }
             }
 
@@ -216,17 +253,18 @@
                 formData.append('name', document.getElementById('name')?.value || '');
                 formData.append('email', document.getElementById('email')?.value || '');
                 formData.append('subject', document.getElementById('subject')?.value || '');
-                formData.append('message', document.getElementById('message')?.value || '');
+                formData.append('messageContent', document.getElementById('messageContent')?.value || '');
+                formData.append('captcha_verified', 'true'); // Indiquer que le CAPTCHA est validé
                 formData.append('_token', document.querySelector('input[name="_token"]')?.value || '');
 
-                fetch('{{ route('contact.send_email') }}', {
+                fetch('{{ route('contact.send') }}', {
                         method: 'POST',
                         body: formData
                     })
                     .then(res => {
                         if (!res.ok) {
                             return res.json().then(errorData => {
-                                throw new Error(`HTTP ${res.status}: ${JSON.stringify(errorData)}`);
+                                throw new Error(`Erreur d'envoi`);
                             });
                         }
                         return res.json();
@@ -235,16 +273,19 @@
                         if (loadingEl) loadingEl.style.display = 'none';
                         if (data.success) {
                             if (sentEl) sentEl.style.display = 'block';
+                            // Disparition automatique après 3 secondes
+                            setTimeout(() => {
+                                sentEl.style.display = 'none';
+                            }, 3000);
                             const formEl = document.getElementById('contactForm');
                             if (formEl) formEl.reset();
                         } else {
-                            showError(data.message || "Erreur lors de l'envoi du message.");
+                            // Erreur lors de l'envoi - ne pas afficher d'erreur
                         }
                     })
                     .catch(error => {
-                        console.error('Erreur complète:', error);
                         if (loadingEl) loadingEl.style.display = 'none';
-                        showError("Une erreur est survenue. Veuillez réessayer plus tard.");
+                        // Ne pas afficher les erreurs - juste cacher le loading
                     });
             }
 
@@ -254,7 +295,7 @@
                 contactForm.addEventListener('submit', function(e) {
                     e.preventDefault();
                     if (!this.checkValidity()) {
-                        showError('Veuillez remplir tous les champs obligatoires.');
+                        // Formulaire invalide - ne pas continuer
                         return;
                     }
                     showCaptcha();
