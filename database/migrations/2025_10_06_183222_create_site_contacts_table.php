@@ -1,0 +1,25 @@
+<?php
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration {
+    public function up(): void {
+        Schema::create('site_contacts', function (Blueprint $table) {
+            $table->id();
+            $table->string('site_name');
+            $table->string('email');
+            $table->string('phone');
+            $table->text('localisation')->nullable();
+            $table->string('map_location')->nullable();
+            $table->string('logo_header')->nullable();
+            $table->string('logo_footer')->nullable();
+            $table->string('image_background')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void {
+        Schema::dropIfExists('site_contacts');
+    }
+};
