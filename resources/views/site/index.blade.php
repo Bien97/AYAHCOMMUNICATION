@@ -14,7 +14,7 @@
                         <p data-aos="fade-up" data-aos-delay="200">KORITEK, votre allié technologique pour un avenir sûr et
                             performant</p>
                     </div>
-                    <div class="col-lg-5" data-aos="fade-up" data-aos-delay="300">
+                    {{-- <div class="col-lg-5" data-aos="fade-up" data-aos-delay="300">
                         <form action="forms/newsletter.php" method="post" class="php-email-form">
                             <div class="sign-up-form">
                                 <input type="email" name="email" placeholder="Entrez votre email">
@@ -24,7 +24,7 @@
                             <div class="error-message">Une erreur est survenue. Veuillez réessayer.</div>
                             <div class="sent-message">Votre demande d'abonnement a été envoyée. Merci !</div>
                         </form>
-                    </div>
+                    </div> --}}
 
                 </div>
             </div>
@@ -165,11 +165,19 @@
                         </div>
                     </div><!-- End Stats Item -->
 
-                    <div class="col-lg-3 col-md-6">
+                    {{-- <div class="col-lg-3 col-md-6">
                         <div class="stats-item text-center w-100 h-100">
                             <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1"
                                 class="purecounter"></span>
                             <p>Collaborateurs</p>
+                        </div>
+                    </div> --}}
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stats-item text-center w-100 h-100">
+                            <span data-purecounter-start="0" data-purecounter-end="230" data-purecounter-duration="1"
+                                class="purecounter"></span>
+                            <p>Tasses de café</p>
                         </div>
                     </div><!-- End Stats Item -->
                     <!-- End Stats Item -->
@@ -757,7 +765,7 @@
                                             <img src="assets/img/testimonials/testimonials-1.jpg"
                                                 class="testimonial-img flex-shrink-0" alt="">
                                             <div>
-                                                <h3>Saul Goodman</h3>
+                                                <h3>Arnaud K</h3>
                                                 <h4>Ceo &amp; Founder</h4>
                                                 <div class="stars">
                                                     <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
@@ -768,9 +776,11 @@
                                         </div>
                                         <p>
                                             <i class="bi bi-quote quote-icon-left"></i>
-                                            <span>Proin iaculis purus consequat sem cure digni ssim donec porttitora entum
-                                                suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et.
-                                                Maecen aliquam, risus at semper.</span>
+                                            <span> L’installation a été réalisée avec un grand professionnalisme. Je peux
+                                                désormais
+                                                suivre mes locaux en temps réel, même à distance. La tranquillité d’esprit
+                                                n’a pas de
+                                                prix.</span>
                                             <i class="bi bi-quote quote-icon-right"></i>
                                         </p>
                                     </div>
@@ -782,7 +792,7 @@
                                             <img src="assets/img/testimonials/testimonials-2.jpg"
                                                 class="testimonial-img flex-shrink-0" alt="">
                                             <div>
-                                                <h3>Sara Wilsson</h3>
+                                                <h3>Aïcha L</h3>
                                                 <h4>Designer</h4>
                                                 <div class="stars">
                                                     <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
@@ -793,9 +803,10 @@
                                         </div>
                                         <p>
                                             <i class="bi bi-quote quote-icon-left"></i>
-                                            <span>Export tempor illum tamen malis malis eram quae irure esse labore quem
-                                                cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua
-                                                noster fugiat irure amet legam anim culpa.</span>
+                                            <span>Le système est moderne et très facile à prendre en main. Nos
+                                                collaborateurs
+                                                l’utilisent au quotidien sans difficulté. C’est un vrai plus pour notre
+                                                organisation. </span>
                                             <i class="bi bi-quote quote-icon-right"></i>
                                         </p>
                                     </div>
@@ -807,7 +818,7 @@
                                             <img src="assets/img/testimonials/testimonials-3.jpg"
                                                 class="testimonial-img flex-shrink-0" alt="">
                                             <div>
-                                                <h3>Jena Karlis</h3>
+                                                <h3>Estelle N</h3>
                                                 <h4>Store Owner</h4>
                                                 <div class="stars">
                                                     <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
@@ -818,9 +829,11 @@
                                         </div>
                                         <p>
                                             <i class="bi bi-quote quote-icon-left"></i>
-                                            <span>Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla
-                                                quem veniam duis minim tempor labore quem eram duis noster aute amet eram
-                                                fore quis sint minim.</span>
+                                            <span> L’équipe KORITEK a livré une installation soignée et performante. La
+                                                clarté et la
+                                                puissance sonore apportent une véritable valeur ajoutée. Nos clients sont
+                                                conquis.
+                                            </span>
                                             <i class="bi bi-quote quote-icon-right"></i>
                                         </p>
                                     </div>
@@ -832,7 +845,7 @@
                                             <img src="assets/img/testimonials/testimonials-4.jpg"
                                                 class="testimonial-img flex-shrink-0" alt="">
                                             <div>
-                                                <h3>Matt Brandon</h3>
+                                                <h3>Patrice Z</h3>
                                                 <h4>Freelancer</h4>
                                                 <div class="stars">
                                                     <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
@@ -843,9 +856,11 @@
                                         </div>
                                         <p>
                                             <i class="bi bi-quote quote-icon-left"></i>
-                                            <span>Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export
-                                                minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt
-                                                elit fore quem dolore labore illum veniam.</span>
+                                            <span>Les jeux de lumière créent une atmosphère unique dans notre établissement.
+                                                Les
+                                                clients en parlent souvent et reviennent pour cette expérience. C’est un
+                                                atout
+                                                indéniable pour notre image.</span>
                                             <i class="bi bi-quote quote-icon-right"></i>
                                         </p>
                                     </div>
@@ -857,7 +872,7 @@
                                             <img src="assets/img/testimonials/testimonials-5.jpg"
                                                 class="testimonial-img flex-shrink-0" alt="">
                                             <div>
-                                                <h3>John Larson</h3>
+                                                <h3>Julien M</h3>
                                                 <h4>Entrepreneur</h4>
                                                 <div class="stars">
                                                     <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
@@ -868,9 +883,10 @@
                                         </div>
                                         <p>
                                             <i class="bi bi-quote quote-icon-left"></i>
-                                            <span>Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam
-                                                tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum
-                                                fugiat legam esse veniam culpa fore nisi cillum quid.</span>
+                                            <span>Nos ventes et stocks sont désormais suivis en temps réel. La prise de
+                                                décision est
+                                                plus rapide et plus fiable. KORITEK nous a offert une solution taillée sur
+                                                mesure.</span>
                                             <i class="bi bi-quote quote-icon-right"></i>
                                         </p>
                                     </div>
@@ -1004,31 +1020,40 @@
 
                         <div class="row gy-4">
 
+                            <!-- Téléphone -->
                             <div class="col-md-6">
-                                <div class="info-item" data-aos="fade" data-aos-delay="300">
-                                    <i class="bi bi-telephone"></i>
-                                    <h3>Téléphone</h3>
-                                    <p>+228 9146 2020</p>
-                                </div>
-                            </div><!-- End Info Item -->
+                                <a href="https://wa.me/22891462020" target="_blank"
+                                    class="text-decoration-none text-reset">
+                                    <div class="info-item" data-aos="fade" data-aos-delay="300">
+                                        <i class="bi bi-telephone"></i>
+                                        <h3>Téléphone</h3>
+                                        <p>+228 9146 2020</p>
+                                    </div>
+                                </a>
+                            </div>
 
+                            <!-- Email -->
                             <div class="col-md-6">
-                                <div class="info-item" data-aos="fade" data-aos-delay="400">
-                                    <i class="bi bi-envelope"></i>
-                                    <h3>Email</h3>
-                                    <p>parlez@kori-tek.com</p>
-                                </div>
-                            </div><!-- End Info Item -->
-                            
+                                <a href="mailto:parlez@kori-tek.com" class="text-decoration-none text-reset">
+                                    <div class="info-item" data-aos="fade" data-aos-delay="400">
+                                        <i class="bi bi-envelope"></i>
+                                        <h3>Email</h3>
+                                        <p>parlez@kori-tek.com</p>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!-- Adresse (ouvre la carte dans un modal) -->
                             <div class="col-md-6">
-                                <div class="info-item" data-aos="fade" data-aos-delay="200">
+                                <div class="info-item" data-aos="fade" data-aos-delay="200" role="button"
+                                    data-bs-toggle="modal" data-bs-target="#mapModal">
                                     <i class="bi bi-geo-alt"></i>
                                     <h3>Adresse</h3>
-                                    <p>A108 Adam Street</p>
-                                    <p>New York, NY 535022</p>
+                                    <p>Boulevard du HAHO, Hedzranawoe, Sagboville</p>
                                 </div>
-                            </div><!-- End Info Item -->
+                            </div>
 
+                            <!-- Horaires -->
                             <div class="col-md-6">
                                 <div class="info-item" data-aos="fade" data-aos-delay="500">
                                     <i class="bi bi-clock"></i>
@@ -1036,48 +1061,135 @@
                                     <p>Lundi - Vendredi</p>
                                     <p>9:00AM - 17:00PM</p>
                                 </div>
-                            </div><!-- End Info Item -->
+                            </div>
 
+                        </div>
+
+                        <!-- ===== MODAL GOOGLE MAP AGRANDI ===== -->
+                        <div class="modal fade" id="mapModal" tabindex="-1" aria-labelledby="mapModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-xl modal-dialog-centered"> <!-- 🔥 modal-xl = extra large -->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="mapModalLabel">Localisation - KORITEK TOGO</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Fermer"></button>
+                                    </div>
+                                    <div class="modal-body p-0">
+                                        <iframe
+                                            src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3966.486115795513!2d1.2488055999999998!3d6.1994167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNsKwMTEnNTcuOSJOIDHCsDE0JzU1LjciRQ!5e0!3m2!1sfr!2snl!4v1754085141381!5m2!1sfr!2snl"
+                                            width="100%" height="600" style="border:0;" allowfullscreen=""
+                                            loading="lazy">
+                                        </iframe>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
 
+                    <!-- Messages de feedback -->
+                    @if (session('success'))
+                        <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+                            <i class="bi bi-check-circle me-2"></i>{{ session('success') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    @endif
+
+                    @if (session('error'))
+                        <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+                            <i class="bi bi-exclamation-triangle me-2"></i>{{ session('error') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    @endif
+
 
                     <div class="col-lg-6">
-                        <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up"
-                            data-aos-delay="200">
+                        <form id="contactForm" method="POST" action="{{ route('contact.send') }}" role="form"
+                            class="php-email-form">
+                            @csrf
                             <div class="row gy-4">
+                                <div class="col-md-6">
+                                    <input id="name" type="text" name="name" class="form-control"
+                                        placeholder="Votre Nom" required>
+                                </div>
 
                                 <div class="col-md-6">
-                                    <input type="text" name="name" class="form-control" placeholder="Votre Nom"
-                                        required="">
-                                </div>
-
-                                <div class="col-md-6 ">
-                                    <input type="email" class="form-control" name="email" placeholder="Votre Email"
-                                        required="">
+                                    <input id="email" type="email" class="form-control" name="email"
+                                        placeholder="Votre Email" required>
                                 </div>
 
                                 <div class="col-12">
-                                    <input type="text" class="form-control" name="subject" placeholder="Sujet"
-                                        required="">
+                                    <input id="subject" type="text" class="form-control" name="subject"
+                                        placeholder="Sujet" required>
                                 </div>
 
                                 <div class="col-12">
-                                    <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
+                                    <textarea id="messageContent" class="form-control" name="messageContent" rows="6" placeholder="Message"
+                                        required></textarea>
                                 </div>
 
                                 <div class="col-12 text-center">
-                                    <div class="loading">Chargement...</div>
-                                    <div class="error-message">Une erreur est survenue. Veuillez réessayer.</div>
+                                    {{-- <div class="loading">Chargement...</div> --}}
+                                    {{-- <div class="error-message">Une erreur est survenue. Veuillez réessayer.</div> --}}
                                     <div class="sent-message">Votre message a été envoyé avec succès. Merci !</div>
 
                                     <button type="submit">Envoyer le message</button>
                                 </div>
-
                             </div>
                         </form>
-                    </div><!-- End Contact Form -->
+
+                        <!-- CAPTCHA Overlay -->
+                        <div class="captcha-overlay" id="captchaOverlay" style="display:none;">
+                            <div class="captcha-modal">
+                                <h3><i class="bi bi-shield-check"></i> Vérification de sécurité</h3>
+                                <p class="captcha-subtitle">
+                                    Pour confirmer que vous n'êtes pas un robot, veuillez saisir le code ci-dessous
+                                </p>
+
+                                <div class="captcha-visual-container">
+                                    <div class="noise-lines">
+                                        <div class="noise-line"></div>
+                                        <div class="noise-line"></div>
+                                        <div class="noise-line"></div>
+                                    </div>
+                                    <div class="captcha-code" id="captchaCode">XK9P2</div>
+                                </div>
+
+                                <div class="captcha-input-section">
+                                    <div class="captcha-input-group">
+                                        <input type="text" id="captchaInput" class="captcha-input"
+                                            placeholder="Saisir le code" maxlength="5" autocomplete="off">
+                                        <button type="button" class="captcha-refresh-btn" onclick="generateCaptcha()">
+                                            <i class="bi bi-arrow-clockwise"></i> Nouveau
+                                        </button>
+                                    </div>
+
+                                    <div class="captcha-attempts">
+                                        Tentatives restantes: <strong id="attemptsCount">3</strong>
+                                    </div>
+                                </div>
+
+                                <div class="captcha-error" id="captchaError">Code incorrect. Veuillez réessayer.</div>
+                                <div class="captcha-success" id="captchaSuccess">✓ Vérification réussie ! Envoi en
+                                    cours...</div>
+
+                                <div class="captcha-buttons">
+                                    <button type="button" class="captcha-btn captcha-btn-verify"
+                                        onclick="verifyCaptcha()">
+                                        <i class="bi bi-check-lg"></i> Vérifier
+                                    </button>
+                                    <button type="button" class="captcha-btn captcha-btn-cancel"
+                                        onclick="closeCaptcha()">
+                                        <i class="bi bi-x-lg"></i> Annuler
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- End Contact Form -->
 
                 </div>
 
@@ -1101,4 +1213,473 @@
     .service-item:hover .title {
         color: #FF7F00;
     }
+
+    /* Styles uniquement pour la modal CAPTCHA - n'affecte pas le formulaire existant */
+
+    /* Modal CAPTCHA Styles */
+    .captcha-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+        animation: fadeIn 0.3s ease;
+        backdrop-filter: blur(5px);
+    }
+
+    .captcha-overlay.show {
+        display: flex !important;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    .captcha-modal {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        max-width: 450px;
+        width: 90%;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        animation: slideIn 0.3s ease;
+        position: relative;
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateY(-50px);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .captcha-modal h3 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 10px;
+        font-size: 1.5rem;
+    }
+
+    .captcha-modal h3 i {
+        color: #667eea;
+        margin-right: 10px;
+    }
+
+    .captcha-subtitle {
+        text-align: center;
+        color: #666;
+        margin-bottom: 25px;
+        font-size: 0.95rem;
+    }
+
+    .captcha-visual-container {
+        position: relative;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border: 2px solid #dee2e6;
+        border-radius: 10px;
+        height: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+        overflow: hidden;
+    }
+
+    .noise-lines {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+
+    .noise-line {
+        position: absolute;
+        width: 2px;
+        height: 100%;
+        background: rgba(102, 126, 234, 0.3);
+        animation: moveLine 3s infinite linear;
+    }
+
+    .noise-line:nth-child(1) {
+        left: 20%;
+        animation-delay: 0s;
+    }
+
+    .noise-line:nth-child(2) {
+        left: 50%;
+        animation-delay: 1s;
+    }
+
+    .noise-line:nth-child(3) {
+        left: 80%;
+        animation-delay: 2s;
+    }
+
+    @keyframes moveLine {
+        0% {
+            transform: translateX(-10px) skewX(0deg);
+        }
+
+        50% {
+            transform: translateX(10px) skewX(5deg);
+        }
+
+        100% {
+            transform: translateX(-10px) skewX(0deg);
+        }
+    }
+
+    .captcha-code {
+        font-family: 'Courier New', monospace;
+        font-size: 2rem;
+        font-weight: bold;
+        color: #333;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        letter-spacing: 5px;
+        z-index: 2;
+        position: relative;
+    }
+
+    .captcha-input-section {
+        margin-bottom: 20px;
+    }
+
+    .captcha-input-group {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+
+    .captcha-input {
+        flex: 1;
+        padding: 12px 15px;
+        border: 2px solid #e9ecef;
+        border-radius: 10px;
+        font-size: 1.1rem;
+        text-align: center;
+        letter-spacing: 3px;
+        font-family: 'Courier New', monospace;
+    }
+
+    .captcha-input:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .captcha-refresh-btn {
+        padding: 12px 15px;
+        background: #6c757d;
+        border: none;
+        border-radius: 10px;
+        color: white;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 0.9rem;
+    }
+
+    .captcha-refresh-btn:hover {
+        background: #5a6268;
+        transform: translateY(-1px);
+    }
+
+    .captcha-attempts {
+        text-align: center;
+        font-size: 0.9rem;
+        color: #666;
+    }
+
+    .captcha-attempts strong {
+        color: #dc3545;
+    }
+
+    .captcha-error,
+    .captcha-success {
+        display: none;
+        text-align: center;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+
+    .captcha-error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+
+    .captcha-success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+
+    .captcha-buttons {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+
+    .captcha-btn {
+        padding: 12px 25px;
+        border: none;
+        border-radius: 25px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .captcha-btn-verify {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        color: white;
+    }
+
+    .captcha-btn-verify:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+    }
+
+    .captcha-btn-cancel {
+        background: linear-gradient(135deg, #dc3545 0%, #fd7e14 100%);
+        color: white;
+    }
+
+    .captcha-btn-cancel:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(220, 53, 69, 0.4);
+    }
 </style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let currentCaptcha = '';
+        let attemptsLeft = 3;
+
+        // Générer un CAPTCHA aléatoire
+        function generateCaptcha() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let captcha = '';
+            for (let i = 0; i < 5; i++) captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+            currentCaptcha = captcha;
+            const captchaCodeEl = document.getElementById('captchaCode');
+            const captchaInputEl = document.getElementById('captchaInput');
+            if (captchaCodeEl) captchaCodeEl.textContent = captcha;
+            if (captchaInputEl) captchaInputEl.value = '';
+            hideMessages();
+        }
+
+        // Masquer tous les messages
+        function hideAllMessages() {
+            const loadingEl = document.querySelector('.loading');
+            const errorEl = document.querySelector('.error-message');
+            const sentEl = document.querySelector('.sent-message');
+            
+            if (loadingEl) loadingEl.style.display = 'none';
+            if (errorEl) errorEl.style.display = 'none';
+            if (sentEl) sentEl.style.display = 'none';
+        }
+
+        // Masquer messages CAPTCHA
+        function hideMessages() {
+            const errorEl = document.getElementById('captchaError');
+            const successEl = document.getElementById('captchaSuccess');
+            if (errorEl) errorEl.style.display = 'none';
+            if (successEl) successEl.style.display = 'none';
+        }
+
+        // Afficher CAPTCHA avec validation préalable
+        function showCaptcha() {
+            // Cacher TOUS les messages avant de commencer
+            hideAllMessages();
+            
+            const loadingEl = document.querySelector('.loading');
+            if (loadingEl) loadingEl.style.display = 'block';
+
+            // Préparer les données pour la validation
+            const formData = new FormData();
+            formData.append('name', document.getElementById('name')?.value || '');
+            formData.append('email', document.getElementById('email')?.value || '');
+            formData.append('subject', document.getElementById('subject')?.value || '');
+            formData.append('messageContent', document.getElementById('messageContent')?.value || '');
+            formData.append('_token', document.querySelector('input[name="_token"]')?.value || '');
+
+            // Premier appel : validation des données
+            fetch('{{ route("contact.send") }}', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(res => res.json())
+                .then(data => {
+                    // Cacher le loading
+                    if (loadingEl) loadingEl.style.display = 'none';
+
+                    if (data.success && data.show_captcha) {
+                        // Données validées, afficher le CAPTCHA directement
+                        const overlayEl = document.getElementById('captchaOverlay');
+                        if (overlayEl) {
+                            overlayEl.style.display = 'flex';
+                            resetCaptcha();
+                            setTimeout(() => {
+                                const inputEl = document.getElementById('captchaInput');
+                                if (inputEl) inputEl.focus();
+                            }, 300);
+                        }
+                    } else if (!data.success && data.errors) {
+                        // Erreurs de validation - ne rien afficher à l'utilisateur
+                        console.log('Validation errors:', data.errors);
+                    }
+                })
+                .catch(error => {
+                    hideAllMessages();
+                    console.error('Error:', error);
+                });
+        }
+
+        // Fermer CAPTCHA
+        function closeCaptcha() {
+            const overlayEl = document.getElementById('captchaOverlay');
+            if (overlayEl) {
+                overlayEl.style.display = 'none';
+                resetCaptcha();
+            }
+            hideAllMessages();
+        }
+
+        // Réinitialiser CAPTCHA
+        function resetCaptcha() {
+            attemptsLeft = 3;
+            const attemptsEl = document.getElementById('attemptsCount');
+            const inputEl = document.getElementById('captchaInput');
+            if (attemptsEl) attemptsEl.textContent = attemptsLeft;
+            if (inputEl) inputEl.value = '';
+            hideMessages();
+            generateCaptcha();
+        }
+
+        // Vérifier CAPTCHA
+        function verifyCaptcha() {
+            const inputEl = document.getElementById('captchaInput');
+            if (!inputEl) return;
+
+            const userInput = inputEl.value.toUpperCase();
+            if (userInput === currentCaptcha) {
+                const successEl = document.getElementById('captchaSuccess');
+                const errorEl = document.getElementById('captchaError');
+                if (successEl) successEl.style.display = 'block';
+                if (errorEl) errorEl.style.display = 'none';
+                setTimeout(() => {
+                    closeCaptcha();
+                    submitForm();
+                }, 1000);
+            } else {
+                attemptsLeft--;
+                const attemptsEl = document.getElementById('attemptsCount');
+                const errorEl = document.getElementById('captchaError');
+                const successEl = document.getElementById('captchaSuccess');
+
+                if (attemptsEl) attemptsEl.textContent = attemptsLeft;
+                if (errorEl) errorEl.style.display = 'block';
+                if (successEl) successEl.style.display = 'none';
+                if (inputEl) inputEl.value = '';
+
+                if (attemptsLeft <= 0) {
+                    setTimeout(() => {
+                        closeCaptcha();
+                    }, 1000);
+                } else {
+                    setTimeout(generateCaptcha, 500);
+                }
+            }
+        }
+
+        // Soumission du formulaire (après CAPTCHA)
+        function submitForm() {
+            hideAllMessages();
+            
+            const loadingEl = document.querySelector('.loading');
+            if (loadingEl) loadingEl.style.display = 'block';
+
+            const formData = new FormData();
+            formData.append('name', document.getElementById('name')?.value || '');
+            formData.append('email', document.getElementById('email')?.value || '');
+            formData.append('subject', document.getElementById('subject')?.value || '');
+            formData.append('messageContent', document.getElementById('messageContent')?.value || '');
+            formData.append('captcha_verified', 'true');
+            formData.append('_token', document.querySelector('input[name="_token"]')?.value || '');
+
+            fetch('{{ route("contact.send") }}', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (loadingEl) loadingEl.style.display = 'none';
+                    
+                    if (data.success) {
+                        const sentEl = document.querySelector('.sent-message');
+                        if (sentEl) {
+                            sentEl.style.display = 'block';
+                            // Disparition automatique après 3 secondes
+                            setTimeout(() => {
+                                sentEl.style.display = 'none';
+                            }, 3000);
+                        }
+                        const formEl = document.getElementById('contactForm');
+                        if (formEl) formEl.reset();
+                    }
+                })
+                .catch(error => {
+                    hideAllMessages();
+                    console.error('Error:', error);
+                });
+        }
+
+        // Soumission du formulaire avec JavaScript
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                if (!this.checkValidity()) {
+                    return;
+                }
+                showCaptcha();
+            });
+        }
+
+        // Ajouter support touche Entrée pour le CAPTCHA
+        document.addEventListener('keypress', function(e) {
+            const captchaInput = document.getElementById('captchaInput');
+            const overlayVisible = document.getElementById('captchaOverlay')?.style.display === 'flex';
+
+            if (e.key === 'Enter' && overlayVisible && captchaInput && document.activeElement === captchaInput) {
+                verifyCaptcha();
+            }
+        });
+
+        // Exposer les fonctions globalement pour les boutons onclick
+        window.generateCaptcha = generateCaptcha;
+        window.verifyCaptcha = verifyCaptcha;
+        window.closeCaptcha = closeCaptcha;
+    });
+</script>

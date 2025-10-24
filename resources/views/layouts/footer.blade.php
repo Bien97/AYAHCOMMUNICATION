@@ -46,9 +46,9 @@
 
             <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
                 <h4>Contactez-Nous</h4>
-                <p>A108 Adam Street</p>
-                <p>New York, NY 535022</p>
-                <p>United States</p>
+                <p>Boulevard du HAHO</p>
+                <p>Hedzranawoe, Sagboville</p>
+                <p>TOGO</p>
                 <p class="mt-4"><strong>Téléphone:</strong> <span>+228 9146 2020</span></p>
                 <p><strong>Email:</strong> <span>parlez@kori-tek.com</span></p>
             </div>
