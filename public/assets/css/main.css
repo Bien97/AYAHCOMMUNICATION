@@ -782,6 +782,15 @@ section,
   z-index: 1;
 }
 
+/* --- Overlay sombre --- */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5); /* voile noir semi-transparent */
+  z-index: 2;
+}
+
 .hero:before {
   content: "";
   background: color-mix(in srgb, var(--background-color), transparent 50%);

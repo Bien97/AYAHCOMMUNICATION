@@ -5,7 +5,8 @@
         <!-- Hero Section -->
         <section id="hero" class="hero section dark-background">
 
-            <img src="{{ asset('assets/img/hero-bg.jpg') }}" alt="" data-aos="fade-in">
+            <img src="{{ asset('assets/img/le-support-technique-supervise-le-reseau-neuronal-d-ia.jpg') }}" alt=""
+                data-aos="fade-in">
 
             <div class="container">
                 <div class="row">
@@ -39,30 +40,43 @@
                 <div class="row gy-4">
 
                     <div class="col-xl-2 col-md-3 col-6 client-logo">
-                        <img src="{{ asset('assets/img/clients/client-1.png') }}" class="img-fluid" alt="">
+                        <a href="https://a-yah.com/" target="_blank">
+                            <img src="{{ asset('assets/img/clients/logo.png') }}" class="img-fluid" alt="">
+                        </a>
                     </div><!-- End Client Item -->
 
                     <div class="col-xl-2 col-md-3 col-6 client-logo">
-                        <img src="{{ asset('assets/img/clients/client-2.png') }}" class="img-fluid" alt="">
+                        <a href="#" target="_blank">
+                            <img src="{{ asset('assets/img/clients/client-2.png') }}" class="img-fluid" alt="">
+                        </a>
                     </div><!-- End Client Item -->
 
                     <div class="col-xl-2 col-md-3 col-6 client-logo">
-                        <img src="{{ asset('assets/img/clients/client-3.png') }}" class="img-fluid" alt="">
+                        <a href="#" target="_blank">
+                            <img src="{{ asset('assets/img/clients/client-3.png') }}" class="img-fluid" alt="">
+                        </a>
                     </div><!-- End Client Item -->
 
                     <div class="col-xl-2 col-md-3 col-6 client-logo">
-                        <img src="{{ asset('assets/img/clients/client-4.png') }}" class="img-fluid" alt="">
+                        <a href="#" target="_blank">
+                            <img src="{{ asset('assets/img/clients/client-4.png') }}" class="img-fluid" alt="">
+                        </a>
                     </div><!-- End Client Item -->
 
                     <div class="col-xl-2 col-md-3 col-6 client-logo">
-                        <img src="{{ asset('assets/img/clients/client-5.png') }}" class="img-fluid" alt="">
+                        <a href="#" target="_blank">
+                            <img src="{{ asset('assets/img/clients/client-5.png') }}" class="img-fluid" alt="">
+                        </a>
                     </div><!-- End Client Item -->
 
                     <div class="col-xl-2 col-md-3 col-6 client-logo">
-                        <img src="{{ asset('assets/img/clients/client-6.png') }}" class="img-fluid" alt="">
+                        <a href="#" target="_blank">
+                            <img src="{{ asset('assets/img/clients/client-6.png') }}" class="img-fluid" alt="">
+                        </a>
                     </div><!-- End Client Item -->
 
                 </div>
+
 
             </div>
 
@@ -762,7 +776,7 @@
                                 <div class="swiper-slide">
                                     <div class="testimonial-item">
                                         <div class="d-flex">
-                                            <img src="assets/img/testimonials/testimonials-1.jpg"
+                                            <img src="assets/img/testimonials/11434199.png"
                                                 class="testimonial-img flex-shrink-0" alt="">
                                             <div>
                                                 <h3>Arnaud K</h3>
@@ -789,7 +803,7 @@
                                 <div class="swiper-slide">
                                     <div class="testimonial-item">
                                         <div class="d-flex">
-                                            <img src="assets/img/testimonials/testimonials-2.jpg"
+                                            <img src="assets/img/testimonials/portrait-de-jeune-femme-musulman.jpg"
                                                 class="testimonial-img flex-shrink-0" alt="">
                                             <div>
                                                 <h3>Aïcha L</h3>
@@ -815,7 +829,7 @@
                                 <div class="swiper-slide">
                                     <div class="testimonial-item">
                                         <div class="d-flex">
-                                            <img src="assets/img/testimonials/testimonials-3.jpg"
+                                            <img src="assets/img/testimonials/portrait-de-jeune-femme-d-affair.jpg"
                                                 class="testimonial-img flex-shrink-0" alt="">
                                             <div>
                                                 <h3>Estelle N</h3>
@@ -842,7 +856,7 @@
                                 <div class="swiper-slide">
                                     <div class="testimonial-item">
                                         <div class="d-flex">
-                                            <img src="assets/img/testimonials/testimonials-4.jpg"
+                                            <img src="assets/img/testimonials/comments-6.jpg"
                                                 class="testimonial-img flex-shrink-0" alt="">
                                             <div>
                                                 <h3>Patrice Z</h3>
@@ -869,7 +883,7 @@
                                 <div class="swiper-slide">
                                     <div class="testimonial-item">
                                         <div class="d-flex">
-                                            <img src="assets/img/testimonials/testimonials-5.jpg"
+                                            <img src="assets/img/testimonials/blog-author-3.jpg"
                                                 class="testimonial-img flex-shrink-0" alt="">
                                             <div>
                                                 <h3>Julien M</h3>
@@ -1494,7 +1508,7 @@
             const loadingEl = document.querySelector('.loading');
             const errorEl = document.querySelector('.error-message');
             const sentEl = document.querySelector('.sent-message');
-            
+
             if (loadingEl) loadingEl.style.display = 'none';
             if (errorEl) errorEl.style.display = 'none';
             if (sentEl) sentEl.style.display = 'none';
@@ -1512,7 +1526,7 @@
         function showCaptcha() {
             // Cacher TOUS les messages avant de commencer
             hideAllMessages();
-            
+
             const loadingEl = document.querySelector('.loading');
             if (loadingEl) loadingEl.style.display = 'block';
 
@@ -1525,7 +1539,7 @@
             formData.append('_token', document.querySelector('input[name="_token"]')?.value || '');
 
             // Premier appel : validation des données
-            fetch('{{ route("contact.send") }}', {
+            fetch('{{ route('contact.send') }}', {
                     method: 'POST',
                     body: formData
                 })
@@ -1616,7 +1630,7 @@
         // Soumission du formulaire (après CAPTCHA)
         function submitForm() {
             hideAllMessages();
-            
+
             const loadingEl = document.querySelector('.loading');
             if (loadingEl) loadingEl.style.display = 'block';
 
@@ -1628,14 +1642,14 @@
             formData.append('captcha_verified', 'true');
             formData.append('_token', document.querySelector('input[name="_token"]')?.value || '');
 
-            fetch('{{ route("contact.send") }}', {
+            fetch('{{ route('contact.send') }}', {
                     method: 'POST',
                     body: formData
                 })
                 .then(res => res.json())
                 .then(data => {
                     if (loadingEl) loadingEl.style.display = 'none';
-                    
+
                     if (data.success) {
                         const sentEl = document.querySelector('.sent-message');
                         if (sentEl) {
@@ -1672,7 +1686,8 @@
             const captchaInput = document.getElementById('captchaInput');
             const overlayVisible = document.getElementById('captchaOverlay')?.style.display === 'flex';
 
-            if (e.key === 'Enter' && overlayVisible && captchaInput && document.activeElement === captchaInput) {
+            if (e.key === 'Enter' && overlayVisible && captchaInput && document.activeElement ===
+                captchaInput) {
                 verifyCaptcha();
             }
         });
